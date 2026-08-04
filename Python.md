@@ -434,7 +434,7 @@ print(text.encode('utf-8'))
 
 
 
-## 6.常见检查方法
+## 6. 常见检查方法
 
 > 用于判断字符串是否符合特定格式或内容，返回的是布尔值
 >
@@ -446,7 +446,7 @@ print(text.encode('utf-8'))
 
 
 
-## 7.综合练习
+## 7. 综合练习
 
 将字符串反转输出
 
@@ -2423,193 +2423,6 @@ print(a)   # ('2026', '05', '31')
 
 
 
-## json模块
-
-```python
-## JSON格式兼容的是所有语言通用的数据类型，不能支持单一数据类型
-
-# JSON ---------字典
-dic = json.loads(s)
-
-# 字典-----------JSON
-s = json.dumps(dic)
-
-import json
-## 有时保存下来的中文数据打开后发现变成ASCII码，这是需要将ensure_ascii参数设置成False
-    data = {
-        'name' : 'name',
-        'age' : 20,
-    }
-    json_str = json.dumps(data,ensure_ascii=False)
-
-# josn.dump
-    data = {
-        'name':'name',
-        'age':20,
-    }
-    #讲python编码成json放在那个文件里
-    filename = 'a.txt'
-    with open (filename,'w') as f:
-        json.dump(data ,f)
-
-## json.load    
-    data  = {
-        'name':'name',
-        'age':20
-    }
-    filename = 'a.txt'
-    with open (filename,'w') as f:
-        json.dump(data,f)
-    with open (filename) as f_:
-        print(json.load(f_))
-
-
-```
-
-
-
-
-
-### 2.1 猴子补丁S
-
-```python
-### 在入扣文件处进行猴子补丁
-import json
-import ujson
-
-def monkey_patch_json():
-    json.__name__ = 'ujson'
-    json.dumps = ujson.dumps
-    json.loads = ujson.loads
-    
-monkey_patch_json()
-```
-
-
-
-## 3，random模块
-
-```python 
-a = random.choice('abcdefghijklmn')  # 参数也可以是个列表
-
-a = "abcdefghijklmnop1234567890"
-b = random.sample(a,3)   # 随机取三个值，返回一个列表
-
-num = random.randint(1,100)
-
-
-1，random.random()   # 得到的是 0----1 之间的小数 -------------- 0.6400374661599008
-2，random.randint(1,3) # 范围是  [1,3]  包头包尾
-3，random.randrange(1,2) # 范围是 [1,3)  顾头不顾尾
-4，random.chioce('abcdefghijklmn')  # 参数也可以是个列表
-5，random.sample(['a','b','c','d'],3)  # 随机取三个值，返回一个列表
-
-6，random.uniform(1,3)  # 得到 1-------3 之间的浮点数
-
-item = [1,2,3,4,5,6,7,8,9]
-7，random.shuffle(item) # 洗牌，打乱顺序  [4, 1, 2, 9, 7, 5, 6, 3, 8]
-```
-
-## 4，string模块
-
-```python
-string.ascii_letters  # 返回小写字母大写字母字符串
-# 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-
-string.ascii_uppercase # 返回大写字母的字符串
-# 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-
-string.ascii_lowercase # 返回小写字母的字符串
-# 'abcdefghijklmnopqrstuvwxyz'
-
-string.punctuation # 打印特殊字符
-# '!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~'
-
-string.digits  # 打印数字
-# '0123456789'
-```
-
-
-
-## 6，打码平台使用
-
-```python
-import base64
-import json
-import requests
-def base64_api(uname, pwd, img, typeid):
-    with open(img, 'rb') as f:
-        base64_data = base64.b64encode(f.read())
-        b64 = base64_data.decode()
-    data = {"username": uname, "password": pwd, "typeid": typeid, "image": b64}
-    result = json.loads(requests.post("http://api.ttshitu.com/predict", json=data).text)
-    if result['success']:
-        return result["data"]["result"]
-    else:
-        #！！！！！！！注意：返回 人工不足等 错误情况 请加逻辑处理防止脚本卡死 继续重新 识别
-        return result["message"]
-    return ''
-
-
-if __name__ == "__main__":
-    img_path = "./code.png"
-    result = base64_api(uname='xxxxx', pwd='xxxxx', img=img_path, typeid=3)
-    print(result)
-        
-import base64
-import json
-import requests
-# 一、图片文字类型(默认 3 数英混合)：
-# 1 : 纯数字
-# 1001：纯数字2
-# 2 : 纯英文
-# 1002：纯英文2
-# 3 : 数英混合
-# 1003：数英混合2
-#  4 : 闪动GIF
-# 7 : 无感学习(独家)
-# 11 : 计算题
-# 1005:  快速计算题
-# 16 : 汉字
-# 32 : 通用文字识别(证件、单据)
-# 66:  问答题
-# 49 :recaptcha图片识别
-# 二、图片旋转角度类型：
-# 29 :  旋转类型
-#
-# 三、图片坐标点选类型：
-# 19 :  1个坐标
-# 20 :  3个坐标
-# 21 :  3 ~ 5个坐标
-# 22 :  5 ~ 8个坐标
-# 27 :  1 ~ 4个坐标
-# 48 : 轨迹类型
-#
-# 四、缺口识别
-# 18 : 缺口识别（需要2张图 一张目标图一张缺口图）
-# 33 : 单缺口识别（返回X轴坐标 只需要1张图）
-# 五、拼图识别
-# 53：拼图识别
-def base64_api(uname, pwd, img, typeid):
-    with open(img, 'rb') as f:
-        base64_data = base64.b64encode(f.read())
-        b64 = base64_data.decode()
-    data = {"username": uname, "password": pwd, "typeid": typeid, "image": b64}
-    result = json.loads(requests.post("http://api.ttshitu.com/predict", json=data).text)
-    if result['success']:
-        return result["data"]["result"]
-    else:
-        #！！！！！！！注意：返回 人工不足等 错误情况 请加逻辑处理防止脚本卡死 继续重新 识别
-        return result["message"]
-    return ""
-
-
-if __name__ == "__main__":
-    img_path = "C:/Users/Administrator/Desktop/file.jpg"
-    result = base64_api(uname='你的账号', pwd='你的密码', img=img_path, typeid=3)
-    print(result)
-```
-
 
 
 ## 8, sys模块
@@ -2738,112 +2551,6 @@ import tarfile
 
 
 
-## 10，xml模块
-
-```python
-<?xml version="1.0"?>
-<data>
-    <country name="Liechtenstein">
-        <rank updated="yes">2</rank>
-        <year>2008</year>
-        <gdppc>141100</gdppc>
-        <neighbor name="Austria" direction="E"/>
-        <neighbor name="Switzerland" direction="W"/>
-    </country>
-    <country name="Singapore">
-        <rank updated="yes">5</rank>
-        <year>2011</year>
-        <gdppc>59900</gdppc>
-        <neighbor name="Malaysia" direction="N"/>
-    </country>
-    <country name="Panama">
-        <rank updated="yes">69</rank>
-        <year>2011</year>
-        <gdppc>13600</gdppc>
-        <neighbor name="Costa Rica" direction="W"/>
-        <neighbor name="Colombia" direction="E"/>
-    </country>
-</data>
-
-
-xml协议在各个语言里的都 是支持的，在python中可以用以下模块操作xml：
-# print(root.iter('year')) #全文搜索
-# print(root.find('country')) #在root的子节点找，只找一个
-# print(root.findall('country')) #在root的子节点找，找所有
-
-import xml.etree.ElementTree as ET
- 
-tree = ET.parse("xmltest.xml")
-root = tree.getroot()
-print(root.tag)
- 
-#遍历xml文档
-    for child in root:
-        print('========>',child.tag,child.attrib,child.attrib['name'])
-        for i in child:
-            print(i.tag,i.attrib,i.text)
-
-    #只遍历year 节点
-    for node in root.iter('year'):
-        print(node.tag,node.text)
-#---------------------------------------
-
-import xml.etree.ElementTree as ET
- 
-tree = ET.parse("xmltest.xml")
-root = tree.getroot()
- 
-#修改
-    for node in root.iter('year'):
-        new_year=int(node.text)+1
-        node.text=str(new_year)
-        node.set('updated','yes')
-        node.set('version','1.0')
-    tree.write('test.xml')
- 
- 
-#删除node
-    for country in root.findall('country'):
-       rank = int(country.find('rank').text)
-       if rank > 50:
-         root.remove(country)
-
-    tree.write('output.xml')
-
-#在country内添加（append）节点year2
-    import xml.etree.ElementTree as ET
-    tree = ET.parse("a.xml")
-    root=tree.getroot()
-    for country in root.findall('country'):
-        for year in country.findall('year'):
-            if int(year.text) > 2000:
-                year2=ET.Element('year2')
-                year2.text='新年'
-                year2.attrib={'update':'yes'}
-                country.append(year2) #往country节点下添加子节点
-
-    tree.write('a.xml.swap')
-
-
-
-自己创建xml文档：
-    import xml.etree.ElementTree as ET
-
-    new_xml = ET.Element("namelist")
-    name = ET.SubElement(new_xml,"name",attrib={"enrolled":"yes"})
-    age = ET.SubElement(name,"age",attrib={"checked":"no"})
-    sex = ET.SubElement(name,"sex")
-    sex.text = '33'
-    name2 = ET.SubElement(new_xml,"name",attrib={"enrolled":"no"})
-    age = ET.SubElement(name2,"age")
-    age.text = '19'
-
-    et = ET.ElementTree(new_xml) #生成文档对象
-    et.write("test.xml", encoding="utf-8",xml_declaration=True)
-
-    ET.dump(new_xml) #打印生成的格式
-```
-
 ## 11，configparser模块（导入某种格式的配置文件）
 
 ```Python
@@ -2944,729 +2651,8 @@ config.write(open('a.cfg','w'))
 # hash是一类算法，该算法根据传入的内容，经过运算得到一串哈希值
 
 # hash值的特单
-	1，传入的内容一样，则得到的结果一样
-    2，无论传多大内容，得到的hash值长度一样
-    3，不能反向破解
+	1，传入的内容一样，则得到的能反向破解
 ```
-
-## 13  subprocess模块
-
-```python
-import subprocess 
- '''
- sh-3.2# ls /Users/egon/Desktop |grep txt$
- mysql.txt
- tt.txt
- 事物.txt
- '''
-## 查看 /Users/jieli/Desktop 下的文件列表
-res1=subprocess.Popen('ls /Users/jieli/Desktop',shell=True,stdout=subprocess.PIPE，stderr=subprocess.PIPE)
-# shell = True 意思是调一个终端  stdout 是正确结果的输出管道   stderr 是接受错误结果的输出管道
-# res1 是对象
-print(res2.stdout.read()) # 打印正确的结果，得到的格式是字节，解码用的是系统的编码格式,mac为utf-8
-print(res1.stderr.read()) # 打印错误的结果，得到的是字节格式，解码用的是系统的编码格式，windows为gbk
-
-res=subprocess.Popen('grep txt$',shell=True,stdin=res1.stdout,stdout=subprocess.PIPE)
-print(res.stdout.read().decode('utf-8'))
-
-
-#等同于上面,但是上面的优势在于,一个数据流可以和另外一个数据流交互,可以通过爬虫得到结果然后交给grep
-res1=subprocess.Popen('ls /Users/jieli/Desktop |grep txt$',shell=True,stdout=subprocess.PIPE)
-print(res1.stdout.read().decode('utf-8'))
-
-#windows下:
-# dir | findstr 'test*'
-# dir | findstr 'txt$'
-
-import subprocess
-res1=subprocess.Popen(r'dir C:\Users\Administrator\PycharmProjects\test\函数备课',shell=True,stdout=subprocess.PIPE)
-res=subprocess.Popen('findstr test*',shell=True,stdin=res1.stdout,
-                 stdout=subprocess.PIPE)
-
-print(res.stdout.read().decode('gbk')) #subprocess使用当前系统默认编码，得到结果为bytes类型，在windows下需要用gbk解码
-```
-
-## 14，日志模块（logging）
-
-### 14.1 日志级别
-
-```python
-import logging
-
-CRITICAL = 50 #FATAL = CRITICAL
-ERROR = 40
-WARNING = 30 #WARN = WARNING
-INFO = 20
-DEBUG = 10
-NOTSET = 0 #不设置
-```
-
-### 14.2 默认级别为warning，默认打印到终端
-
-```python
-import logging
-
-logging.debug('调试debug')
-logging.info('消息info')
-logging.warning('警告warn')  ## WARNING:root:警告warn
-logging.error('错误error')  ## ERROR:root:错误error
-logging.critical('严重critical')  ## CRITICAL:root:严重critical
-
-'''
-WARNING:root:警告warn
-ERROR:root:错误error
-CRITICAL:root:严重critical
-'''
-```
-
-### 14.3 为logging模块指定全局配置，针对所有logger有效，控制打印到文件中
-
-```python
-'''
-可在logging.basicConfig()函数中可通过具体参数来更改logging模块默认行为，可用参数有
-
-    filename：用指定的文件名创建FiledHandler（后边会具体讲解handler的概念），这样日志会被存储在指定的文件中。
-    filemode：文件打开方式，在指定了filename时使用这个参数，默认值为“a”还可指定为“w”。
-    format：指定handler使用的日志显示格式。
-    datefmt：指定日期时间格式。
-    level：设置rootlogger（后边会讲解具体概念）的日志级别
-    stream：用指定的stream创建StreamHandler。可以指定输出到sys.stderr,sys.stdout或者文件，默认为sys.stderr。若同时列出了			filename和stream两个参数，则stream参数会被忽略。
-'''
-## 例如：
-logging.basicConfig(
-	format = '%(asctime)s -  %(name)s - %(levelname)s - %(module)s' # 就这样自定义格式
-)
-format参数中可能用到的格式化串：
-%(name)s # Logger的名字
-%(levelno)s # 数字形式的日志级别
-%(levelname)s # 文本形式的日志级别
-%(pathname)s # 调用日志输出函数的模块的完整路径名，可能没有
-%(filename)s # 调用日志输出函数的模块的文件名
-%(module)s # 调用日志输出函数的模块名
-%(funcName)s # 调用日志输出函数的函数名
-%(lineno)d # 调用日志输出函数的语句所在的代码行
-%(created)f # 当前时间，用UNIX标准的表示时间的浮 点数表示
-%(relativeCreated)d # 输出日志信息时的，自Logger创建以 来的毫秒数
-%(asctime)s # 字符串形式的当前时间。默认格式是 “2003-07-08 16:49:45,896”。逗号后面的是毫秒
-%(thread)d # 线程ID。可能没有
-%(threadName)s # 线程名。可能没有
-%(process)d # 进程ID。可能没有
-%(message)s # 用户输出的消息
-```
-
-### 14.4 使用例子
-
-```Python
-#========使用
-
-import logging
-logging.basicConfig(
-    ## 写到文件里的编码格式以系统编码格式为准，Windows为gbk
-    filename='access.log',  ## 日志输出的位置
-    format='%(asctime)s - %(name)s - %(levelname)s -%(module)s:  %(message)s', ## 一个日志输出的格式
-    datefmt='%Y-%m-%d %H:%M:%S %p', ## 输出里的时间格式
-    level=10  ## 日志错误级别
-)
-
-logging.debug('调试debug')
-logging.info('消息info')
-logging.warning('警告warn')
-logging.error('错误error')
-logging.critical('严重critical')
-
-#========结果
-access.log内容:
-2017-07-28 20:32:17 PM - root - DEBUG -test:  调试debug
-2017-07-28 20:32:17 PM - root - INFO -test:  消息info
-2017-07-28 20:32:17 PM - root - WARNING -test:  警告warn
-2017-07-28 20:32:17 PM - root - ERROR -test:  错误error
-2017-07-28 20:32:17 PM - root - CRITICAL -test:  严重critical
-```
-
-### 14.5   logging模块的Formatter，Handler，Logger，Filter对象
-
-```python
-#logger：产生日志的对象
-#Filter：过滤日志的对象
-#Handler：接收日志然后控制打印到不同的地方，FileHandler用来打印到文件中，StreamHandler用来打印到终端
-#Formatter对象：可以定制不同的日志格式对象，然后绑定给不同的Handler对象使用，以此来控制不同的Handler的日志格式
-
-'''
-critical=50
-error =40
-warning =30
-info = 20
-debug =10
-'''
-
-
-import logging
-
-#1、logger对象：负责产生日志，然后交给Filter过滤，然后交给不同的Handler输出
-logger=logging.getLogger(__file__)
-
-#2、Filter对象：不常用，略
-
-#3、Handler对象：接收logger传来的日志，然后控制输出
-h1=logging.FileHandler('t1.log') #打印到文件
-h2=logging.FileHandler('t2.log') #打印到文件
-h3=logging.StreamHandler() #打印到终端
-
-#4、Formatter对象：日志格式
-formmater1=logging.Formatter(
-    '%(asctime)s - %(name)s - %(levelname)s -%(module)s:  %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S %p',
-)
-
-formmater2=logging.Formatter(
-    '%(asctime)s :  %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S %p',
-)
-
-formmater3=logging.Formatter('%(name)s %(message)s',)
-
-
-#5、为Handler对象绑定格式
-h1.setFormatter(formmater1)
-h2.setFormatter(formmater2)
-h3.setFormatter(formmater3)
-
-#6、将Handler添加给logger并设置日志级别
-logger.addHandler(h1)
-logger.addHandler(h2)
-logger.addHandler(h3)
-logger.setLevel(10)
-
-#7、测试
-logger.debug('debug')
-logger.info('info')
-logger.warning('warning')
-logger.error('error')
-logger.critical('critical')
-```
-
-### 14.6 Logger与Handler的级别
-
-```python
-### logger是第一级过滤，然后才能到handler，我们可以给logger和handler同时设置level
-
-
-#验证
-import logging
-
-form=logging.Formatter(
-    '%(asctime)s - %(name)s - %(levelname)s -%(module)s:  %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S %p',
-)
-
-ch=logging.StreamHandler()
-
-ch.setFormatter(form)
-# ch.setLevel(10)
-ch.setLevel(20)
-
-l1=logging.getLogger('root')
-# l1.setLevel(20)
-l1.setLevel(10)
-l1.addHandler(ch)
-
-l1.debug('l1 debug')
-```
-
-### 14.7  Logger的继承（了解）
-
-```python
-import logging
-
-formatter=logging.Formatter('%(asctime)s - %(name)s - %(levelname)s -%(module)s:  %(message)s',
-                    datefmt='%Y-%m-%d %H:%M:%S %p',)
-
-ch=logging.StreamHandler()
-ch.setFormatter(formatter)
-
-
-logger1=logging.getLogger('root')
-logger2=logging.getLogger('root.child1')
-logger3=logging.getLogger('root.child1.child2')
-
-
-logger1.addHandler(ch)
-logger2.addHandler(ch)
-logger3.addHandler(ch)
-logger1.setLevel(10)
-logger2.setLevel(10)
-logger3.setLevel(10)
-
-logger1.debug('log1 debug')
-logger2.debug('log2 debug')
-logger3.debug('log3 debug')
-'''
-2017-07-28 22:22:05 PM - root - DEBUG -test:  log1 debug
-2017-07-28 22:22:05 PM - root.child1 - DEBUG -test:  log2 debug
-2017-07-28 22:22:05 PM - root.child1 - DEBUG -test:  log2 debug
-2017-07-28 22:22:05 PM - root.child1.child2 - DEBUG -test:  log3 debug
-2017-07-28 22:22:05 PM - root.child1.child2 - DEBUG -test:  log3 debug
-2017-07-28 22:22:05 PM - root.child1.child2 - DEBUG -test:  log3 debug
-'''
-```
-
-### 14.8  应用
-
-#### 14.8.1  logging配置
-
-```python
-"""
-logging配置
-"""
-
-import os
-import logging.config
-
-# 定义三种日志输出格式 开始
-
-standard_format = '[%(asctime)s][%(threadName)s:%(thread)d][task_id:%(name)s][%(filename)s:%(lineno)d]' \
-                  '[%(levelname)s][%(message)s]' #其中name为getlogger指定的名字
-
-simple_format = '[%(levelname)s][%(asctime)s][%(filename)s:%(lineno)d]%(message)s'
-
-id_simple_format = '[%(levelname)s][%(asctime)s] %(message)s'
-
-# 定义日志输出格式 结束
-
-logfile_dir = os.path.dirname(os.path.abspath(__file__))  # log文件的目录
-
-logfile_name = 'all2.log'  # log文件名
-
-# 如果不存在定义的日志目录就创建一个
-if not os.path.isdir(logfile_dir):
-    os.mkdir(logfile_dir)
-
-# log文件的全路径
-logfile_path = os.path.join(logfile_dir, logfile_name)
-
-# log配置字典
-LOGGING_DIC = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'standard': {
-            'format': standard_format
-        },
-        'simple': {
-            'format': simple_format
-        },
-    },
-    'filters': {},
-    'handlers': {
-        #打印到终端的日志
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',  # 打印到屏幕
-            'formatter': 'simple'
-        },
-        #打印到文件的日志,收集info及以上的日志
-        'default': {
-            'level': 'DEBUG',
-            'class': 'logging.handlers.RotatingFileHandler',  # 保存到文件
-            'formatter': 'standard',
-            'filename': logfile_path,  # 日志文件
-            'maxBytes': 1024*1024*5,  # 日志大小 5M
-            'backupCount': 5,
-            'encoding': 'utf-8',  # 日志文件的编码，再也不用担心中文log乱码了
-        },
-    },
-    'loggers': {
-        #logging.getLogger(__name__)拿到的logger配置
-        '': {
-            'handlers': ['default', 'console'],  # 这里把上面定义的两个handler都加上，即log数据既写入文件又打印到屏幕
-            'level': 'DEBUG',
-            'propagate': True,  # 向上（更高level的logger）传递
-        },
-    },
-}
-
-
-def load_my_logging_cfg():
-    logging.config.dictConfig(LOGGING_DIC)  # 导入上面定义的logging配置
-    logger = logging.getLogger(__name__)  # 生成一个log实例
-    logger.info('It works!')  # 记录该文件的运行状态
-
-if __name__ == '__main__':
-    load_my_logging_cfg()
-```
-
-#### 14.8.2  使用
-
-```Python
-"""
-MyLogging Test
-"""
-
-import time
-import logging
-import my_logging  # 导入自定义的logging配置
-
-logger = logging.getLogger(__name__)  # 生成logger实例
-
-
-def demo():
-    logger.debug("start range... time:{}".format(time.time()))
-    logger.info("中文测试开始。。。")
-    for i in range(10):
-        logger.debug("i:{}".format(i))
-        time.sleep(0.2)
-    else:
-        logger.debug("over range... time:{}".format(time.time()))
-    logger.info("中文测试结束。。。")
-
-if __name__ == "__main__":
-    my_logging.load_my_logging_cfg()  # 在你程序文件的入口加载自定义logging配置
-    demo()
-```
-
-#### 14.8.3 注意注意注意
-
-```Python
-"""
-MyLogging Test
-"""
-
-import time
-import logging
-import my_logging  # 导入自定义的logging配置
-
-logger = logging.getLogger(__name__)  # 生成logger实例
-
-
-def demo():
-    logger.debug("start range... time:{}".format(time.time()))
-    logger.info("中文测试开始。。。")
-    for i in range(10):
-        logger.debug("i:{}".format(i))
-        time.sleep(0.2)
-    else:
-        logger.debug("over range... time:{}".format(time.time()))
-    logger.info("中文测试结束。。。")
-
-if __name__ == "__main__":
-    my_logging.load_my_logging_cfg()  # 在你程序文件的入口加载自定义logging配置
-    demo()
-```
-
-#### 14.8.4 另外一个django的配置，瞄一眼就可以，跟上面的一样
-
-```Python
-#logging_config.py
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'standard': {
-            'format': '[%(asctime)s][%(threadName)s:%(thread)d][task_id:%(name)s][%(filename)s:%(lineno)d]'
-                      '[%(levelname)s][%(message)s]'
-        },
-        'simple': {
-            'format': '[%(levelname)s][%(asctime)s][%(filename)s:%(lineno)d]%(message)s'
-        },
-        'collect': {
-            'format': '%(message)s'
-        }
-    },
-    'filters': {
-        'require_debug_true': {
-            '()': 'django.utils.log.RequireDebugTrue',
-        },
-    },
-    'handlers': {
-        #打印到终端的日志
-        'console': {
-            'level': 'DEBUG',
-            'filters': ['require_debug_true'],
-            'class': 'logging.StreamHandler',
-            'formatter': 'simple'
-        },
-        #打印到文件的日志,收集info及以上的日志
-        'default': {
-            'level': 'INFO',
-            'class': 'logging.handlers.RotatingFileHandler',  # 保存到文件，自动切
-            'filename': os.path.join(BASE_LOG_DIR, "xxx_info.log"),  # 日志文件
-            'maxBytes': 1024 * 1024 * 5,  # 日志大小 5M
-            'backupCount': 3,
-            'formatter': 'standard',
-            'encoding': 'utf-8',
-        },
-        #打印到文件的日志:收集错误及以上的日志
-        'error': {
-            'level': 'ERROR',
-            'class': 'logging.handlers.RotatingFileHandler',  # 保存到文件，自动切
-            'filename': os.path.join(BASE_LOG_DIR, "xxx_err.log"),  # 日志文件
-            'maxBytes': 1024 * 1024 * 5,  # 日志大小 5M
-            'backupCount': 5,
-            'formatter': 'standard',
-            'encoding': 'utf-8',
-        },
-        #打印到文件的日志
-        'collect': {
-            'level': 'INFO',
-            'class': 'logging.handlers.RotatingFileHandler',  # 保存到文件，自动切
-            'filename': os.path.join(BASE_LOG_DIR, "xxx_collect.log"),
-            'maxBytes': 1024 * 1024 * 5,  # 日志大小 5M
-            'backupCount': 5,
-            'formatter': 'collect',
-            'encoding': "utf-8"
-        }
-    },
-    'loggers': {
-        #logging.getLogger(__name__)拿到的logger配置
-        '': {
-            'handlers': ['default', 'console', 'error'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-        #logging.getLogger('collect')拿到的logger配置
-        'collect': {
-            'handlers': ['console', 'collect'],
-            'level': 'INFO',
-        }
-    },
-}
-
-
-# -----------
-# 用法:拿到俩个logger
-
-logger = logging.getLogger(__name__) #线上正常的日志
-collect_logger = logging.getLogger("collect") #领导说,需要为领导们单独定制领导们看的日志
-```
-
-### 14.9 直奔主题，常规使用 
-
-#### 14.9.1 日志级别与配置
-
-```python
-import logging
-# 在
-# 一：日志配置
-logging.basicConfig(
-    # 1、日志输出位置：1、终端 2、文件
-    # filename='access.log', # 不指定，默认打印到终端
-
-    # 2、日志格式
-    format='%(asctime)s - %(name)s - %(levelname)s -%(module)s:  %(message)s',
-
-    # 3、时间格式
-    datefmt='%Y-%m-%d %H:%M:%S %p',
-
-    # 4、日志级别
-    # critical => 50
-    # error => 40
-    # warning => 30
-    # info => 20
-    # debug => 10
-    level=30,
-)
-
-# 二：输出日志
-logging.debug('调试debug')
-logging.info('消息info')
-logging.warning('警告warn')
-logging.error('错误error')
-logging.critical('严重critical')
-
-'''
-# 注意下面的root是默认的日志名字
-WARNING:root:警告warn
-ERROR:root:错误error
-CRITICAL:root:严重critical
-'''
-```
-
-#### 14.9.2  日志配置字典（setting.py）
-
-```python
-"""
-logging配置
-在 setting.py中定义
-"""
-
-import os
-
-# 1、定义三种日志输出格式，日志中可能用到的格式化串如下
-# %(name)s Logger的名字
-# %(levelno)s 数字形式的日志级别
-# %(levelname)s 文本形式的日志级别
-# %(pathname)s 调用日志输出函数的模块的完整路径名，可能没有
-# %(filename)s 调用日志输出函数的模块的文件名
-# %(module)s 调用日志输出函数的模块名
-# %(funcName)s 调用日志输出函数的函数名
-# %(lineno)d 调用日志输出函数的语句所在的代码行
-# %(created)f 当前时间，用UNIX标准的表示时间的浮 点数表示
-# %(relativeCreated)d 输出日志信息时的，自Logger创建以 来的毫秒数
-# %(asctime)s 字符串形式的当前时间。默认格式是 “2003-07-08 16:49:45,896”。逗号后面的是毫秒
-# %(thread)d 线程ID。可能没有
-# %(threadName)s 线程名。可能没有
-# %(process)d 进程ID。可能没有
-# %(message)s用户输出的消息
-
-# 2、强调：其中的%(name)s为getlogger时指定的名字
-## 这些是预先定义好的自定义格式
-standard_format = '[%(asctime)s][%(threadName)s:%(thread)d][task_id:%(name)s][%(filename)s:%(lineno)d]' \
-                  '[%(levelname)s][%(message)s]'
-
-simple_format = '[%(levelname)s][%(asctime)s][%(filename)s:%(lineno)d]%(message)s'
-
-test_format = '%(asctime)s] %(message)s'
-
-# 3、日志配置字典
-LOGGING_DIC = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    
-    'formatters': {
-        # 自己自定义的日志格式，可以自己改
-        'standard': {
-            # 自己定义的自定义格式
-            'format': standard_format
-        },
-        'simple': {
-            'format': simple_format
-        },
-        'test': {
-            'format': test_format
-        },
-    },
-    
-    'filters': {},
-    
-    ## 日志的接受者，不同的handle可以使日志输出到不同位置
-    'handlers': {
-        #打印到终端的日志
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',  # 打印到屏幕
-            ## 指定输出格式
-            'formatter': 'simple'
-        },
-        
-        #打印到文件的日志,收集info及以上的日志
-        'default': {
-            'level': 'DEBUG',
-            'class': 'logging.handlers.RotatingFileHandler',  # 保存到文件,日志轮转
-            'formatter': 'standard',
-            # 可以定制日志文件路径
-            # BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # log文件的目录
-            # LOG_PATH = os.path.join(BASE_DIR,'a1.log')
-            'filename': 'a1.log',  # 日志文件
-            'maxBytes': 1024*1024*5,  # 日志大小 5M
-            'backupCount': 5,
-            'encoding': 'utf-8',  # 日志文件的编码，再也不用担心中文log乱码了
-        },
-        
-        ## 测试用的日志格式
-        'other': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',  # 保存到文件
-            'formatter': 'test',
-            'filename': 'a2.log',##拿到项目的跟文件夹 os.path.dirname(os.path.dirname(__file__))
-            'encoding': 'utf-8',
-        },
-    },
-    
-    # 负责产生日志，产生的日志传递给handler负责处理
-    'loggers': {
-        #logging.getLogger(__name__)拿到的logger配置
-        'kkk': {
-            #  kkk 产生的日志传给谁
-            'handlers': ['default', 'console'],  # 这里把上面定义的两个handler都加上，即log数据既写入文件又打印到屏幕
-            'level': 'DEBUG', # loggers(第一层日志级别关限制)--->handlers(第二层日志级别关卡限制)
-            'propagate': False,  # 默认为True，向上（更高level的logger）传递，通常设置为False即可，否则会一份日志向上层层#  传递
-        },
-        
-        'bbb': {
-            #  kkk 产生的日志传给谁
-            'handlers': ['console'],  # 这里把上面定义的两个handler都加上，即log数据既写入文件又打印到屏幕
-            'level': 'DEBUG', # loggers(第一层日志级别关限制)--->handlers(第二层日志级别关卡限制)
-            'propagate': False,  # 默认为True，向上（更高level的logger）传递，通常设置为False即可，否则会一份日志向上层层#  传递
-        },
-        '专门的采集': {
-            'handlers': ['other',],
-            'level': 'DEBUG',
-            'propagate': False,
-        },
-    },
-}
-```
-
-#### 14.9.3 使用
-
-```python
-import settings
-
-# !!!强调!!!
-# 1、logging是一个包，需要使用其下的config、getLogger，可以如下导入
-# 可能不能正常使用
-# import logging.config 
-# import logging.getLogger  
-
-# 2、也可以使用如下导入
-# from logging import config,getLogger 
-
-from logging import config # 这样连同logging.getLogger都一起导入了,然后使用前缀logging.config.
-from logging import getLogger # 用于获取配置文件里的日志生产者
-
-# 3、加载配置
-# 把配置好的配置字典扔进去
-logging.config.dictConfig(settings.LOGGING_DIC)
-
-logger1 = getLogger("kkk")  ## kkk 是可以同时向终端和文件里输出日志的
-logger2 = getLogger('bbb')  ### bbb 只向终端里输出日志
-
-# 4、输出日志
-logger1=logging.getLogger('用户交易')
-logger1.info('egon儿子alex转账3亿冥币')
-
-# logger2=logging.getLogger('专门的采集') # 名字传入的必须是'专门的采集'，与LOGGING_DIC中的配置唯一对应
-# logger2.debug('专门采集的日志')
-```
-
-#### 14.9.4 日志轮换
-
-```python
-   ## 'class': 'logging.handlers.RotatingFileHandler',  # 保存到文件,日志轮转
-   ## 'maxBytes': 1024*1024*5,  # 日志大小 5M
-   ##  'backupCount': 5,  最多保运几份
-
-    #打印到文件的日志,收集info及以上的日志
-        'default': {
-            'level': 'DEBUG',
-            'class': 'logging.handlers.RotatingFileHandler',  # 保存到文件,日志轮转
-            'formatter': 'standard',
-            # 可以定制日志文件路径
-            # BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # log文件的目录
-            # LOG_PATH = os.path.join(BASE_DIR,'a1.log')
-            'filename': 'a1.log',  # 日志文件
-            'maxBytes': 1024*1024*5,  # 日志大小 5M
-            'backupCount': 5,
-            'encoding': 'utf-8',  # 日志文件的编码，再也不用担心中文log乱码了
-        },
-```
-
-### 15，struct模块
-
-```python
-## 该模块可以把一个类型，如数字，转成固定长度的bytes
-import struct
-bytes = struct.pack('i',1000) ## 拿到长度固定的四个字节
-num = struct.unpack('i',bytes)[0]   ## 结果是元祖，元组里拿到数字拿到数字
-```
-
-
-
-
-
-
-
-
 
 
 
@@ -3844,7 +2830,7 @@ with open('file.txt', 'r', encoding='utf-8') as f:
 > pip install numpy
 > ```
 
-## 创建数组
+## 一、创建数组
 
 ```python
 import numpy as np
@@ -3870,7 +2856,7 @@ np.linspace(start, stop, num=50, endpoint=True, retstep=False, dtype=None, axis=
 # axis ：插入新轴的位置
 ```
 
-## ndarray 基本属性
+## 二、ndarray 基本属性
 
 |    属性     | 说明     |
 | :---------: | -------- |
@@ -3881,42 +2867,45 @@ np.linspace(start, stop, num=50, endpoint=True, retstep=False, dtype=None, axis=
 
 
 
-## 伪随机数 `np.random`
+## 三、伪随机数 `np.random`
 
 ```python
-np.random.rand(3)
 # 0~1之间随机3个均匀分布的数
+np.random.rand(3)
 
-np.random.randn(3)
 # 0~1之间正态分布，均值=0，方差=1
+np.random.randn(3)
 
-np.random.randint(1, 10[, 5])
 # 1~9随机5个整数
+np.random.randint(1, 10[, 5])
 
-np.random.random()
 # 0~1随机浮点数
+np.random.random()
 
-np.random.choice([1,2,3,4])
+# 均匀分布随机数
+np.random.uniform(0, 1, 5)   # [0,1) 5个均匀分布的随机数
+
 # 随机抽样
+np.random.choice([1,2,3,4])
 
-np.random.choice([1,2,3,4], size=3)
 # 多个抽样
+np.random.choice([1,2,3,4], size=3)
 # [,replace=False]不重复抽样
 
+# 打乱数组，直接修改原数组
 arr = np.array([1, 2, 3, 4])
 np.random.shuffle(arr)
-# 打乱数组，直接修改原数组
 
-np.random.permutation([1, 2, 3, 4])
 # 不改变原数组
+np.random.permutation([1, 2, 3, 4])
 
-np.random.seed(42)
 # 设置随机数种子
+np.random.seed(42)
 ```
 
 
 
-## 向量化运算
+## 四、向量化运算
 
 ```python
 a = np.array([1, 2, 3, 4, 5])
@@ -3926,7 +2915,7 @@ print(type(result), result)
 # <class 'numpy.ndarray'> [ 7  9 11 13 15]
 ```
 
-## 二维索引与切片
+## 五、二维索引与切片
 
 ```python
 a[0, 1]     # 第0行第1列
@@ -3934,7 +2923,7 @@ a[:, 1]     # 第2列
 a[1, :]     # 第2行
 ```
 
-## 统计函数
+## 六、统计函数
 
 |           函数           | 说明                |
 | :----------------------: | ------------------- |
@@ -3948,7 +2937,7 @@ a[1, :]     # 第2行
 |       **`axis=1`**       | 按行操作            |
 | **`cumsum()/cumprod()`** | 累加/累乘           |
 
-## 算数函数
+## 七、算数函数
 
 |             函数              | 说明                           |
 | :---------------------------: | ------------------------------ |
@@ -3964,7 +2953,7 @@ a[1, :]     # 第2行
 |      **`np.less(a, b)`**      | <                              |
 |     **`np.equal(a, b)`**      | ==                             |
 
-## 广播
+## 八、广播
 
 > 不同形状的数组，在进行逐元素运算时，NumPy自动扩展较小数组，使它们形状兼容
 
@@ -4048,7 +3037,7 @@ dtype: int64
 '''
 ```
 
-### 访问
+### 1. 访问
 
 ```python
 import pandas as pd
@@ -4074,7 +3063,7 @@ s.dtype    # 数据类型
 s.size     # 元素个数
 ```
 
-### 筛选
+### 2. 筛选
 
 ```python
 s[s > 10]
@@ -4082,7 +3071,7 @@ s[s > 10]
 s.isin(values)       # 判断某个值是否在指定集合（列表、Series、set）中，返回布尔值
 ```
 
-### 修改数据
+### 3. 修改数据
 
 ```python
 s["a"] = 100
@@ -4090,7 +3079,7 @@ s["a"] = 100
 s[s > 10] = 0
 ```
 
-### 排序
+### 4. 排序
 
 ```python
 s.sort_values()         # 升序
@@ -4100,7 +3089,7 @@ s.sort_index()          # 升序
 s.sort_index(ascending=False)     # 降序
 ```
 
-### 索引对齐机制
+### 5. 索引对齐机制
 
 ```python
 s1 = pd.Series([1,2,3], index=['a','b','c'])
@@ -4118,7 +3107,7 @@ dtype: float64
 
 
 
-### 缺失值处理
+### 6. 缺失值处理
 
 > 以下几个方法默认都是**返回新 Series**，原数据 `s` 保持不变。直接修改原数据需要加参数 `inplace=True`
 >
@@ -4170,7 +3159,7 @@ dtype: float64
 
 
 
-### 去重与唯一值
+### 7. 去重与唯一值
 
 ```python
 s = pd.Series(['A', 'B', 'A', 'C', 'B', None])
@@ -4181,7 +3170,7 @@ s.unique()   # 列出有哪些不重复的值（返回数组）
 s.nunique()   # 计算有多少种（默认不统计 NaN，要统计加上 dropna=False）
 # 3
 
-s.value_counts()   # 统计各自有多少个（这里加入了 dropna=False
+s.value_counts()   # 统计各自有多少个（这里加入了 dropna=False）
 '''
 A       2
 B       2
@@ -4193,7 +3182,7 @@ Name: count, dtype: int64
 
 
 
-### 类型转换
+### 8. 类型转换
 
 ```python
 s.astype(int)
@@ -4207,7 +3196,7 @@ s.astype(float)
 > 多个 Series 按列拼起来的二维表，由三部分组成：**index**（行索引），**columns**（列索引），**values**（二维Numpy数组）
 >
 
-### 创建
+### 1. 创建
 
 #### 字典
 
@@ -4270,7 +3259,7 @@ pd.DataFrame([
 '''
 ```
 
-### 访问
+### 2. 访问
 
 ```python
 # 获取一列
@@ -4285,18 +3274,25 @@ df.loc[0, 'name']   # 行 + 列
 
 df.iloc[0]   # 第0行
 df.iloc[0, 1]   # 第0行第1列
+
+# 快速查看前/后几行数据（默认5行）
+df.head()
+df.tail()
 ```
 
 
 
-### 切片
+### 3. 切片
 
 ```python
 df[0:2]      # 行切片
 df.loc[0:2]   # 标签切片（包含2）
+df.loc[:,'gender']
+df.loc[df2['name']=='lisa','gender']
+df.iloc[0:2,0:2]    # 不包含2
 ```
 
-### 对列操作
+### 4. 对列操作
 
 ```python
 # 新增列
@@ -4311,7 +3307,7 @@ df["age"] = df["age"] + 1
 df1 = df.drop("age", axis=1)
 ```
 
-### 对行操作
+### 5. 对行操作
 
 ```python
 # 新增行
@@ -4340,7 +3336,7 @@ df = pd.DataFrame(data)
 df1 = df.drop('行索引', axis=0)
 ```
 
-### 条件筛选
+### 6. 条件筛选
 
 > 位运算符 & 的优先级高于比较运算符 >（下面的例子要加括号）
 
@@ -4348,9 +3344,7 @@ df1 = df.drop('行索引', axis=0)
 df1 = df[(df['age']>18) & (df['gender']>60)]
 ```
 
-
-
-### 统计函数
+### 7. 统计函数
 
 ```python
 df["age"].mean()
@@ -4363,6 +3357,943 @@ df.describe()
 ```
 
 
+
+### 8. 练习
+
+```python
+import pandas as pd
+df = pd.DataFrame({
+    'id':[4,5,6,7],
+    'name':['lisa','cc','john','lili'],
+    'age' :[18,21,20,19],
+    'score':[98,95,59,75]
+})
+df.index = ['a','b','c','d']
+
+# 新增一行id为9，姓名为lulu，年龄为22，成绩为98
+new_row = pd.DataFrame({
+    'id':9,
+    'name':['lulu'],
+    'age':22,
+    'score':98
+},index=['e'])
+df = pd.concat([df,new_row])
+
+# 新增一列 性别 分别为：女 男 男 女 女
+df['sex'] = ['女','男','男','女','女']
+
+# 所有学生的年龄加1
+df['age']= df['age']+1
+
+# cc的性别
+df1 = df.loc[df['name']=='cc','sex']
+
+# 所有女生的数据
+df1 = df.loc[df['sex'] == '女', 'sex']
+
+# 成绩大于80的学生姓名和年龄
+df1 = df.loc[df['score']>80,['name','age']]
+
+# 第三行、第四行，第一列、第三列数据
+df1 = df.iloc[2:4, [0, 2]]
+
+# 把cc的年龄 +1
+df1 = df.loc[df['name'] == 'cc', 'age']+1
+```
+
+
+
+### 9. 缺失值处理
+
+#### 判断缺失值 `isnull()`
+
+```python
+df.isnull()
+
+# 统计每列缺失值数量
+df.isnull().sum()
+
+# 是否存在缺失值
+df.isnull().any()
+```
+
+#### 删除缺失值 `dropna()`
+
+```python
+# 删除包含缺失值的行
+df.dropna()
+
+# 修改原DataFrame
+df.dropna(inplace=True)
+
+# sales 列为空的行删除
+df.dropna(subset=['sales'])
+```
+
+#### 填充缺失值 `fillna()`
+
+```python
+# 填固定值
+df.fillna(0)
+
+# 填中位数
+df['sales'].fillna(
+    df['sales'].median()
+)
+
+# 平均数 .mean()
+```
+
+
+
+
+
+### 10. 数据清洗
+
+#### 去重
+
+```python
+df.drop_duplicates()          # 按整行去重
+df.drop_duplicates(subset="name")     # 指定列去重
+```
+
+#### 类型转换
+
+```python
+df["age"] = df["age"].astype(int)
+```
+
+#### 字符串处理
+
+```python
+df["name"].str.lower()    # 全部转小写
+df["name"].str.contains("a")      # 判断每个字符串是否包含 "a"（支持正则）
+df["name"].str.contains("a", case=False)    # 忽略大小写
+df["name"].str.replace("A", "B")     # 把所有 "A" 替换成 "B"（支持正则替换）
+```
+
+
+
+### 11. 排序
+
+```python
+df.sort_values(by="列名")      # 从小到大
+df.sort_values(by="age", ascending=False)     # 从大到小
+
+df.sort_values(by=["age", "score"])     # 多列排序（先按age排，age相同再按score排）
+df.sort_values(by=["age", "name"], ascending=[True, False])
+
+df.sort_values(by="age", inplace=True)   # 直接修改原数据
+
+df.sort_index()     # 索引升序排列
+df.sort_index(ascending=False)   # 降序
+df.sort_index(axis=1)      # 按列索引排序（字母）
+```
+
+
+
+### 12. `groupby` 分组统计
+
+> 语法：
+>
+> ```python
+> df.groupby("分组列")
+> ```
+>
+> 创建了分组对象，配合聚合函数
+>
+> ```python
+> df.groupby("部门")["工资"].mean()      # 每个部门平均工资
+> ```
+
+#### `agg()` 多种统计一起做
+
+```python
+df.groupby("部门")["工资"].agg(["count", "mean", "max"])
+'''
+      count    mean     max
+部门
+人事部    1    5000    5000
+技术部    2    8500    9000
+销售部    2    6500    7000
+'''
+```
+
+#### 多个字段分组
+
+```python
+df.groupby(["部门","性别"])["工资"].mean()
+'''
+部门    性别
+技术部  女    9000
+       男    8000
+销售部  女    7000
+       男    6000
+'''
+```
+
+#### `reset_index()`
+
+> groupby之后默认会把分组字段变成索引
+>
+> 恢复普通DataFrame：
+>
+> ```python
+> df.reset_index()
+> ```
+
+
+
+### 13. `apply(func)`
+
+#### 传入系统函数
+
+```python
+df = pd.DataFrame({
+    "数学": [80, 90, 70],
+    "英语": [85, 95, 75]
+})
+
+print(df.apply(max))
+'''
+数学    90
+英语    95
+dtype: int64
+'''
+```
+
+#### 自定义函数
+
+```python
+df = pd.DataFrame({
+    "数学": [80, 90, 70],
+    "英语": [85, 95, 75]
+})
+
+def cha(x):
+    return x.max() - x.min()
+
+print(df.apply(cha))
+'''
+数学    20
+英语    20
+dtype: int64
+'''
+
+df["英语"] = df["英语"].apply(
+    lambda x:x+5
+)
+print(df["英语"])
+'''
+0     90
+1    100
+2     80
+Name: 英语, dtype: int64
+'''
+```
+
+#### 横向传入 `axis=1`
+
+```python
+df = pd.DataFrame({
+    "数学": [80, 90, 70],
+    "英语": [85, 95, 75]
+})
+
+df['总分'] = df.apply(
+    lambda x: x['数学'] + x['英语'], axis=1
+)
+print(df["总分"])
+'''
+0    165
+1    185
+2    145
+Name: 总分, dtype: int64
+'''
+```
+
+### 14. `concat()` 拼接
+
+#### 语法
+
+```python
+pd.concat(
+    [objs],         # 要拼接的数据
+    axis=0,         # 上下拼接（默认），axis=1左右拼接
+    join='outer',   # 连接方式
+    ignore_index=False    # 是否重新生成索引（默认不）
+)
+```
+
+#### 重新生成索引
+
+```python
+import pandas as pd
+
+df1 = pd.DataFrame({
+    "姓名": ["张三", "李四"],
+    "年龄": [20, 21]
+})
+
+df2 = pd.DataFrame({
+    "姓名": ["王五", "赵六"],
+    "年龄": [22, 23]
+})
+
+df = pd.concat(
+    [df1, df2],
+    ignore_index=True
+)
+
+print(df)
+'''
+   姓名  年龄
+0  张三  20
+1  李四  21
+2  王五  22
+3  赵六  23
+'''
+```
+
+
+
+### 15. `pivot_table()` 数据透视表
+
+> 语法：
+>
+> ```python
+> pd.pivot_table(
+>     data,          # 数据表
+>     index,         # 行分组字段
+>     columns,       # 列分组字段
+>     values,        # 要统计的数值列
+>     aggfunc        # 统计方法
+> )
+> ```
+>
+> ```
+> D:\py-project\科学计算库\商品练习.ipynb ---- 3.
+> ```
+>
+> ```python
+> pd.pivot_table(
+>     data=df,
+>     index='region',
+>     columns='category',
+>     values=['sales'],
+>     aggfunc=['mean']
+> )
+> ```
+
+### 16. `to_datetime()` 时间处理
+
+```python
+df["日期"] = pd.to_datetime(df["日期"])
+```
+
+#### 提取年份
+
+```python
+df["年份"] = df["日期"].dt.year
+```
+
+#### 提取月份
+
+```python
+df["月份"] = df["日期"].dt.month
+```
+
+
+
+## 获取/保存数据
+
+### 1. 查看文件编码
+
+```
+pip install chardet
+```
+
+```python
+import chardet
+
+with open("豆瓣.csv", "rb") as f:
+    data = f.read()
+
+result = chardet.detect(data)
+print(result)
+# {'encoding': 'UTF-8-SIG', 'confidence': 1.0, 'language': ''}
+'''
+encoding : 推测编码
+confidence : 置信度（0~1）
+rb : 必须用二进制读，否则无法分析
+'''
+```
+
+```python
+pip install charset-normalizer    # 更现代
+```
+
+```python
+from charset_normalizer import from_path
+
+result = from_path("豆瓣.csv").best()
+print(result.encoding)
+# utf_8
+```
+
+
+
+### 2. 从文件读取
+
+#### CSV
+
+```python
+import pandas as pd
+
+pd.read_csv(
+    "豆瓣.csv"[,
+    encoding="utf-8",   # 编码
+    sep=",",            # 分隔符
+    usecols=['列名']    # 只读取几列
+    header=0,           # 把某行数据作为列名（或者 names = [] 自定义列名）
+    index_col=0]        # 指定索引列
+)
+
+
+df.to_csv(              # 保存
+    "data.csv",
+    index=False,       # 不保存索引列
+    encoding="utf-8-sig",  # 编码
+    sep=",",           # 分隔符
+)
+```
+
+#### Excel
+
+```python
+df = pd.read_excel("data.xlsx", sheet_name="Sheet1")
+
+
+df.to_excel("data.xlsx", index=False)          # 保存
+with pd.ExcelWriter("data.xlsx") as writer:    # 多sheet保存
+    df1.to_excel(writer, sheet_name="A")
+    df2.to_excel(writer, sheet_name="B")
+```
+
+#### JSON
+
+```python
+df = pd.read_json("data.json")
+```
+
+
+
+### 3. 练习
+
+```
+D:\py-project\科学计算库\企业人力资源分析表.csv
+```
+
+```python
+import pandas as pd
+
+df = pd.read_csv(r"D:\py-project\科学计算库\企业人力资源分析表.csv", encoding='gbk')
+print(df)
+```
+
+
+
+
+
+# Matplotlib
+
+> 最基础、最核心的**数据可视化库**，主要用来把数据画成各种图（折线图、柱状图、散点图、直方图等）
+>
+> **<span style='font-size:20px'>pyplot</span>**  ----->   类似“快捷画图接口”
+>
+> ```python
+> import matplotlib.pyplot as plt
+> ```
+>
+> `plt.show`  显示图像
+
+## 中文乱码问题
+
+```python
+plt.rcParams["font.sans-serif"] = ["SimHei"]    # 中文字体
+plt.rcParams["axes.unicode_minus"] = False      # 负号正常显示
+```
+
+### 模块位置：
+
+```python
+D:\py-project\科学计算库\font_config.py
+
+# import font_config
+```
+
+
+
+## 常见图形
+
+### 1. 折线图 -`plot`
+
+```python
+plt.plot(
+    x,
+	y,
+    color= / 简写：'r',
+    linestyle='-'/'--'/':'     # 实线（默认）/虚线/点线
+    linewidth=1.5              # 线宽（默认1.5）
+    marker='o'/'s'/'^'/'*'     # 数据点样式（圆点/方块/三角/星号）
+    markersize=10              # 点大小
+)          # 默认索引当 x轴
+```
+
+### 2. 柱状图 -`bar/barh`
+
+```python
+plt.bar(["A","B","C"],
+        [10,20,15],
+        width=1,
+        color=['r','g','b','y','c','m','k','w'],
+        align='center'/'edge',     # 柱子居中对齐刻度（默认）/柱子从刻度左侧开始
+        edgecolor='black', linewidth=1,
+        alpha=0~1
+       )
+```
+
+### 3. 散点图 -`scatter`
+
+```python
+plt.scatter(
+    x,
+    y,
+    s=点的大小（面积）也可以是数组（每个点大小不同）,
+    c='颜色',    # 固定颜色不映射
+	alpha=0~1,   # 透明度
+    marker='o'/'x'/'^'/'s'    # 点形状（圆点/×/三角/方块）
+)
+
+# 用数值映射颜色
+plt.scatter(
+    x,
+    y,
+    c=y,            # 用 y 的数值决定颜色（值越大颜色越深）
+    cmap='viridis'/'plasma'/'cool'/'hot'   # 配色方案
+    # 默认（蓝-->黄）/紫-->黄/蓝-->青/黑-->红-->黄
+)
+plt.colorbar()    # 颜色说明书
+```
+
+### 4. 直方图 -`hist`（连续型数值数据）
+
+```python
+plt.hist(
+    x,              # 数据必须是数值型
+    bins=10,            # 把数据分成 10 个“区间”
+    range=None,         # 超出指定分布范围的数据会被忽略
+    density=False,     # 是否转成概率密度
+    color=None,
+    edgecolor=None    # 边框颜色
+    alpha=1
+)
+```
+
+### 5. 饼图 -`pie`
+
+```python
+labels = ['Python', 'Java', 'C++', 'JavaScript']
+sizes = [40, 25, 20, 15]
+
+plt.pie(
+    sizes,               # 每一块的数据
+    labels=labels,       # 每一块的名称
+    autopct='%1.1f%%',   # 显示百分比（保留一位小数）
+    startangle=90        # 起始角度（90°表示从上方开始）
+)
+```
+
+### 6. 核密度估计图 -`kde`
+
+```python
+import seaborn as sns
+
+sns.kdeplot(
+    data=df['工作时间'],
+    bw_adjust=1,         # 小--->曲线波动越多，更贴近数据；大--->曲线更平滑
+    ax=axes[1]
+)
+# Y轴表示：某个满意度附近的数据集中程度
+```
+
+### 7. 线箱图 -`boxplot`
+
+```python
+import seaborn as sns
+
+sns.boxplot(
+    data,
+    x='',       # 分类变量
+    y='',       # 数值变量
+    hue='',     # 增加第三个分类维度
+    width=0.8,  # 箱子宽度
+    palette='Set1'/'Set2'/'pastel'/'deep'   # 设置颜色
+    showfliers=True   # 是否显示异常值
+)
+
+最小值
+  |
+下四分位数 Q1
+  |
+中位数 Q2
+  |
+上四分位数 Q3
+  |
+最大值
+```
+
+
+
+## 常用配置
+
+### 添加画布
+
+```python
+plt.figure(figsize=( , ), dpi=100)
+# dpi 表示每 1 英寸里有多少个像素点，值越大清晰度越高，文件越大
+
+# 多图布局（后面的配置要加set_）
+fig, axes = plt.subplots(行, 列, figsize=( , ))
+
+axes[0].plot([1,2,3],[4,5,6])
+axes[0].set_title('折线图')
+axes[1].bar(['A','B','C'],[3,5,2])
+axes[1].set_title('柱状图')
+
+# 2x2 布局
+fig, axes = plt.subplots(2, 2, figsize=( , ))
+
+axes[0,0].plot([1,2,3],[1,4,9])
+axes[0,1].bar(['A','B'],[3,5])
+axes[1,0].scatter([1,2,3],[3,2,1])
+axes[1,1].hist([1,1,2,3,3,3,4])
+
+
+plt.tight_layout()     # 自动调整标题、子图、坐标轴间距
+```
+
+### 标题
+
+```python
+plt.title(
+    '标题',
+    fontsize= ,
+    color=' ',
+    loc='center'/'left'/'right',
+    pad= ,          # 间距
+    fontweight='normal'/'bold'      # 字体粗细
+)
+```
+
+### 坐标轴标签
+
+```python
+plt.xlabel("横轴标题")
+plt.ylabel("纵\n轴\n标\n题", rotation=0, labelpad=10)
+# rotation : 控制水平旋转角度（默认为90）
+# labelpad : 控制离坐标轴的距离
+```
+
+### 坐标轴范围
+
+```python
+plt.xlim( , )
+plt.ylim( , )
+```
+
+### 设置轴刻度
+
+```python
+plt.xticks(
+	ticks,      # 刻度位置
+    labels,     # 显示的文字
+    rotation=   # 文字旋转，45度常用
+)
+plt.yticks()
+```
+
+
+
+### 网格
+
+```python
+plt.grid(True)
+```
+
+### 图例
+
+```python
+plt.plot(x, y, label="销量")
+plt.legend()
+```
+
+### 添加文字
+
+```python
+# 在坐标系 (x, y) 位置写一段文本
+plt.text(x, y, s, ha='', va='top'/'center'/'bottom', ha='left'/'center'/'right')
+```
+
+### 保存
+
+```python
+plt.savefig('', api=100)
+```
+
+
+
+
+
+
+
+
+
+## 练习
+
+```
+D:\py-project\爬虫\案例\豆瓣.csv
+```
+
+> ![image-20260705090243330](images/image-20260705090243330.png)
+
+```python
+import matplotlib.pyplot as plt
+import font_config
+import pandas as pd
+
+df = pd.read_csv(r"D:\py-project\爬虫\案例\豆瓣.csv", encoding='utf-8-sig')
+df1 = df.head(10)
+
+plt.figure(figsize=(10, 6))
+plt.barh(df1['电影名称'], df1['评分'], color='black')
+plt.xlabel('评分')
+plt.ylabel('电\n影\n名\n称', rotation=0)
+plt.title('豆瓣Top250电影评分')
+
+# 添加评价人数
+for i, v in enumerate(df1['评价人数']):
+    plt.text(df1['评分'].iloc[i] + 0.2, i, f'评价人数{v}', va='center')
+
+plt.show()
+```
+
+
+
+> ![image-20260706133446054](images/image-20260706133446054.png)
+
+```python
+import matplotlib.pyplot as plt
+import font_config
+
+# 数据
+x = ['苹果','香蕉', '橘子', '葡萄', '西瓜']
+y = [45, 20, 30, 55, 25]
+colors = ['r','g','b','y','c']
+
+# 创建画布
+plt.figure(figsize=(8,6), dpi=120)
+
+# 绘制柱状图（为每个柱子单独设置 label 以生成正确图例）
+for i in range(len(x)):
+    plt.bar(x[i], y[i], color=colors[i], width=0.6, label=x[i])
+
+# 设置坐标轴范围和标签
+plt.ylim(0, 80)
+plt.title('水果销量分布', fontsize=16)
+plt.xlabel('水果', fontsize=14)
+plt.ylabel('销\n量', fontsize=14, rotation=0, labelpad=20)
+
+# 在柱子上方添加数值标签
+for a, b in zip(x, y):
+    plt.text(a, b, b, ha='center', va='bottom', fontsize=14)
+
+# 显示图例
+plt.legend()
+
+plt.show()
+```
+
+
+
+
+
+```
+D:\py-project\科学计算库\企业人力资源分析表.csv
+D:\py-project\科学计算库\人力资源分析表练习.ipynb
+```
+
+### 1. 工作时间（从小到大）人数分布趋势 折线图
+
+```python
+import matplotlib.pyplot as plt
+import font_config
+import pandas as pd
+
+df = pd.read_csv('企业人力资源分析表.csv', encoding='gbk')
+
+s1 = df['每月在公司工作时间'].value_counts().sort_index()
+
+plt.plot(s1)
+
+plt.title('工作时间人数分布图')
+plt.xlabel('工作时间')
+plt.ylabel('人数')
+plt.show()
+```
+
+### 2. 项目数量与人数分布趋势 柱状图
+
+```python
+df = pd.read_csv('企业人力资源分析表.csv', encoding='gbk')
+
+s1 = df['项目数量'].value_counts().sort_index()
+
+plt.bar(s1.index,s1.values)
+plt.title('项目数量人数分布图')
+plt.xlabel('项目数量')
+plt.ylabel('人数')
+plt.show()
+```
+
+### 3. 离职人数饼状图
+
+```python
+df = pd.read_csv('企业人力资源分析表.csv', encoding='gbk')
+
+s1 = df['是否离职'].value_counts().sort_index()
+
+plt.pie(
+    s1.values,
+    labels=s1.index,
+    autopct='%1.1f%%',
+    startangle=90
+)
+
+plt.title('离职率统计')
+plt.show()
+```
+
+### 4. 散点图示例
+
+```python
+import matplotlib.pyplot as plt
+import font_config
+import numpy as np
+
+np.random.seed(42)
+x= np.random.randint(50,100,100)
+y = np.random.uniform(100,1000,100)
+plt.scatter(
+    x, y,
+    s=200,
+    c=y,
+    cmap='viridis',
+    alpha=1,
+    marker='o',
+    label='Scatter 示例'
+)
+
+plt.colorbar()
+plt.title("Scatter 示例")
+plt.xlabel("销售数据")
+plt.ylabel("销售额数据")
+plt.show()
+```
+
+### 5. 综合案例
+
+> ![image-20260707173946671](images/image-20260707173946671.png)
+
+```python
+import matplotlib.pyplot as plt
+import font_config
+import pandas as pd
+import seaborn as sns
+
+# 读取数据
+df = pd.read_csv('企业人力资源分析表.csv', encoding='gbk')
+
+# 创建画布
+fig, axes = plt.subplots(2, 2, figsize=(17, 14))
+
+
+# 1. 司龄分布直方图
+axes[0,0].hist(
+    df['司龄'],
+    bins=8,
+    color='skyblue',
+    edgecolor='black'
+)
+
+axes[0,0].set_title('员工工作时长分布直方图', fontsize=18, pad=10)
+axes[0,0].set_xlabel('司龄（年）', fontsize=14)
+axes[0,0].set_ylabel('人数', fontsize=14)
+
+
+# 2. 员工满意度 KDE图
+sns.kdeplot(
+    df['员工满意度'],
+    ax=axes[0,1]
+)
+
+axes[0,1].set_title('员工满意度分布图', fontsize=18, pad=10)
+axes[0,1].set_xlabel('满意度', fontsize=14)
+axes[0,1].set_ylabel('密度', fontsize=14)
+
+
+# 3. 各部门离职率
+rate = df.groupby('部门')['是否离职'].mean()
+
+axes[1,0].barh(
+    rate.index,
+    rate.values
+)
+
+axes[1,0].set_title('各部门离职率', fontsize=18, pad=10)
+axes[1,0].set_xlabel('离职率', fontsize=14)
+axes[1,0].set_ylabel('部门', fontsize=14)
+
+
+# 4. 离职与满意度关系
+sns.boxplot(
+    data=df,
+    x='是否离职',
+    y='员工满意度',
+    hue='是否离职',      # 添加这一行
+    palette='Set2',
+    legend=False,        # 关闭图例
+    ax=axes[1,1]
+)
+
+axes[1,1].set_title('离职与满意度关系', fontsize=18, pad=10)
+axes[1,1].set_xlabel('是否离职', fontsize=14)
+axes[1,1].set_ylabel('满\n意\n度', fontsize=14, rotation=0, labelpad=8)
+
+
+# 调整布局
+plt.tight_layout(pad=3)
+plt.show()
+```
+
+
+
+### 6. 商品练习
+
+```
+D:\py-project\科学计算库\商品练习.csv
+D:\py-project\科学计算库\商品练习.ipynb
+```
 
 
 
@@ -4858,19 +4789,128 @@ asyncio.run(main())
 
 
 
+# Flask
+
+> **Web 后端开发框架**
+>
+> ```
+> pip install flask
+> ```
+>
+> **导入 Flask**
+>
+> ```python
+> from flask import Flask
+> ```
+
+## 创建 Flask 对象
+
+```python
+app = Flask(__name__)
+```
+
+## 路由
+
+```python
+@app.route("/")          # 访问 / 执行下面的函数
+def hello():
+    return "Hello, wenx!"
+```
+
+## 接收 GET 参数
+
+> 访问：`/search?id=1`
+
+```python
+from flask import request
+
+@app.route("/search")
+def search():
+
+    id = request.args.get("id")
+
+    return id
+```
+
+## 接收 POST 数据
+
+```python
+from flask import request
+
+@app.route("/login", methods=["POST"])
+def login():
+
+    username = request.form["username"]
+
+    return username
+```
+
+## 返回 HTML 页面
+
+> 导入 **`render_template`** 模块
+>
+> 模板文件必须放在名为 **`templates`** 的文件夹中
+
+```python
+from flask import Flask, render_template
+
+# 创建Flask对象
+app = Flask(__name__)
+
+# 定义路由
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+
+# 启动Flask应用
+if __name__ == "__main__":
+    app.run(debug=True)      # 默认(host="127.0.0.1", port=5000)
+```
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flask测试</title>
+</head>
+<body>
+<h1>吃啥呢给我也来一口</h1>
+</body>
+</html>
+```
+
+```
+访问：
+http://127.0.0.1:5000/
+```
+
+<img src="images/image-20260723193627875.png" alt="image-20260723193627875" style="zoom:55%;" />
+
+## 连接数据库
+
+> 在 **pymysql** 里
+
+
+
+
+
+
+
 
 
 # Django
 
-> 用 **Python 写的高层 Web 框架**，核心用途：做网站后端
-
-```
-pip install django
-```
-
-```
-django-admin --version
-```
+> **高层 Web 框架**，核心用途：做网站后端
+>
+> ```
+> pip install django
+> ```
+>
+> ```
+> django-admin --version
+> ```
 
 
 
@@ -5976,1693 +6016,4 @@ if __name__ == '__main__':
 
 
 
-
-
-# 并发编程
-
-## 11.1 操作系统发展史
-
-参考博客即可:https://www.cnblogs.com/Dominic-Ji/articles/10929381.html
-
-
-
-### 11.1.3 多道技术重点知识
-
-空间上的服用与时间上的服用
-
-- 空间上的复用
-
-  多个程序公用一套计算机硬件
-
-- 时间上的复用
-
-  例子:洗衣服30s，做饭50s，烧水30s
-
-  单道需要110s，多道只需要任务做长的那一个 		切换节省时间
-
-  例子:边吃饭边玩游戏							   保存状态
-
-切换+保存状态
-
-```python
-"""
-切换(CPU)分为两种情况
-	1.当一个程序遇到IO操作的时候，操作系统会剥夺该程序的CPU执行权限
-		作用:提高了CPU的利用率 并且也不影响程序的执行效率
-	
-	2.当一个程序长时间占用CPU的时候，操作吸引也会剥夺该程序的CPU执行权限
-		弊端:降低了程序的执行效率(原本时间+切换时间)
-"""
-```
-
-## 11.2 进程理论
-
-### 11.2.1 必备知识点
-
-程序与进程的区别
-
-```python
-"""
-程序就是一堆躺在硬盘上的代码，是“死”的
-进程则表示程序正在执行的过程，是“活”的
-"""
-```
-
-### 11.2.2 进程调度
-
-- 先来先服务调度算法
-
-  ```python
-  """对长作业有利，对短作业无益"""
-  ```
-
-- 短作业优先调度算法
-
-  ```python
-  """对短作业有利，多长作业无益"""
-  ```
-
-- 时间片轮转法+多级反馈队列
-
-  参考图解
-
-### 11.2.3 进程运行的三状态图
-
-参考图解了解即可
-
-### 11.2.4 两对重要概念
-
-- **同步和异步**
-
-  ```python
-  """描述的是任务的提交方式"""
-  同步:任务提交之后，原地等待任务的返回结果，等待的过程中不做任何事(干等)
-    	程序层面上表现出来的感觉就是卡住了
-  
-  异步:任务提交之后，不原地等待任务的返回结果，直接去做其他事情
-    	我提交的任务结果如何获取？
-      任务的返回结果会有一个异步回调机制自动处理
-  ```
-
-- **阻塞非阻塞**
-
-  ```python
-  """描述的程序的运行状态"""
-  阻塞:阻塞态
-  非阻塞:就绪态、运行态
-  
-  理想状态:我们应该让我们的写的代码永远处于就绪态和运行态之间切换
-  ```
-
-上述概念的组合:最高效的一种组合就是**异步非阻塞**
-
-## 11.3 开启进程的两种方式
-
-定心丸:代码开启进程和线程的方式，代码书写基本是一样的，你学会了如何开启进程就学会了如何开启线程
-
-```PYTHON
-from multiprocessing import Process
-import time
-
-
-def task(name):
-    print('%s is running'%name)
-    time.sleep(3)
-    print('%s is over'%name)
-
-## 在window系统中，创建进程一定在main下面下
-## 因为window下创建进程类似于模块带入方式
-
-if __name__ == '__main__':
-    # 1 创建一个对象
-    p = Process(target=task, args=('jason',))
-    # 容器类型哪怕里面只有1个元素 建议要用逗号隔开
-    # 2 开启进程
-    p.start()  # 告诉操作系统帮你创建一个进程  异步
-    print('主')
-    
-    
-# 第二种方式 类的继承
-from multiprocessing import Process
-import time
-
-
-class MyProcess(Process):
-    def run(self):
-        print('hello bf girl')
-        time.sleep(1)
-        print('get out!')
-
-
-if __name__ == '__main__':
-    p = MyProcess()
-    p.start()
-    print('主')
-```
-
-**总结**
-
-```python
-"""
-创建进程就是在内存中申请一块内存空间将需要运行的代码丢进去
-一个进程对应在内存中就是一块独立的内存空间
-多个进程对应在内存中就是多块独立的内存空间
-进程与进程之间数据默认情况下是无法直接交互,如果想交互可以借助于第三方工具、模块
-"""
-```
-
-## 11.4 join方法
-
-join是让主进程等待子进程代码运行结束之后，再继续运行。不影响其他子进程的执行
-
-```python
-from multiprocessing import Process
-import time
-
-
-def task(name, n):
-    print('%s is running'%name)
-    time.sleep(n)
-    print('%s is over'%name)
-
-
-if __name__ == '__main__':
-    # p1 = Process(target=task, args=('jason', 1))
-    # p2 = Process(target=task, args=('egon', 2))
-    # p3 = Process(target=task, args=('tank', 3))
-    # start_time = time.time()
-    # p1.start()
-    # p2.start()
-    # p3.start()  # 仅仅是告诉操作系统要创建进程
-    # # time.sleep(50000000000000000000)
-    # # p.join()  # 主进程等待子进程p运行结束之后再继续往后执行
-    # p1.join()
-    # p2.join()
-    # p3.join()
-    start_time = time.time()
-    p_list = []
-    for i in range(1, 4):
-        p = Process(target=task, args=('子进程%s'%i, i))
-        p.start()
-        p_list.append(p)
-    for p in p_list:
-        p.join()
-    print('主', time.time() - start_time)
-```
-
-## 11.5 进程之间数据相互隔离
-
-```python
-from multiprocessing import Process
-
-money = 100
-
-
-def task():
-    global money  # 局部修改全局
-    money = 666  ## 其实也修改了money的值，但是改的只是自己进程里的，外面的没改
-    print('子',money)  ## 666
-
-
-if __name__ == '__main__':
-    p = Process(target=task)
-    p.start()
-    p.join()
-    print(money)  ## 100
-```
-
-## 11.6 人工智能相关网站
-
-http://www.turingapi.com/
-
-https://www.xfyun.cn/?ch=bd05&b_scene_zt=1
-
-http://ai.baidu.com/creation/main/demo
-
-作为一名python程序员当你遇到一个功能的时候，第一时间你可以考虑是否有对应的模块已经帮你实现了该功能
-
-## 11.7  进程对象及其他方法
-
-```python
-"""
-一台计算机上面运行着很多进程，那么计算机是如何区分并管理这些进程服务端的呢？
-计算机会给每一个运行的进程分配一个PID号 
-如何查看
-	windows电脑 
-		进入cmd输入tasklist即可查看
-		tasklist |findstr PID查看具体的进程
-	mac电脑 
-		进入终端之后输入ps aux
-		ps aux|grep PID查看具体的进程 
-"""
-from multiprocessing import Process, current_process
-current_process().pid  # 查看当前进程的进程号
-
-import os
-os.getpid()  # 查看当前进程进程号
-os.getppid()  # 查看当前进程的父进程进程号
-
-
-p.terminate()  # 杀死当前进程
-# 是告诉操作系统帮你去杀死当前进程 但是需要一定的时间 而代码的运行速度极快
-time.sleep(0.1)
-print(p.is_alive())  # 判断当前进程是否存活
-```
-
-## 11.8  僵尸进程与孤儿进程(了解)
-
-```python
-# 僵尸进程
-"""
-死了但是没有死透
-当你开设了子进程之后 该进程死后不会立刻释放占用的进程号
-因为我要让父进程能够查看到它开设的子进程的一些基本信息 占用的pid号 运行时间。。。
-所有的进程都会步入僵尸进程
-	父进程不死并且在无限制的创建子进程并且子进程也不结束
-	回收子进程占用的pid号
-		父进程等待子进程运行结束
-		父进程调用join方法
-"""
-
-# 孤儿进程
-"""
-子进程存活，父进程意外死亡
-操作系统会开设一个“儿童福利院”专门管理孤儿进程回收相关资源
-"""
-```
-
-## 11. 9 守护进程
-
-```PYTHON
-from multiprocessing import Process
-import time
-
-
-def task(name):
-    print('%s总管正在活着'% name)
-    time.sleep(3)
-    print('%s总管正在死亡' % name)
-
-
-if __name__ == '__main__':
-    p = Process(target=task,args=('egon',))
-    # p = Process(target=task,kwargs={'name':'egon'})
-    p.daemon = True  # 将进程p设置成守护进程  这一句一定要放在start方法上面才有效否则会直接报错
-    p.start()
-    print('皇帝jason寿终正寝')
-```
-
-## 11.10 互斥锁
-
-多个进程操作同一份数据的时候，会出现数据错乱的问题
-
-针对上述问题，解决方式就是加锁处理:**将并发变成串行，牺牲效率但是保证了数据的安全**
-
-```python
-from multiprocessing import Process, Lock
-import json
-import time
-import random
-
-
-# 查票
-def search(i):
-    # 文件操作读取票数
-    with open('data','r',encoding='utf8') as f:
-        dic = json.load(f)
-    print('用户%s查询余票：%s'%(i, dic.get('ticket_num')))
-    # 字典取值不要用[]的形式 推荐使用get  你写的代码打死都不能报错！！！
-
-
-# 买票  1.先查 2.再买
-def buy(i):
-    # 先查票
-    with open('data','r',encoding='utf8') as f:
-        dic = json.load(f)
-    # 模拟网络延迟
-    time.sleep(random.randint(1,3))
-    # 判断当前是否有票
-    if dic.get('ticket_num') > 0:
-        # 修改数据库 买票
-        dic['ticket_num'] -= 1
-        # 写入数据库
-        with open('data','w',encoding='utf8') as f:
-            json.dump(dic,f)
-        print('用户%s买票成功'%i)
-    else:
-        print('用户%s买票失败'%i)
-
-
-# 整合上面两个函数
-def run(i, mutex):
-    search(i)
-    # 给买票环节加锁处理
-    # 抢锁
-    mutex.acquire()
-
-    buy(i)
-    # 释放锁
-    mutex.release()
-
-
-if __name__ == '__main__':
-    # 在主进程中生成一把锁 让所有的子进程抢 谁先抢到谁先买票
-    mutex = Lock()
-    for i in range(1,11):
-        p = Process(target=run, args=(i, mutex))
-        p.start()
-"""
-扩展 行锁 表锁
-
-注意：
-	1.锁不要轻易的使用，容易造成死锁现象(我们写代码一般不会用到，都是内部封装好的)
-	2.锁只在处理数据的部分加来保证数据安全(只在争抢数据的环节加锁处理即可) 
-"""
-```
-
-## 11.11进程间通信
-
-### 11.11.1队列Queue模块
-
-```python
-"""
-管道:subprocess 
-	stdin stdout stderr
-队列:管道+锁
-
-队列:先进先出
-堆栈:先进后出
-"""
-from multiprocessing import Queue
-
-# 创建一个队列
-q = Queue(5)  # 括号内可以传数字 标示生成的队列最大可以同时存放的数据量
-
-# 往队列中存数据
-q.put(111)
-q.put(222)
-q.put(333)
-# print(q.full())  # 判断当前队列是否满了
-# print(q.empty())  # 判断当前队列是否空了
-q.put(444)
-q.put(555)
-# print(q.full())  # 判断当前队列是否满了
-
-# q.put(666)  # 当队列数据放满了之后 如果还有数据要放程序会阻塞 直到有位置让出来 不会报错
-
-"""
-存取数据 存是为了更好的取
-千方百计的存、简单快捷的取
-
-同在一个屋檐下
-差距为何那么大
-"""
-
-# 去队列中取数据
-v1 = q.get()
-v2 = q.get()
-v3 = q.get()
-v4 = q.get()
-v5 = q.get()
-# print(q.empty())
-# V6 = q.get_nowait()  # 没有数据直接报错queue.Empty
-# v6 = q.get(timeout=3)  # 没有数据之后原地等待三秒之后再报错  queue.Empty
-try:
-    v6 = q.get(timeout=3)
-    print(v6)
-except Exception as e: 
-    print('一滴都没有了!')
-
-# # v6 = q.get()  # 队列中如果已经没有数据的话 get方法会原地阻塞
-# print(v1, v2, v3, v4, v5, v6)
-
-"""
-q.full()
-q.empty()
-q.get_nowait()
-在多进程的情况下是不精确
-"""
-```
-
-### 11.11.2 IPC机制
-
-```python
-from multiprocessing import Queue, Process
-
-"""
-研究思路
-    1.主进程跟子进程借助于队列通信
-    2.子进程跟子进程借助于队列通信
-"""
-def producer(q):
-    q.put('我是23号技师 很高兴为您服务')
-
-
-def consumer(q):
-    print(q.get())   ## '我是23号技师 很高兴为您服务'
-
-
-if __name__ == '__main__':
-    q = Queue()
-    p = Process(target=producer,args=(q,))
-    p1 = Process(target=consumer,args=(q,))
-    p.start()
-    p1.start()
-```
-
-### 11.11.3 生产者消费者模型
-
-```python
-"""
-生产者:生产/制造东西的
-消费者:消费/处理东西的
-该模型除了上述两个之外还需要一个媒介
-	生活中的例子做包子的将包子做好后放在蒸笼(媒介)里面，买包子的取蒸笼里面拿
-	厨师做菜做完之后用盘子装着给你消费者端过去
-	生产者和消费者之间不是直接做交互的，而是借助于媒介做交互
-	
-生产者(做包子的) + 消息队列(蒸笼) + 消费者(吃包子的)
-"""
-
-
-from multiprocessing import Process, Queue, JoinableQueue
-import time
-import random
-
-
-def producer(name,food,q):
-    for i in range(5):
-        data = '%s生产了%s%s'%(name,food,i)
-        # 模拟延迟
-        time.sleep(random.randint(1,3))
-        print(data)
-        # 将数据放入 队列中
-        q.put(data)
-
-
-def consumer(name,q):
-    # 消费者胃口很大 光盘行动
-    while True:
-        food = q.get()  # 没有数据就会卡住
-        # 判断当前是否有结束的标识
-        # if food is None:break
-        time.sleep(random.randint(1,3))
-        print('%s吃了%s'%(name,food))
-        q.task_done()  # 告诉队列你已经从里面取出了一个数据并且处理完毕了
-
-
-if __name__ == '__main__':
-    # q = Queue()
-    q = JoinableQueue()
-    p1 = Process(target=producer,args=('大厨egon','包子',q))
-    p2 = Process(target=producer,args=('马叉虫tank','泔水',q))
-    c1 = Process(target=consumer,args=('春哥',q))
-    c2 = Process(target=consumer,args=('新哥',q))
-    p1.start()
-    p2.start()
-    # 将消费者设置成守护进程
-    c1.daemon = True
-    c2.daemon = True
-    c1.start()
-    c2.start()
-    p1.join()
-    p2.join()
-    # 等待生产者生产完毕之后 往队列中添加特定的结束符号
-    # q.put(None)  # 肯定在所有生产者生产的数据的末尾
-    # q.put(None)  # 肯定在所有生产者生产的数据的末尾
-    q.join()  # 等待队列中所有的数据被取完再执行往下执行代码
-    """
-    JoinableQueue 每当你往该队列中存入数据的时候 内部会有一个计数器+1
-    没当你调用task_done的时候 计数器-1
-    q.join() 当计数器为0的时候 才往后运行
-    """
-    # 只要q.join执行完毕 说明消费者已经处理完数据了  消费者就没有存在的必要了
-```
-
-## 11.12 线程
-
-### 11.12.1 什么是线程
-
-```python
-"""
-进程:资源单位
-线程:执行单位
-
-将操作系统比喻成一个大的工厂
-那么进程就相当于工厂里面的车间
-而线程就是车间里面的流水线
-
-每一个进程肯定自带一个线程
-
-再次总结:
-	进程:资源单位(起一个进程仅仅只是在内存空间中开辟一块独立的空间)
-	线程:执行单位(真正被cpu执行的其实是进程里面的线程，线程指的就是代码的执行过程，执行代码中所需要使用到的资源都找所在的进程索要)
-	
-进程和线程都是虚拟单位，只是为了我们更加方便的描述问题
-"""
-```
-
-### 11.12.2 为何要有线程
-
-```python
-"""
-开设进程
-	1.申请内存空间	耗资源
-	2.“拷贝代码”   耗资源
-开线程
-	一个进程内可以开设多个线程，在用一个进程内开设多个线程无需再次申请内存空间操作
-
-总结:
-	开设线程的开销要远远的小于进程的开销
-	同一个进程下的多个线程数据是共享的!!!
-"""
-我们要开发一款文本编辑器
-	获取用户输入的功能
-  实时展示到屏幕的功能
-  自动保存到硬盘的功能
-针对上面这三个功能，开设进程还是线程合适？？？
-	开三个线程处理上面的三个功能更加的合理
-```
-
-### 11.12.3 开启线程的两种方式
-
-```python
-## 第一种方法
-    from multiprocessing import Process
-    from threading import Thread
-    import time
-
-    def task(name):
-        print('%s is running'%name)
-        time.sleep(1)
-        print('%s is over'%name)
-
-
-    # # 开启线程不需要在main下面执行代码 直接书写就可以
-    # # 但是我们还是习惯性的将启动命令写在main下面
-    t = Thread(target=task,args=('egon',))
-    p = Process(target=task,args=('jason',))
-    p.start()
-    t.start()  # 创建线程的开销非常小 几乎是代码一执行线程就已经创建了
-    print('主')
-
-
- ## 第二种方法   
-    from threading import Thread
-    import time
-
-
-    class MyThead(Thread):
-        def __init__(self, name):
-            """针对刷个下划线开头双下滑线结尾(__init__)的方法 统一读成 双下init"""
-            # 重写了别人的方法 又不知道别人的方法里有啥 你就调用父类的方法
-            super().__init__()
-            self.name = name
-
-        def run(self):
-            print('%s is running'%self.name)
-            time.sleep(1)
-            print('egon DSB')
-
-
-    if __name__ == '__main__':
-        t = MyThead('egon')
-        t.start()
-        print('主')
-```
-
-### 11.12.4 TCP协议实现并发
-
-```python
-import socket
-from threading import Thread
-from multiprocessing import Process
-"""
-服务端
-    1.要有固定的IP和PORT
-    2.24小时不间断提供服务
-    3.能够支持并发
-    
-从现在开始要养成一个看源码的习惯
-我们前期要立志称为拷贝忍者 卡卡西 不需要有任何的创新
-等你拷贝到一定程度了 就可以开发自己的思想了
-"""
-server =socket.socket()  # 括号内不加参数默认就是TCP协议
-server.bind(('127.0.0.1',8080))
-server.listen(5)
-
-
-# 将服务的代码单独封装成一个函数
-def talk(conn):
-    # 通信循环
-    while True:
-        try:
-            data = conn.recv(1024)
-            # 针对mac linux 客户端断开链接后
-            if len(data) == 0: break
-            print(data.decode('utf-8'))
-            conn.send(data.upper())
-        except ConnectionResetError as e:
-            print(e)
-            break
-    conn.close()
-
-# 链接循环
-while True:
-    conn, addr = server.accept()  # 接客
-    # 叫其他人来服务客户
-    # t = Thread(target=talk,args=(conn,))
-    t = Process(target=talk,args=(conn,))
-    t.start()
-
-
-"""客户端"""
-import socket
-
-
-client = socket.socket()
-client.connect(('127.0.0.1',8080))
-
-while True:
-    client.send(b'hello world')
-    data = client.recv(1024)
-    print(data.decode('utf-8'))
-```
-
-### 11.12.5 线程对象的join方法
-
-```python
-from threading import Thread
-import time
-
-
-def task(name):
-    print('%s is running'%name)
-    time.sleep(3)
-    print('%s is over'%name)
-
-
-if __name__ == '__main__':
-    t = Thread(target=task,args=('egon',))
-    t.start()
-    t.join()  # 主线程等待子线程运行结束再执行
-    print('主')
-```
-
-### 11.12.6，同一个进程下的多个线程数据是共享的
-
-```python
-from threading import Thread
-import time
-
-money = 100
-
-def task():
-    global money
-    money = 666
-    print(money)  ### 666
-
-if __name__ == '__main__':
-    t = Thread(target=task)
-    t.start()
-    t.join()
-    print(money) ## 666
-```
-
-### 11.12.7  线程对象属性及其他方法
-
-```python
-from threading import Thread, active_count, current_thread
-import os,time
-
-
-def task(n):
-    # print('hello world',os.getpid())
-    print('hello world',current_thread().name)
-    time.sleep(n)
-
-
-if __name__ == '__main__':
-    t = Thread(target=task,args=(1,))
-    t1 = Thread(target=task,args=(2,))
-    t.start()
-    t1.start()
-    t.join()
-    print('主',active_count())  # 统计当前正在活跃的线程数
-    # print('主',os.getpid())
-    # print('主',current_thread().name)  # 获取线程名字
-```
-
-### 11.12.8 守护线程
-
-```python
-from threading import Thread
-import time
-
-def task(name):
-    print('%s is running'%name)
-    time.sleep(1)
-    print('%s is over'%name)  ## 这句话不会执行，主线程结束了以后，子线程也就结束了
-
-
-if __name__ == '__main__':
-    t = Thread(target=task,args=('egon',))
-    t.daemon = True
-    t.start()
-    print('主')
-
-"""
-主线程运行结束之后不会立刻结束 会等待所有其他非守护线程结束才会结束
-    因为主线程的结束意味着所在的进程的结束
-"""
-# 稍微有一点迷惑性的例子
-from threading import Thread
-import time
-
-def foo():
-    print(123)
-    time.sleep(1)
-    print('end123')
-
-def func():
-    print(456)
-    time.sleep(3)
-    print('end456')
-
-if __name__ == '__main__':
-    t1 = Thread(target=foo)
-    t2 = Thread(target=func)
-    t1.daemon = True ## ts设置成主线程死了以后立马死掉，但是由于主线程运行完了以后还要等待t2,所以不会立马死掉
-    t1.start()
-    t2.start()
-    print('主.......')
-    
-    '''
-    123
-    456
-    主 ## 还要等待t2运行完，才会死掉
-    end123
-    end456
-    '''
-```
-
-### 11.12.9 线程互斥锁
-
-```python
-from threading import Thread,Lock
-import time
-
-money = 100
-mutex = Lock()
-
-def task():
-    global money
-    mutex.acquire()
-    tmp = money
-    time.sleep(0.1)
-    money = tmp - 1
-    mutex.release()
-
-
-if __name__ == '__main__':
-    t_list = []
-    for i in range(100):
-        t = Thread(target=task)
-        t.start()
-        t_list.append(t)
-    for t in t_list:
-        t.join()
-    print(money)
-```
-
-### 11.12.10 GIL全局解释器锁
-
-```python
-"""
-In CPython, the global interpreter lock, or GIL, is a mutex that prevents multiple 
-native threads from executing Python bytecodes at once. This lock is necessary mainly 
-because CPython’s memory management is not thread-safe. (However, since the GIL 
-exists, other features have grown to depend on the guarantees that it enforces.)
-"""
-"""
-python解释器其实有多个版本
-	Cpython
-	Jpython
-	Pypypython
-但是普遍使用的都是CPython解释器
-
-在CPython解释器中GIL是一把互斥锁，用来阻止同一个进程下的多个线程的同时执行
-	同一个进程下的多个线程无法利用多核优势！！！
-	疑问:python的多线程是不是一点用都没有？？？无法利用多核优势
-	
-因为cpython中的内存管理不是线程安全的
-内存管理(垃圾回收机制)
-	1.应用计数
-	2.标记清楚
-	3.分代回收
-	
-"""
-
-"""
-重点:
-	1.GIL不是python的特点而是CPython解释器的特点
-	2.GIL是保证解释器级别的数据的安全
-	3.GIL会导致同一个进程下的多个线程的无法同时执行即无法利用多核优势(******)
-	4.针对不同的数据还是需要加不同的锁处理 
-	5.解释型语言的通病:同一个进程下多个线程无法利用多核优势
-"""
-```
-
-### 11.12.11 GIL与普通互斥锁的区别
-
-```python
-from threading import Thread,Lock
-import time
-
-mutex = Lock()
-money = 100
-
-def task():
-    global money
-    # with mutex:
-    #     tmp = money
-    #     time.sleep(0.1)
-    #     money = tmp -1
-    mutex.acquire()
-    tmp = money
-    time.sleep(0.1)  # 只要你进入IO了 GIL会自动释放
-    money = tmp - 1
-    mutex.release()
-
-if __name__ == '__main__':
-    t_list = []
-    for i in range(100):
-        t = Thread(target=task)
-        t.start()
-        t_list.append(t)
-    for t in t_list:
-        t.join()
-    print(money)
-
-"""
-100个线程起起来之后  要先去抢GIL
-我进入io GIL自动释放 但是我手上还有一个自己的互斥锁
-其他线程虽然抢到了GIL但是抢不到互斥锁 
-最终GIL还是回到你的手上 你去操作数据
-"""
-```
-
-### 11.12.12 同一个进程下的多线程无法利用多核优势,是不是就没有用了
-
-```python
-"""
-多线程是否有用要看具体情况
-单核:四个任务(IO密集型\计算密集型)
-多核:四个任务(IO密集型\计算密集型)
-"""
-# 计算密集型   每个任务都需要10s
-    ## 单核(不用考虑了)
-        ## 多进程:额外的消耗资源
-      	## 多线程:介绍开销
-    ## 多核
-        ## 多进程:总耗时 10+
-      	## 多线程:总耗时 40+
-
-# IO密集型  
-    ## 多核
-      ## 多进程:相对浪费资源
-      ## 多线程:更加节省资源
-```
-
-#### 12-1 代码验证
-
-```python
-## 计算密集型
-    from multiprocessing import Process
-    from threading import Thread
-    import os,time
-
-
-    def work():
-        res = 0
-        for i in range(10000000):
-            res *= i
-
-    if __name__ == '__main__':
-        l = []
-        print(os.cpu_count())  # 获取当前计算机CPU个数
-        start_time = time.time()
-        for i in range(12):
-            p = Process(target=work)  # 1.4679949283599854
-            t = Thread(target=work)  # 5.698534250259399
-            t.start()
-            # p.start()
-            # l.append(p)
-            l.append(t)
-        for p in l:
-            p.join()
-        print(time.time()-start_time)
-
-
-# IO密集型
-    from multiprocessing import Process
-    from threading import Thread
-    import os,time
-
-
-    def work():
-        time.sleep(2)
-
-    if __name__ == '__main__':
-        l = []
-        print(os.cpu_count())  # 获取当前计算机CPU个数
-        start_time = time.time()
-        for i in range(4000):
-            # p = Process(target=work)  # 21.149890184402466
-            t = Thread(target=work)  # 3.007986068725586
-            t.start()
-            # p.start()
-            # l.append(p)
-            l.append(t)
-        for p in l:
-            p.join()
-        print(time.time()-start_time)
-```
-
-### 11.12.13 总结
-
-```python
-"""
-多进程和多线程都有各自的优势
-并且我们后面在写项目的时候通常可以
-	多进程下面再开设多线程
-这样的话既可以利用多核也可以介绍资源消耗
-"""
-```
-
-## 11.13 死锁与递归锁（了解）
-
-### 11.13.1 死锁
-
-```python
-## 当你知道锁的使用抢锁必须要释放锁，其实你在操作锁的时候也极其容易产生死锁现象(整个程序卡死 阻塞)
-
-from threading import Thread, Lock
-import time
-
-mutexA = Lock() ## 类不一样。产生的是不同的对象
-mutexB = Lock()
-
-# 类只要加括号多次 产生的肯定是不同的对象
-# 如果你想要实现多次加括号等到的是相同的对象 单例模式
-
-## 类实例化多次得到的都是同一个对象 ------------------- 单例模式
-
-class MyThead(Thread):
-    def run(self):
-        self.func1()
-        self.func2()
-
-    def func1(self):
-        mutexA.acquire()
-        print('%s 抢到A锁'% self.name)  # 获取当前线程名
-        mutexB.acquire()
-        print('%s 抢到B锁'% self.name)
-        mutexB.release()
-        mutexA.release()
-        
-    def func2(self):
-        mutexB.acquire()
-        print('%s 抢到B锁'% self.name)
-        time.sleep(2)
-        mutexA.acquire()
-        print('%s 抢到A锁'% self.name)  # 获取当前线程名
-        mutexA.release()
-        mutexB.release()
-
-
-if __name__ == '__main__':
-    for i in range(10):
-        t = MyThead()
-        t.start()
-```
-
-### 11.13.2 递归锁
-
-```python
-from threading import Thread, Lock,Rlock()
-"""
-递归锁的特点	
-	可以被连续的acquire和release
-	但是只能被第一个抢到这把锁执行上述操作
-	它的内部有一个计数器 每acquire一次计数加一 每realse一次计数减一
-	只要计数不为0 那么其他人都无法抢到该锁
-"""
-# 将上述的
-mutexA = Lock()
-mutexB = Lock()
-# 换成
-mutexA = mutexB = RLock()
-
-## 只要有人抢锁count加一，释放锁count减一，
-## 如11.13.1 所示
- def func1(self):
-        mutexA.acquire()  ## AA抢到了  A锁  count = 1
-        print('%s 抢到A锁'% self.name)  # 获取当前线程名
-        mutexB.acquire()   ## AA抢到了  B锁  count = 2
-        print('%s 抢到B锁'% self.name)
-        mutexB.release()  ## AA释放了  B锁  count = 1
-        mutexA.release() ## AA释放了  A锁  count = 0    count = 0 时其他人才可以抢，所以不会出现死锁
-        
-    def func2(self):
-        mutexB.acquire()
-        print('%s 抢到B锁'% self.name)
-        time.sleep(2)
-        mutexA.acquire()
-        print('%s 抢到A锁'% self.name)  # 获取当前线程名
-        mutexA.release()
-        mutexB.release()
-```
-
-## 11.14 信号量（了解）
-
-信号量在不同的阶段可能对应不同的技术点
-
-在并发编程中信号量指的是锁!!!
-
-```python
-"""
-如果我们将互斥锁比喻成一个厕所的话
-那么信号量就相当于多个厕所
-"""
-from threading import Thread, Semaphore
-import time
-import random
-
-
-"""
-利用random模块实现打印随机验证码(搜狗的一道笔试题)
-"""
-sm = Semaphore(5)  # 括号内写数字 写几就表示开设几个坑位
-
-
-def task(name):
-    sm.acquire()
-    print('%s 正在蹲坑'% name)
-    time.sleep(random.randint(1, 5))
-    sm.release()
-
-
-if __name__ == '__main__':
-    for i in range(20):
-        t = Thread(target=task, args=('伞兵%s号'%i, ))
-        t.start()
-```
-
-## 11.16  线程Q（了解）
-
-```Python
-"""
-同一个进程下多个线程数据是共享的
-为什么先同一个进程下还会去使用队列呢
-因为队列是
-    管道 + 锁
-所以用队列还是为了保证数据的安全
-"""
-import queue
-
-# 我们现在使用的队列都是只能在本地测试使用
-
-# 1 队列q  先进先出
-# q = queue.Queue(3)
-# q.put(1)
-# q.get()
-# q.get_nowait()
-# q.get(timeout=3)
-# q.full()
-# q.empty()
-
-
-# 后进先出q
-# q = queue.LifoQueue(3)  # last in first out
-# q.put(1)
-# q.put(2)
-# q.put(3)
-# print(q.get())  # 3
-
-# 优先级q   你可以给放入队列中的数据设置进出的优先级
-q = queue.PriorityQueue(4)
-q.put((10, '111'))
-q.put((100, '222'))
-q.put((0, '333'))
-q.put((-5, '444'))
-print(q.get())  # (-5, '444')
-# put括号内放一个元祖  第一个放数字表示优先级
-# 需要注意的是 数字越小优先级越高!!!
-```
-
-## 11.17 进程池和线程池（掌握）
-
-先回顾之前TCP服务端实现并发的效果是怎么玩的
-
-每来一个人就开设一个进程或者线程去处理
-
-```python
-"""
-无论是开设进程也好还是开设线程也好 是不是都需要消耗资源
-只不过开设线程的消耗比开设进程的稍微小一点而已
-
-我们是不可能做到无限制的开设进程和线程的 因为计算机硬件的资源更不上！！！
-硬件的开发速度远远赶不上软件呐
-
-我们的宗旨应该是在保证计算机硬件能够正常工作的情况下最大限度的利用它
-"""
-# 池的概念
-"""
-什么是池?
-	池是用来保证计算机硬件安全的情况下最大限度的利用计算机
-	它降低了程序的运行效率但是保证了计算机硬件的安全 从而让你写的程序能够正常运行
-"""
-```
-
-### 11.17.1 线程池--进程池的基本使用
-
-```
-from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
-import time
-import os
-
-
-# pool = ThreadPoolExecutor(5)  # 池子里面固定只有五个线程
-# 括号内可以传数字 不传的话默认会开设当前计算机cpu个数五倍的线程
-pool = ProcessPoolExecutor(5)
-# 括号内可以传数字 不传的话默认会开设当前计算机cpu个数进程
-"""
-池子造出来之后 里面会固定存在五个线程
-这个五个线程不会出现重复创建和销毁的过程
-
-池子造出来之后 里面会固定的几个进程
-这个几个进程不会出现重复创建和销毁的过程
-
-池子的使用非常的简单
-你只需要将需要做的任务往池子中提交即可 自动会有人来服务你
-"""
-
-def task(n):
-    print(n,os.getpid())
-    time.sleep(2)
-    return n**n
-
-## 回调函数
-def call_back(n):
-    print('call_back>>>:',n.result()) ## 这里可以拿到结果
-"""
-任务的提交方式
-    同步:提交任务之后原地等待任务的返回结果 期间不做任何事
-    
-    异步:提交任务之后不等待任务的返回结果 执行继续往下执行
-        返回结果如何获取？？？
-        异步提交任务的返回结果 应该通过回调机制来获取
-        回调机制
-            就相当于给每个异步任务绑定了一个定时炸弹
-            一旦该任务有结果立刻触发爆炸
-"""
-## 第一种：变运行任务，变打印结果
-if __name__ == '__main__':
-    # pool.submit(task, 1)  # 朝池子中提交任务  异步提交
-    # print('主')
-    t_list = []
-    for i in range(20):  # 朝池子中提交20个任务
-        # res = pool.submit(task, i)  # <Future at 0x100f97b38 state=running>
-        res = pool.submit(task, i).add_done_callback(call_back)
-        print(res.result())  # result方法   同步提交
-       t_list.append(res)
-    for t in t_list:
-       print('>>>:',t.result())  # 肯定是有序的
-"""
-程序有并发变成了串行
-任务的为什么打印的是None：因为函数没有指定返回值
-res.result() 拿到的就是异步提交的任务的返回结果
-"""
-
-## 第二种： 等待线程池中或进程池中所有的任务执行完毕之后再继续往下执行
-if __name__ == '__main__':
-    t_list = []
-    for i in range(20):  # 朝池子中提交20个任务
-        # res = pool.submit(task, i)  # <Future at 0x100f97b38 state=running>
-        res = pool.submit(task, i).add_done_callback(call_back)
-    # 等待线程池中所有的任务执行完毕之后再继续往下执行
-    pool.shutdown()  # 关闭线程池  等待线程池中所有的任务运行完毕
-    for t in t_list:
-       print('>>>:',t.result())  # 肯定是有序的
-    
-    ## 结果就是先运行完所有的任务，然后一起打印结果
-```
-
-### 11.18.2 总结
-
-```python
-from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
-pool = ProcessPoolExecutor(5)
-pool.submit(task, i).add_done_callback(call_back)
-```
-
-
-
-## 11.18 协程
-
-```Python
-"""
-进程:资源单位
-线程:执行单位
-协程:这个概念完全是程序员自己意淫出来的 根本不存在
-		单线程下实现并发
-		我们程序员自己再代码层面上检测我们所有的IO操作
-		一旦遇到IO了 我们在代码级别完成切换
-		这样给CPU的感觉是你这个程序一直在运行 没有IO
-		从而提升程序的运行效率
-	
-多道技术
-	切换+保存状态
-	CPU两种切换
-		1.程序遇到IO
-		2.程序长时间占用
-
-TCP服务端 
-	accept
-	recv
-	
-代码如何做到
-	切换+保存状态
-
-切换
-	切换不一定是提升效率 也有可能是降低效率
-	IO切			提升
-	没有IO切 降低
-		
-保存状态
-	保存上一次我执行的状态 下一次来接着上一次的操作继续往后执行
-	yield
-"""
-```
-
-### 11.18.1 验证切换是否就一定提升效率
-
-```python
-import time
-
-# # 串行执行计算密集型的任务   1.2372429370880127
-def func1():
-    for i in range(10000000):
-        i + 1
-
-def func2():
-    for i in range(10000000):
-        i + 1
-
-start_time = time.time()
-func1()
-func2()
-print(time.time() - start_time)
-
-# 切换 + yield  2.1247239112854004
-import time
-
-def func1():
-    while True:
-         10000000 + 1
-         yield
-
-
-def func2():
-    g = func1()  # 先初始化出生成器
-    for i in range(10000000):
-       i + 1
-       next(g)
-
-start_time = time.time()
-func2()
-print(time.time() - start_time)
-```
-
-### 11.18.2 gevent模块(了解)
-
-```python
-pip3 install gevent
-from gevent import monkey;monkey.patch_all()
-import time
-from gevent import spawn
-
-"""
-gevent模块本身无法检测常见的一些io操作
-在使用的时候需要你额外的导入一句话
-from gevent import monkey
-monkey.patch_all()
-又由于上面的两句话在使用gevent模块的时候是肯定要导入的
-所以还支持简写
-from gevent import monkey;monkey.patch_all()
-"""
-
-def heng():
-    print('哼')
-    time.sleep(2)
-    print('哼')
-
-
-def ha():
-    print('哈')
-    time.sleep(3)
-    print('哈')
-
-def heiheihei():
-    print('heiheihei')
-    time.sleep(5)
-    print('heiheihei')
-
-
-start_time = time.time()
-g1 = spawn(heng)
-g2 = spawn(ha)
-g3 = spawn(heiheihei)
-g1.join()
-g2.join()  # 等待被检测的任务执行完毕 再往后继续执行
-g3.join()
-# heng()
-# ha()
-# print(time.time() - start_time)  # 5.005702018737793
-print(time.time() - start_time)  # 3.004199981689453   5.005439043045044
-```
-
-### 11.18.3 协程实现TCP服务端的并发
-
-```python
-# 服务端
-from gevent import monkey;monkey.patch_all()
-import socket
-from gevent import spawn
-
-
-def communication(conn):
-    while True:
-        try:
-            data = conn.recv(1024)
-            if len(data) == 0: break
-            conn.send(data.upper())
-        except ConnectionResetError as e:
-            print(e)
-            break
-    conn.close()
-
-
-def server(ip, port):
-    server = socket.socket()
-    server.bind((ip, port))
-    server.listen(5)
-    while True:
-        conn, addr = server.accept()
-        spawn(communication, conn)
-
-
-if __name__ == '__main__':
-    g1 = spawn(server, '127.0.0.1', 8080)
-    g1.join()
-
-    
-# 客户端
-from threading import Thread, current_thread
-import socket
-
-
-def x_client():
-    client = socket.socket()
-    client.connect(('127.0.0.1',8080))
-    n = 0
-    while True:
-        msg = '%s say hello %s'%(current_thread().name,n)
-        n += 1
-        client.send(msg.encode('utf-8'))
-        data = client.recv(1024)
-        print(data.decode('utf-8'))
-
-
-if __name__ == '__main__':
-    for i in range(500):
-        t = Thread(target=x_client)
-        t.start()
-```
-
-### 11.18.4 总结
-
-```python
-"""
-理想状态:
-	我们可以通过
-	多进程下面开设多线程
-	多线程下面再开设协程序
-	从而使我们的程序执行效率提升
-"""
-```
-
-## 11.19 IO模型
-
-### 11.19.1 IO模型简介
-
-```python
-"""
-我们这里研究的IO模型都是针对网络IO的
-Stevens在文章中一共比较了五种IO Model：
-    * blocking IO           阻塞IO
-    * nonblocking IO      非阻塞IO
-    * IO multiplexing      IO多路复用
-    * signal driven IO     信号驱动IO
-    * asynchronous IO    异步IO
-    由signal driven IO（信号驱动IO）在实际中并不常用，所以主要介绍其余四种IO Model。
-"""
-#1）等待数据准备 (Waiting for the data to be ready)
-#2）将数据从内核拷贝到进程中(Copying the data from the kernel to the process)
-
-## 同步异步
-## 阻塞非阻塞
-## 常见的网络阻塞状态:
-  	accept
-    recv
-    recvfrom
-    
-    ## send虽然它也有io行为 但是不在我们的考虑范围
-```
-
-### 11.19.2 阻塞IO模型
-
-```python
-"""
-我们之前写的都是阻塞IO模型  协程除外
-"""
-import socket
-
-
-server = socket.socket()
-server.bind(('127.0.0.1',8080))
-server.listen(5)
-
-
-while True:
-    conn, addr = server.accept()
-    while True:
-        try:
-            data = conn.recv(1024)
-            if len(data) == 0:break
-            print(data)
-            conn.send(data.upper())
-        except ConnectionResetError as e:
-            break
-    conn.close()
-    
-# 在服务端开设多进程或者多线程 进程池线程池 其实还是没有解决IO问题	
-## 该等的地方还是得等 没有规避
-## 只不过多个人等待的彼此互不干扰
-```
-
-### 11.19.3 非阻塞IO
-
-```python
-"""
-要自己实现一个非阻塞IO模型
-"""
-import socket
-import time
-
-
-server = socket.socket()
-server.bind(('127.0.0.1', 8081))
-server.listen(5)
-# 将所有的网络阻塞变为非阻塞
-server.setblocking(False)
-r_list = []
-del_list = []
-while True:
-    try:
-        conn, addr = server.accept()
-        r_list.append(conn)
-    except BlockingIOError:
-        # time.sleep(0.1)
-        # print('列表的长度:',len(r_list))
-        # print('做其他事')
-        for conn in r_list:
-            try:
-                data = conn.recv(1024)  # 没有消息 报错
-                if len(data) == 0:  # 客户端断开链接
-                    conn.close()  # 关闭conn
-                    # 将无用的conn从r_list删除
-                    del_list.remove(conn)
-                    continue
-                conn.send(data.upper())
-            except BlockingIOError:
-                continue
-            except ConnectionResetError:
-                conn.close()
-                del_list.append(conn)
-        # 挥手无用的链接
-        for conn in del_list:
-            r_list.remove(conn)
-        del_list.clear()
-
-# 客户端
-import socket
-
-
-client = socket.socket()
-client.connect(('127.0.0.1',8081))
-
-
-while True:
-    client.send(b'hello world')
-    data = client.recv(1024)
-    print(data)
-```
-
-### 11.19.4 总结
-
-```python
-"""
-虽然非阻塞IO给你的感觉非常的牛逼
-但是该模型会	长时间占用着CPU并且不干活 让CPU不停的空转
-我们实际应用中也不会考虑使用非阻塞IO模型
-
-任何的技术点都有它存在的意义 
-实际应用或者是思想借鉴
-"""
-```
-
-### 11.19.5 IO多路复用
-
-```python
-"""
-当监管的对象只有一个的时候 其实IO多路复用连阻塞IO都比比不上！！！
-但是IO多路复用可以一次性监管很多个对象
-
-server = socket.socket()
-conn,addr = server.accept()
-
-监管机制是操作系统本身就有的 如果你想要用该监管机制(select)
-需要你导入对应的select模块
-"""
-import socket
-import select
-
-
-server = socket.socket()
-server.bind(('127.0.0.1',8080))
-server.listen(5)
-server.setblocking(False)
-read_list = [server]
-
-
-while True:
-    r_list, w_list, x_list = select.select(read_list, [], [])
-    """
-    帮你监管
-    一旦有人来了 立刻给你返回对应的监管对象
-    """
-    # print(res)  # ([<socket.socket fd=3, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 8080)>], [], [])
-    # print(server)
-    # print(r_list)
-    for i in r_list:  #
-        """针对不同的对象做不同的处理"""
-        if i is server:
-            conn, addr = i.accept()
-            # 也应该添加到监管的队列中
-            read_list.append(conn)
-        else:
-            res = i.recv(1024)
-            if len(res) == 0:
-                i.close()
-                # 将无效的监管对象 移除
-                read_list.remove(i)
-                continue
-            print(res)
-            i.send(b'heiheiheiheihei')
-
- # 客户端
-import socket
-
-
-client = socket.socket()
-client.connect(('127.0.0.1',8080))
-
-
-while True:
-
-    client.send(b'hello world')
-    data = client.recv(1024)
-    print(data)
-```
-
-### 11.19.6 总结
-
-```python
-"""
-监管机制其实有很多
-select机制  windows linux都有
-
-poll机制    只在linux有   poll和select都可以监管多个对象 但是poll监管的数量更多
-
-上述select和poll机制其实都不是很完美 当监管的对象特别多的时候
-可能会出现 极其大的延时响应
-
-epoll机制   只在linux有
-	它给每一个监管对象都绑定一个回调机制
-	一旦有响应 回调机制立刻发起提醒
-
-针对不同的操作系统还需要考虑不同检测机制 书写代码太多繁琐
-有一个人能够根据你跑的平台的不同自动帮你选择对应的监管机制
-selectors模块
-"""
-```
-
-### 11.19.7 异步IO
-
-```python
-"""
-异步IO模型是所有模型中效率最高的 也是使用最广泛的
-相关的模块和框架
-	模块:asyncio模块
-	异步框架:sanic tronado twisted
-		速度快！！！
-"""
-import threading
-import asyncio
-
-
-@asyncio.coroutine
-def hello():
-    print('hello world %s'%threading.current_thread())
-    yield from asyncio.sleep(1)  # 换成真正的IO操作
-    print('hello world %s' % threading.current_thread())
-
-
-loop = asyncio.get_event_loop()
-tasks = [hello(),hello()]
-loop.run_until_complete(asyncio.wait(tasks))
-loop.close()
-```
 
