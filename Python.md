@@ -34,10 +34,10 @@
 - **规则**：遵循标识符的规则
 - **命名规范**：
 
-  - 使用有意义的名称，以便代码可读
-  - 对于变量名使用小写字母，多个单词用下划线分隔（如 `total_sum`）
-  - 类名通常使用驼峰命名法（如 `MyClass`）
-  - 常量（不变的值）通常使用全大写字母（如 `MAX_SIZE`）
+    - 使用有意义的名称，以便代码可读
+    - 对于变量名使用小写字母，多个单词用下划线分隔（如 `total_sum`）
+    - 类名通常使用驼峰命名法（如 `MyClass`）
+    - 常量（不变的值）通常使用全大写字母（如 `MAX_SIZE`）
 
 
 
@@ -71,7 +71,6 @@
 > **复合数据类型**：
 >
 > 列表（list）   元组（tuple）   字典（dict）   集合（set）
->
 
 
 
@@ -420,7 +419,7 @@ print(text.replace("World", "Python"))  # 输出 'Hello Python'
 >
 > **解码：`字符串.decode('解码方式')`**
 >
->  
+> 
 >
 > 获取字符串的Unicode码：`ord(字符串)`
 >
@@ -804,7 +803,6 @@ print(a,b,c)          # 1 [2, 3, 4] 5
 > 1. **多值返回**：函数返回多个值时，可以将它们放在一个元组中
 > 2. **字典键**：元组可以作为字典的键（因为元组是不可变类型），而列表不行
 > 3. **不需要修改的数据**：当数据不需要修改时，用元组可以避免数据被意外改变，提高代码的安全性和可读性
->
 
 
 
@@ -989,7 +987,7 @@ for key, value in person.items():
 >
 > 你可以按任意顺序返回答案。
 >
->  
+> 
 >
 > **示例 1：**
 >
@@ -1167,22 +1165,21 @@ print(greet())             # Hello!
 > ```python
 > count = 0
 > def increment():
->        global count  # 声明count为全局变量
->        count += 1
+>     global count  # 声明count为全局变量
+>     count += 1
 > ```
 >
 > **修改嵌套作用域变量：`nonlocal`**
 >
 > ```python
 > def outer():
->        x = 10
->        def inner():
->            nonlocal x  # 声明x为外层变量
->            x += 5
->        inner()
->        print(x)  # 15
+>     x = 10
+>     def inner():
+>         nonlocal x  # 声明x为外层变量
+>         x += 5
+>     inner()
+>     print(x)  # 15
 > ```
-> 
 
 
 
@@ -1194,9 +1191,9 @@ print(greet())             # Hello!
 >
 > ```python
 > def 奶茶店(糖度):
->        def 取餐(号码):
->            return f"{糖度}糖的奶茶"  # 自动记住糖度！
->        return 取餐
+>     def 取餐(号码):
+>         return f"{糖度}糖的奶茶"  # 自动记住糖度！
+>     return 取餐
 > 
 > 我的专属 = 奶茶店("少糖")  # 说一次就够了
 > 
@@ -1235,19 +1232,21 @@ print(c())  # 2
 
 ### 装饰器
 
+> 原函数 → 传给装饰器 → 返回一个新函数 → 替换原函数
+
 > 在不改变原函数代码的情况下，给函数添加新功能
 >
 > ```python
 > # 比如有个函数会打招呼：
 > def say_hello():
->    	 print("你好！")
+> 	 print("你好！")
 > 
 > # 每次打招呼前（或者后），都说“我叫尹文轩”
 > def new_say_hello(func):
->        def new():
->            print("我叫尹文轩")   # 外加的功能
->            func()              # 调用原来的函数
->        return new
+>     def new():
+>         print("我叫尹文轩")   # 外加的功能
+>         func()              # 调用原来的函数
+>     return new
 > 
 > # 使用：把原函数"包"一下
 > say_hello = new_say_hello(say_hello)
@@ -1258,14 +1257,14 @@ print(c())  # 2
 >
 > ```python
 > def new_say_hello(func):
->        def new():
->            print("我叫尹文轩")
->            func()
->        return new
+>     def new():
+>         print("我叫尹文轩")
+>         func()
+>     return new
 > 
 > @new_say_hello
 > def say_hello():
->        print("你好！")
+>     print("你好！")
 > 
 > 
 > say_hello()
@@ -2045,7 +2044,7 @@ for i in sorted_student:
 >
 > 
 >
-> **`__name__`**是Python的内置变量
+> **`__name__`** 是Python的内置变量
 >
 > 如果文件当做主程序直接运行，Python会把`__name__`的值设为`"__main__"`（意思是“主程序"）
 >
@@ -2080,6 +2079,8 @@ from 模块名 import 成员 as 别名
 > 文件夹里必须有一个名为 `__init__.py` 的文件
 >
 > 库：好多文件夹
+
+
 
 
 
@@ -2340,6 +2341,12 @@ re.findall(r'"(.*?)"', text)      # ['100元', '200元']    — 非贪婪
 #### `re.search(pattern, str, flags=0)`
 
 > 返回第一个匹配的 Match 对象，没有返回 None
+>
+> `pattern` ：要查找的正则表达式规则
+>
+> `str` ：文本目标
+>
+> `flags`（可选）：匹配模式开关，多个模式用 `I` 连接，如 `flags = re.I | re.M`
 
 ```python
 import re
@@ -2356,8 +2363,6 @@ print(a.group(1))  # 123             # 打印捕获组
 #### `re.match(pattern, str, flags=0)`
 
 > 如果开头（索引0开始）不匹配则返回 `None`
->
-> `flags` ：编译标志，默认不启用
 
 #### `re.findall(pattern, str, flags=0)`
 
@@ -2417,241 +2422,6 @@ pattern = re.compile(r"""
 
 a = pattern.search('2026-05-31').groups()
 print(a)   # ('2026', '05', '31')
-```
-
-
-
-
-
-
-
-## 8, sys模块
-
-```python
-1 sys.argv           # 命令行参数List，第一个元素是程序本身路径，用于获取终端里的参数
-2 sys.exit(n)        # 退出程序，正常退出时exit(0)
-3 sys.version        # 获取Python解释程序的版本信息
-4 sys.maxint         # 最大的Int值
-5 sys.path           # 返回模块的搜索路径，初始化时使用PYTHONPATH环境变量的值
-6 sys.platform       # 返回操作系统平台名称
-```
-
-### 8.1 打印进度条
-
-```python
-import time
-
-def process():
-	recv_size = 0
-	total_size = 333333
-	
-	while recv_size < total_size:
-		# 下载了1024个字节数据
-		time.sleep(0.05)
-		recv_size += 1024
-        if recv_size > total_size:
-			recv_size = total_size
-		percent = recv_size / total_size
-		res = int(50 * percent) * "#"
-		# 打印进度条
-		print('\r[%-50s] %d%%' % (res,100 * percent) ,end='')
-
-
-process()
-
-## [##################################################] 100%
-```
-
-## 9，shutii 模块
-
-```python
-import shutill
-
-# 将文件内容拷贝到另一个文件中
-shutil.copyfileobj(open('old.xml','r'), open('new.xml', 'w'))
-    
-# 仅拷贝权限。内容、组、用户均不变
-shutil.copymode('f1.log', 'f2.log')   #目标文件必须存在
-
-# 拷贝文件
-shutil.copyfile('f1.log', 'f2.log') #目标文件无需存在
-
-# 仅拷贝状态的信息，包括：mode bits, atime, mtime, flags
-shutil.copystat('f1.log', 'f2.log') #目标文件必须存在
-
-# 拷贝文件和权限
-shutil.copy('f1.log', 'f2.log')
-
-# 拷贝文件和状态信息
-shutil.copy2('f1.log', 'f2.log')
-
-# 递归的去拷贝文件夹
-
-shutil.copytree('folder1', 'folder2', ignore=shutil.ignore_patterns('*.pyc', 'tmp*')) 
-# 目标目录不能存在，注意对folder2目录父级目录要有可写权限，ignore的意思是排除
-
-shutil.copytree('f1', 'f2', symlinks=True, ignore=shutil.ignore_patterns('*.pyc', 'tmp*'))
-'''
-通常的拷贝都把软连接拷贝成硬链接，即对待软连接来说，创建新的文件
-'''
-
-#递归的去删除文件
-shutil.rmtree('folder1')
-
-#递归的去移动文件，它类似mv命令，其实就是重命名。
-shutil.move('folder1', 'folder3')
-
-# 创建压缩包并返回文件路径，例如：zip、tar
-# 创建压缩包并返回文件路径，例如：zip、tar
-
-base_name： 压缩包的文件名，也可以是压缩包的路径。只是文件名时，则保存至当前目录，否则保存至指定路径，
-    # 如 data_bak  =>保存至当前路径
-    # 如：/tmp/data_bak =>保存至/tmp/
-format： 压缩包种类，“zip”, “tar”, “bztar”，“gztar”
-root_dir： 要压缩的文件夹路径（默认当前目录）
-owner： 用户，默认当前用户
-group： 组，默认当前组
-logger： 用于记录日志，通常是logging.Logger对象
-
-
-#将 /data 下的文件打包放置当前程序目录
-ret = shutil.make_archive("data_bak", 'gztar', root_dir='/data')
-
-#将 /data下的文件打包放置 /tmp/目录
-ret = shutil.make_archive("/tmp/data_bak", 'gztar', root_dir='/data') 
-
-
-#shutil 对压缩包的处理是调用 ZipFile 和 TarFile 两个模块来进行的，详细：
-import zipfile
-    # 压缩
-        z = zipfile.ZipFile('laxi.zip', 'w')
-        z.write('a.log')
-        z.write('data.data')
-        z.close()
-
-    # 解压
-        z = zipfile.ZipFile('laxi.zip', 'r')
-        z.extractall(path='.')
-        z.close()
-
-
-import tarfile
-   # 压缩
-       t=tarfile.open('/tmp/egon.tar','w')
-       t.add('/test1/a.py',arcname='a.bak')
-       t.add('/test1/b.py',arcname='b.bak')
-       t.close()
-
-
-    # 解压
-        t=tarfile.open('/tmp/egon.tar','r')
-        t.extractall('/egon')
-        t.close()
-```
-
-
-
-## 11，configparser模块（导入某种格式的配置文件）
-
-```Python
-## 配置文件内容
-
-[section1]
-k1 = v1
-k2:v2
-user=egon
-age=18
-is_admin=true
-salary=31
-
-[section2]
-k1 = v1
-
-```
-
-### 11.1 读取
-
-```Python
-import configparser
-
-config=configparser.ConfigParser()
-config.read('a.cfg') # 读取配置文件
-
-#查看所有的标题
-res=config.sections() #['section1', 'section2']
-print(res)
-
-#查看标题section1下所有key=value的key
-options=config.options('section1')
-print(options) #['k1', 'k2', 'user', 'age', 'is_admin', 'salary']
-
-#查看标题section1下所有key=value的(key,value)格式
-item_list=config.items('section1')
-print(item_list) 
-#[('k1', 'v1'), ('k2', 'v2'), ('user', 'egon'), ('age', '18'), ('is_admin', 'true'), ('salary', '31')]
-
-#查看标题section1下user的值=>字符串格式
-val=config.get('section1','user')
-print(val) #egon
-
-#查看标题section1下age的值=>整数格式
-val1=config.getint('section1','age')
-print(val1) #18
-
-#查看标题section1下is_admin的值=>布尔值格式
-val2=config.getboolean('section1','is_admin')
-print(val2) #True
-
-#查看标题section1下salary的值=>浮点型格式
-val3=config.getfloat('section1','salary')
-print(val3) #31.0
-
-```
-
-
-
-### 11.2  改写
-
-```python
-import configparser
-
-config=configparser.ConfigParser()
-config.read('a.cfg',encoding='utf-8')
-
-
-#删除整个标题section2
-config.remove_section('section2')
-
-#删除标题section1下的某个k1和k2
-config.remove_option('section1','k1')
-config.remove_option('section1','k2')
-
-#判断是否存在某个标题
-print(config.has_section('section1'))
-
-#判断标题section1下是否有user
-print(config.has_option('section1',''))
-
-
-#添加一个标题
-config.add_section('egon')
-
-#在标题egon下添加name=egon,age=18的配置
-config.set('egon','name','egon')
-config.set('egon','age',18) #报错,必须是字符串
-
-
-#最后将修改的内容写入文件,完成最终的修改
-config.write(open('a.cfg','w'))
-```
-
-## 12 hashlib 模块
-
-```Python
-# hash是一类算法，该算法根据传入的内容，经过运算得到一串哈希值
-
-# hash值的特单
-	1，传入的内容一样，则得到的能反向破解
 ```
 
 
@@ -2771,8 +2541,8 @@ for i in p.cwd().iterdir():
 >
 > ```python
 > with open('file.txt', 'r', encoding='utf-8') as f:
->        content = f.read()
->        print(content)
+>     content = f.read()
+>     print(content)
 > # 退出 with 块后自动关闭文件
 > ```
 
@@ -3194,7 +2964,6 @@ s.astype(float)
 ## `DataFrame(data, index, columns)`
 
 > 多个 Series 按列拼起来的二维表，由三部分组成：**index**（行索引），**columns**（列索引），**values**（二维Numpy数组）
->
 
 ### 1. 创建
 
@@ -3663,11 +3432,11 @@ print(df)
 >
 > ```python
 > pd.pivot_table(
->     data,          # 数据表
->     index,         # 行分组字段
->     columns,       # 列分组字段
->     values,        # 要统计的数值列
->     aggfunc        # 统计方法
+>  data,          # 数据表
+>  index,         # 行分组字段
+>  columns,       # 列分组字段
+>  values,        # 要统计的数值列
+>  aggfunc        # 统计方法
 > )
 > ```
 >
@@ -3677,11 +3446,11 @@ print(df)
 >
 > ```python
 > pd.pivot_table(
->     data=df,
->     index='region',
->     columns='category',
->     values=['sales'],
->     aggfunc=['mean']
+>  data=df,
+>  index='region',
+>  columns='category',
+>  values=['sales'],
+>  aggfunc=['mean']
 > )
 > ```
 
@@ -4378,7 +4147,7 @@ s.close()
 > `conn`  表示与客户端通信的新 Socket 对象
 > `addr`  表示客户端地址
 >
->  
+> 
 >
 > `data = conn.recv(1024)` 表示最多读取 1024 字节的数据
 >
@@ -4523,12 +4292,12 @@ print(num)           # (100,)
 > 主要的三种方式：
 >
 > ```
->                多任务编程
->                    │
->       ┌────────────┼────────────┐
->       │            │            │
->     多线程       多进程         协程
->    (Thread)    (Process)     (Asyncio)
+>             多任务编程
+>                 │
+>    ┌────────────┼────────────┐
+>    │            │            │
+>  多线程       多进程         协程
+> (Thread)    (Process)     (Asyncio)
 > ```
 
 ### 多进程
@@ -4613,6 +4382,8 @@ p.join()
 
 
 ## 六、`threading` 模块
+
+> 用于**多线程编程**的核心模块
 
 ### 创建线程
 
@@ -4928,6 +4699,10 @@ django-admin startproject mysite
 
 # pymysql
 
+```cmd
+pip install pymysql
+```
+
 ```python
 import pymysql
 ```
@@ -5055,9 +4830,102 @@ with mysql.cursor() as cur:
 
 
 
+# pymongo
+
+```cmd
+pip install pymongo
+```
+
+```python
+import pymongo
+```
+
+## 连接数据库
+
+```python
+import pymongo
+
+client = pymongo.MongoClient('mongodb://localhost:27017/')
+```
 
 
-# 爬虫
+
+## 获取数据库
+
+> 如果不存在，MongoDB会在第一次插入数据时自动创建
+
+```python
+db = client["test"]
+```
+
+
+
+## 获取集合
+
+```python
+collection = db["users"]
+```
+
+
+
+## 插入数据
+
+### 插入一条
+
+```python
+data = {
+    "name":"张三",
+    "age":18,
+    "job":"安全工程师"
+}
+
+
+collection.insert_one(data)
+```
+
+### 插入多条
+
+```python
+users = [
+    {
+        "name":"Tom",
+        "age":20
+    },
+    {
+        "name":"Jack",
+        "age":22
+    }
+]
+
+
+collection.insert_many(users)
+```
+
+
+
+
+
+
+
+# Redis
+
+```cmd
+pip install redis
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+# 爬虫基础
 
 > **通用网络爬虫：**搜索引擎使用，遵守 robots 协议（属于君子协议），告诉来访的爬虫：哪些页面可以抓取，哪些不允许抓取
 >
@@ -5067,7 +4935,7 @@ with mysql.cursor() as cur:
 >
 > **聚焦网络爬虫：**自己写的爬虫程序
 >
->  
+> 
 >
 > <span style='font-size:20px'>**`requests` 模块：**</span>
 >
@@ -5107,6 +4975,14 @@ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)
 
 ```
 Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:136.0) Gecko/20100101 Firefox/136.0
+```
+
+#### 随机生成各种浏览器的 User-Agent
+
+```python
+from fake_useragent import UserAgent
+
+{'User-Agent': UserAgent().random}
 ```
 
 
@@ -5214,6 +5090,18 @@ parse_querys = parse.urlencode(querys)
 print(parse_querys)    # q=python+%E7%88%AC%E8%99%AB&page=1&tag=%E6%95%99%E7%A8%8B
 ```
 
+### `URL` 查询字符串解析成字典
+
+```python
+from urllib.parse import parse_qs
+```
+
+```python
+result = parse_qs('name=John&age=30&hobby=run&hobby=swim')
+print(result)
+# 输出：{'name': ['John'], 'age': ['30'], 'hobby': ['run', 'swim']}
+```
+
 
 
 
@@ -5234,16 +5122,16 @@ print(parse_querys)    # q=python+%E7%88%AC%E8%99%AB&page=1&tag=%E6%95%99%E7%A8%
 > import csv
 > 
 > with open('example.csv', 'r', newline='', encoding='utf-8') as f:
->     	reader = csv.reader(f)  # 默认分隔符是逗号
->        for row in reader:
->            print(row)
+>  	reader = csv.reader(f)  # 默认分隔符是逗号
+>     for row in reader:
+>         print(row)
 > ```
 >
 > 每行返回一个列表
 >
-> 可以通过`delimiter`参数自定义分隔符
+> 可以通过 `delimiter` 参数自定义分隔符
 >
-> `newline=''`是官方推荐用法，防止换行符被错误解析
+> `newline=''` 是官方推荐用法，防止换行符被错误解析
 
 ### 写入
 
@@ -5251,14 +5139,14 @@ print(parse_querys)    # q=python+%E7%88%AC%E8%99%AB&page=1&tag=%E6%95%99%E7%A8%
 > import csv
 > 
 > data = [
->     ['姓名', '年龄', '城市'],
->     ['小明', 18, '北京'],
->     ['小红', 20, '上海']
+>  ['姓名', '年龄', '城市'],
+>  ['小明', 18, '北京'],
+>  ['小红', 20, '上海']
 > ]
 > 
 > with open('output.csv', 'w', newline='', encoding='utf-8') as f:
->        writer = csv.writer(f)
->        writer.writerows(data)  # writerows 可以写入多行
+>     writer = csv.writer(f)
+>     writer.writerows(data)  # writerows 可以写入多行
 > ```
 >
 > `writer.writerow()` 写一行
@@ -5271,13 +5159,14 @@ print(parse_querys)    # q=python+%E7%88%AC%E8%99%AB&page=1&tag=%E6%95%99%E7%A8%
 
 ```
 D:\py-project\爬虫\案例\搜狗翻译.py
+https://fanyi.sogou.com/text
 ```
 
 ### Ajax 接口
 
 ![image-20260615095414373](images/image-20260615095414373.png)
 
-### 获取`data`
+### 获取 `data`
 
 ![image-20260615095537505](images/image-20260615095537505.png)
 
@@ -5350,9 +5239,6 @@ while True:
 
 ```
 https://movie.douban.com/top250
-```
-
-```python
 D:\py-project\爬虫\案例\豆瓣Top 250.py
 ```
 
@@ -5444,30 +5330,42 @@ import requests
 from urllib import parse
 import csv
 
-print(['热门', '最新', '豆瓣高分', '冷门佳片'])
-keyword = input('请输入搜索关键字：')
-print(['全部', '华语', '欧美', '日本'])
-movie_type = input('请输入搜索类型：')
-k_parse = parse.quote(keyword)
+
+def get_choice(prompt, options):
+    while True:
+        print(options)
+        choice = input(prompt)
+        if choice in options:
+            return choice
+        print('输入无效，请重新输入！')
+
+category = get_choice('请输入搜索关键字：', ['热门', '最新', '豆瓣高分', '冷门佳片'])
+movie_type = get_choice('请输入搜索类型：', ['全部', '华语', '欧美', '日本'])
+
+
+k_parse = parse.quote(category)
 type_parse = parse.quote(movie_type)
-url = f'https://m.douban.com/rexxar/api/v2/subject/recent_hot/movie?limit=50&category={k_parse}&type={type_parse}&ck=P-OX'
+url = f'https://m.douban.com/rexxar/api/v2/subject/recent_hot/movie?limit=50&category={k_parse}&type={type_parse}&ck=ouyc'
 
 res = requests.get(url, headers={'User-Agent': UserAgent().random, 'Referer': 'https://movie.douban.com/'})
 result = res.json()
 
+
 movies = [
     (item['title'], item['rating']['value'])
     for item in result['items']
-    if item['rating']['value'] >= 8.5
+    if item['rating']['value'] >= 7.0
 ]
 
-with open(文件路径, 'w', newline='', encoding='utf-8-sig') as f:
+
+with open('豆瓣.csv', 'w', newline='', encoding='utf-8-sig') as f:
     writer = csv.writer(f)
     writer.writerow(['电影名称', '评分'])
 
     for name, score in movies:
         print(f'电影名称：{name}, 评分：{score}')
         writer.writerow([name, score])
+
 ```
 
 
@@ -5536,7 +5434,7 @@ with open(文件路径, 'w', newline='', encoding='utf-8-sig') as f:
 
 
 
-### `lxml` 解析库
+### `lxml` 解析库（开头有 `l` 不是 `xml`）
 
 ```python
 from lxml import etree
@@ -5544,11 +5442,11 @@ from lxml import etree
 
 #### `etree.HTML()`
 
-> 把 HTML 字符串解析成 Element 对象
+> 把 HTML 字符串解析成 **Element 对象**
 >
 > 得到 Element 对象之后就可以使用 `xpath`
 >
-> `对象.xpath('xpath语法')`
+> #### `对象.xpath('xpath语法')`
 
 #### `etree.parse('test.html', parser=etree.HTMLParser(encoding="utf-8"))`
 
@@ -5560,9 +5458,6 @@ from lxml import etree
 
 ```
 https://www.mingyannet.com/mingyan/257311586
-```
-
-```
 D:\py-project\爬虫\案例\名言名句.py
 ```
 
@@ -5583,11 +5478,12 @@ import re
 result = []
 
 for i in content:
-    match = re.search(r'\d+、(.+)', i)
+    match = re.search(r'\d+、(.+)', i)    # 、匹配中文顿号
+    # (.+) 匹配顿号后面的一个或多个任意字符（除换行符外），外面的括号表示把匹配到的这部分内容单独捕获出来
     if match and len(match.group(1)) > 3:
         result.append(match.group(1))
 
-for index, item in enumerate(result, start=1):
+for index, item in enumerate(result, start=1):   # 打印时让枚举计数显示 1 开始（默认0）
     print(f'{index}、{item}')
 ```
 
@@ -5838,7 +5734,84 @@ if __name__ == '__main__':
 
 
 
-## 九、Selenium
+## 案例：爱奇艺存入 MongoDB
+
+```url
+https://list.iqiyi.com/www/2/15-------------11-1-1-iqiyi--.html?s_source=PCW_SC
+```
+
+### Fetch 请求
+
+```
+https://pcw-api.iqiyi.com/search/recommend/list?channel_id=2&data_type=1&mode=11&page_id=1&ret_num=48&three_category_id=15;must
+```
+
+![image-20260809134439338](images/image-20260809134439338.png)
+
+### 代码
+
+```
+D:\py-project\爬虫\MongoDB\爱奇艺.py
+```
+
+```python
+from pymongo import MongoClient
+import requests
+from fake_useragent import UserAgent
+
+
+class AiQiYi:
+    def __init__(self):
+        self.url = 'https://pcw-api.iqiyi.com/search/recommend/list'
+        self.headers = {'User-Agent': UserAgent().random}
+        self.client = MongoClient("mongodb://localhost:27017/")
+        self.collection = self.client['AiQiYi_spider']['movies']
+
+    # 发送请求
+    def send_request(self, params):
+        res = requests.get(url=self.url, params=params,headers=self.headers)
+        return res.json()
+
+    # 解析数据
+    def parse_data(self,data):
+        data = data['data']['list']
+        title = []
+        url = []
+        content = []
+        for i in data:
+            title.append(i['title'])
+            url.append(i['playUrl'])
+            content.append(i['description'])
+        return title, url, content
+
+    # 保存数据
+    def save_data(self,title,url, content):
+        for i in range(len(title)):
+            self.collection.insert_one({'title': title[i], 'url': url[i], 'content': content[i]})
+
+    # 主函数
+    def run(self):
+        for page in range(1, 11):
+            params = f'channel_id=2&data_type=1&mode=11&page_id={page}&ret_num=48&three_category_id=15;must'
+            data = self.send_request(params)
+            title, url, content = self.parse_data(data)
+            self.save_data(title, url, content)
+            print(f'第{page}页数据爬取完成')
+
+if __name__ == '__main__':
+    aqy = AiQiYi()
+    aqy.run()
+```
+
+
+
+
+
+
+
+
+
+# Selenium
 
 > 浏览器自动化工具，控制真实浏览器去打开网页、点击、滚动、执行JS，然后把结果拿下来
 >
@@ -5846,15 +5819,14 @@ if __name__ == '__main__':
 > pip install selenium
 > ```
 
-### `webdriver` 模块
+## `webdriver` 模块
 
 > Selenium 用来驱动浏览器执行操作的统一接口
-> 
-> 
+>
+>
 > ```python
 > from selenium import webdriver
 > ```
->
 
 ```python
 driver = webdriver.Chrome()  # 启动浏览器
@@ -5863,13 +5835,15 @@ driver.click()  # 点击
 driver.quit()   # 关浏览器
 ```
 
-### `By` 模块：找元素
+
+
+## `By` 模块：找元素
 
 ```python
 from selenium.webdriver.common.by import By
 ```
 
-#### 8种定位方式
+### 8种定位方式
 
 > `find_element` 找不到会**报错**，`find_elements`（多了s）找不到返回**空列表**
 >
@@ -5884,9 +5858,11 @@ from selenium.webdriver.common.by import By
 | **Class** | `find_element(By.CLASS_NAME, 'btn')`          | 单个class名          |
 | 链接文本  | `find_element(By.LINK_TEXT, '登录')`          | 找`<a>`标签          |
 |  标签名   | `find_element(By.TAG_NAME, 'input')`          | 很少用               |
-| 部分文本  | `find_element(By.PARTIAL_LINK_TEXT, '登')`    | 模糊匹配链接         |
+| 部分文本  | `find_element(By.PARTIAL_LINK_TEXT, '登录')`  | 模糊匹配链接         |
 
-### 三种等待
+
+
+## 三种等待
 
 > 等待元素加载出来，再去运行代码找元素
 
@@ -5924,32 +5900,441 @@ from selenium.webdriver.common.by import By
 
 
 
-### 常见操作
+## 执行 JS
 
-|    操作    | 代码                                                         |
-| :--------: | ------------------------------------------------------------ |
-|    点击    | `element.click()`                                            |
-|  输入文字  | `element.send_keys('内容')`                                  |
-| 清空输入框 | `element.clear()`                                            |
-|  获取文字  | `element.text`                                               |
-|  获取属性  | `element.get_attribute('href')`                              |
-|    截图    | `driver.save_screenshot('a.png')`                            |
-|   执行JS   | `driver.execute_script('JS代码')`<br/>`driver.execute_script('return JS代码')`     带返回值 |
-| 切换iframe | `driver.switch_to.frame('frame_name')`                       |
-| 切回主页面 | `driver.switch_to.default_content()`                         |
-|  切换窗口  | `driver.switch_to.window(handle)`                            |
-
-## 案例：仙逆
-
-```
-https://www.hetushu.com/book/36/index.html
+```python
+driver.save_screenshot('a.png')
+driver.execute_script('return JS代码')
 ```
 
+
+
+## 窗口与标签页管理
+
+#### 创建并切换到新标签
+
+```python
+driver.switch_to.new_window('tab')    # 'tab' 表示标签页
+
+driver.get('https://www.baidu.com')
 ```
-D:\py-project\爬虫\案例\仙逆.py
+
+#### 创建并切换到新窗口
+
+```python
+driver.switch_to.new_window('window')
+```
+
+#### 切换窗口
+
+> 句柄：**浏览器底层给每个标签页分配的**唯一标识符（ID）
+
+```python
+driver.switch_to.window(driver.window_handles[0])    # 切换回第一个标签
+```
+
+#### 关闭当前标签/窗口
+
+```python
+driver.close()
+```
+
+#### 示例：
+
+```python
+from selenium import webdriver
+import time
+
+driver = webdriver.Edge()
+
+driver.get('https://www.douban.com')
+time.sleep(2)
+
+# 创建并切换到新标签
+driver.switch_to.new_window('tab')
+
+driver.get('https://www.baidu.com')
+time.sleep(2)
+
+# 切换回主标签
+driver.switch_to.window(driver.window_handles[0])
+time.sleep(2)
+
+# 关闭当前主标签
+driver.close()
+time.sleep(2)
+```
+
+
+
+## 窗口大小与位置
+
+```python
+driver.minimize_window()               # 最小化（Selenium 4 新增）
+driver.fullscreen_window()             # 全屏
+driver.set_window_size(1024, 768)      # 设置大小
+size = driver.get_window_size()        # 获取大小
+driver.set_window_position(0, 0)       # 设置位置
+pos = driver.get_window_position()     # 获取位置
+```
+
+
+
+## 元素交互
+
+#### 点击
+
+```python
+element.click()
+```
+
+#### 输入文本
+
+```python
+element.send_keys("输入内容")
+```
+
+#### 清空输入框
+
+```python
+element.clear()
+```
+
+#### 提交表单（仅 `<form>` 内的元素）
+
+```python
+element.submit()
+```
+
+#### 获取文本
+
+```python
+text = element.text
+```
+
+#### 获取属性
+
+```python
+href = element.get_attribute("href")
+```
+
+#### 获取标签名
+
+```python
+element.tag_name
+```
+
+
+
+## 键盘按键
+
+```python
+from selenium.webdriver.common.keys import Keys
+```
+
+#### 回车键
+
+```python
+element.send_keys(Keys.ENTR)
+```
+
+#### 空格键
+
+```python
+Keys.SPACE
+```
+
+#### 全选（Ctrl + A）
+
+```python
+Keys.CONTROL, "a"
+```
+
+#### 删除
+
+```python
+Keys.BACKSPACE
+```
+
+#### 方向键
+
+```python
+Keys.ARROW_DOWN     # ↓
+Keys.ARROW_UP       # ↑
+Keys.ARROW_LEFT     # ←
+Keys.ARROW_RIGHT    # →
+```
+
+#### Tab 切换
+
+```python
+Keys.TAB
+```
+
+
+
+## 处理弹窗、iframe、下拉菜单
+
+#### 弹窗
+
+```python
+alert = driver.switch_to.alert
+alert.accept()    # 确定
+alert.dismiss()   # 取消
+```
+
+#### iframe
+
+```python
+iframe = driver.find_element(By.XPATH, '//*[@id="reg-new"]/div/iframe')
+driver.switch_to.frame(iframe)
+
+driver.switch_to.default_content()     # 返回主文档
+```
+
+#### 下拉菜单
+
+```python
+from selenium.webdriver.support.select import Select
+
+select = Select(driver.find_element(By.XPATH, "//select"))
+select.select_by_index(2)
+select.select_by_value("value")
+select.select_by_visible_text("Option")
+```
+
+
+
+
+
+## 滚动条
+
+> 通过 JavaScript 执行
+>
+> ```python
+> driver.execute_script('JS 代码')
+> driver.execute_script('return JS代码')
+> ```
+
+#### 滚动到页面底部
+
+```python
+from selenium import webdriver
+import time
+
+
+driver = webdriver.Edge()
+
+driver.get('https://36kr.com/')
+time.sleep(1)
+
+driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
+time.sleep(1)
+```
+
+#### 滚动到顶部
+
+```python
+driver.execute_script("window.scrollTo(0,0)")
+```
+
+#### 滚动到指定距离
+
+```python
+driver.execute_script("window.scrollBy(0,500)")
+```
+
+#### scrollBy：相对于当前位置
+
+```js
+scrollBy(0,500)
+```
+
+#### 滚动到某个元素位置
+
+```python
+from selenium import webdriver
+import time
+
+
+driver = webdriver.Edge()
+
+driver.get('https://36kr.com/')
+time.sleep(1)
+
+element = driver.find_element("xpath",'//*[@id="app"]/div/div[2]/div[3]/div/div/div[3]/div[1]/div[1]/div[2]/div[29]/div/div/div[2]/div[2]/p')
+
+driver.execute_script(
+    "arguments[0].scrollIntoView();",
+    element
+)
+time.sleep(10)
+
+# 平滑的滚动要给 scrollIntoView 加参数：{behavior: 'smooth'}
+```
+
+#### 模拟人慢慢往下滑
+
+```python
+from selenium import webdriver
+import time
+
+driver = webdriver.Edge()
+
+driver.get('https://36kr.com/')
+time.sleep(1)
+
+element = driver.find_element("xpath",'//*[@id="app"]/div/div[2]/div[3]/div/div/div[3]/div[1]/div[1]/div[2]/div[37]/div/div/div[2]/div[2]/p')
+
+import random
+
+for i in range(10):
+    distance = random.randint(200, 600)
+
+    driver.execute_script(f"""
+    window.scrollBy({{      
+        top:{distance},
+        behavior:'smooth'
+    }})
+    """, element)               # 两个括号，前一个括号避免转义
+
+    time.sleep(random.uniform(0.5, 2))
+
+time.sleep(10)
+```
+
+
+
+## ActionChains（复杂操作）
+
+```python
+from selenium.webdriver import ActionChains
+
+# 创建动作对象
+actions = ActionChains(driver)
+
+# 动作链
+# action.动作
+# ...
+
+# 调用 perform() 执行
+actions.perform()
+```
+
+### 常用动作
+
+|                             方法                             | 功能                              |
+| :----------------------------------------------------------: | --------------------------------- |
+|                 **`click(on_element=None)`**                 | 单击鼠标左键                      |
+|            **`click_and_hold(on_element=None)`**             | 按住鼠标左键不松开                |
+|             **`context_click(on_element=None)`**             | 右键单击                          |
+|             **`double_click(on_element=None)`**              | 双击                              |
+|             **`drag_and_drop(source, target)`**              | 拖拽元素到目标元素                |
+|   **`drag_and_drop_by_offset(source, xoffset, yoffset)`**    | 按偏移量拖拽元素                  |
+|              **`move_to_element(to_element)`**               | 鼠标移动到元素中心                |
+| **`move_to_element_with_offset(to_element, xoffset, yoffset)`** | 移动到元素相对偏移位置            |
+|            **`move_by_offset(xoffset, yoffset)`**            | 从当前位置移动鼠标                |
+|                **`release(on_element=None)`**                | 释放按住的鼠标键                  |
+|             **`key_down(value, element=None)`**              | 按下键盘按键（如 `Keys.CONTROL`） |
+|              **`key_up(value, element=None)`**               | 释放键盘按键                      |
+|                **`send_keys(*keys_to_send)`**                | 输入文本或按键序列                |
+|      **`send_keys_to_element(element, *keys_to_send)`**      | 对指定元素输入（会先获得焦点）    |
+|                     **`pause(seconds)`**                     | 等待指定秒数（浮点数）            |
+|                    **`reset_actions()`**                     | 清空当前构建的动作队列            |
+
+### 案例：鼠标拖拽
+
+```
+D:\py-project\爬虫\Selenium\鼠标拖拽.py
 ```
 
 ```python
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC   # 这里没用到
+
+from selenium.webdriver import ActionChains
+
+driver = webdriver.Edge()
+driver.get('https://www.runoob.com/try/try.php?filename=jqueryui-api-droppable')
+
+
+WebDriverWait(driver, 10).until(
+    lambda d: d.find_element(By.ID, 'draggable')
+    and d.find_element(By.ID, 'droppable')
+)
+
+# 拖拽元素
+source = driver.find_element(By.ID, 'draggable')
+# 目标元素
+target = driver.find_element(By.ID, 'droppable')
+
+# 创建动作对象
+actions = ActionChains(driver)
+
+actions.drag_and_drop(source, target)
+actions.perform()
+
+
+import time
+time.sleep(10)
+```
+
+
+
+## 案例：登录豆瓣 - version 1
+
+```
+D:\py-project\爬虫\Selenium\登录豆瓣.py
+```
+
+```python
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+driver = webdriver.Edge()
+driver.get('https://www.douban.com/')
+
+# 切换到 iframe
+WebDriverWait(driver, 10).until(
+    EC.presence_of_element_located((By.XPATH, '//*[@id="anony-reg-new"]/div/div[1]/iframe'))
+)
+iframe = driver.find_element(By.XPATH, '//*[@id="anony-reg-new"]/div/div[1]/iframe')
+driver.switch_to.frame(iframe)
+
+# 点击到密码登录
+driver.find_element(By.CLASS_NAME,'account-tab-account').click()
+
+# 输入手机号
+driver.find_element(By.NAME, 'username').send_keys('18358579849')
+# 输入密码
+driver.find_element(By.NAME, 'password').send_keys('Xgj123456')
+
+# 点击登录
+driver.find_element(By.CLASS_NAME, 'account-form-field-submit').click()
+
+
+import time
+time.sleep(10)
+```
+
+
+
+
+
+## 案例：仙逆 - version 1
+
+```
+https://www.hetushu.com/book/36/index.html
+D:\py-project\爬虫\案例\仙逆.py
+```
+
+`````python
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -5958,7 +6343,7 @@ from selenium.common.exceptions import TimeoutException
 import time
 import random
 
-
+````
 class XianNi:
     def __init__(self):
         self.url_index = 'https://www.hetushu.com/book/36/index.html'
@@ -6002,7 +6387,7 @@ class XianNi:
         href = self.get_url()
         for i, url in enumerate(href):
             text = self.content(url)
-            # print(f"=== 第{i + 1}章 ===")
+            print(f"=== 第{i + 1}章 ===")
             print(text)
             print("\n" + "=" * 50 + "\n")
 
@@ -6010,8 +6395,1346 @@ class XianNi:
 if __name__ == '__main__':
     book = XianNi()
     book.run()
+`````
+
+
+
+## 添加 Cookie
+
+```python
+from selenium import webdriver
+
+driver = webdriver.Edge()
+
+# 先打开对应网站
+driver.get("https://www.baidu.com")
+
+# 添加 Cookie，必须是字典格式
+cookies = {
+    "name": "username",
+    "value": "admin"
+}
+driver.add_cookie(cookies)
+
+cookies = {
+    "vip_city_code": "104104101",
+    "vip_wh": "VIP_NH",
+    "vip_ipver": "31",
+}
+for k,v in cookies.items():
+    cookie_dict = {'name': k, 'value': v}
+    driver.add_cookie(cookie_dict)
+
+# 刷新页面，让Cookie生效
+driver.refresh()
 ```
 
+
+
+
+
+## 异常处理
+
+> Selenium 的异常都在：
+>
+> ```python
+> from selenium.common.exceptions import *
+> ```
+
+### NoSuchElementException ：找不到元素
+
+```python
+from selenium.common.exceptions import NoSuchElementException
+
+
+try:
+    driver.find_element(By.ID,"username")
+
+except NoSuchElementException:
+    print("没有找到输入框")
+```
+
+### TimeoutException ：等待超时
+
+```python
+from selenium.common.exceptions import TimeoutException
+
+
+try:
+    WebDriverWait(driver,10).until(
+        EC.presence_of_element_located((By.ID,"login"))
+    )
+
+except TimeoutException:
+    print("等待超时")
+```
+
+### ElementNotInteractableException ：元素存在，但不能操作
+
+```python
+try:
+    input_box.send_keys("admin")
+
+except ElementNotInteractableException:
+    print("元素不能操作")
+```
+
+### StaleElementReferenceException ：元素失效
+
+### WebDriverException ：WebDriver整体错误
+
+
+
+
+
+## 绕过检测
+
+> 网站通常通过 **JavaScript 检测浏览器环境指纹** 来判断是否为自动化工具
+>
+> Selenium 驱动的浏览器在环境特征上与真实浏览器存在一些差异，这些差异就是检测点
+>
+> **配置对象：**
+>
+> ```python
+> options = webdriver.EdgeOptions()
+> # ...
+> ```
+>
+> 作为参数传入 `webdriver.Edge(options=options)`
+
+### `navigator.webdriver` 属性
+
+> W3C WebDriver 标准规定，自动化驱动的浏览器必须将 `navigator.webdriver` 设为 `true`。这是最明显的“我是机器人”标志。
+>
+> 需要在页面任何 JS 执行之前，把该属性“藏起来”或改为 `false/undefined`。Selenium 提供了 **CDP (Chrome DevTools Protocol)** 在页面加载前注入脚本：
+
+```python
+driver.execute_cdp_cmd('Page.addScriptToEvaluateOnNewDocument', {
+    'source': 'Object.defineProperty(navigator, "webdriver", { get: () => undefined });'
+})
+```
+
+
+
+### 浏览器启动参数暴露自动化身份
+
+> WebDriver 启动浏览器时会在命令行加上 `--enable-automation` 等标志，浏览器窗口顶部会显示“正受到自动化测试软件的控制”。JS 可以通过这些参数或 UI 残留判断是否为自动化环境。
+>
+> ![image-20260808105014668](images/image-20260808105014668.png)
+
+```python
+# 关闭自动化受控特征
+options.add_argument('--disable-blink-features=AutomationControlled')
+# 不要带上 enable-automation 启动标志
+options.add_experimental_option('excludeSwitches', ['enable-automation'])
+# 禁用自动化扩展
+options.add_experimental_option('useAutomationExtension', False)
+```
+
+
+
+### User-Agent 异常
+
+> WebDriver 的 User-Agent 通常会带有 `HeadlessChrome`、`WebDriver` 等字样，或者与常见浏览器 UA 不匹配
+
+```python
+# 手动设置 Edge 的
+options.add_argument('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 Edg/135.0.0.0')
+```
+
+
+
+### 行业检测网站
+
+```
+https://bot.sannysoft.com/
+```
+
+
+
+
+
+## 设置不加载图片
+
+> 极大的减少网络带宽消耗，提升页面加载速度（`driver.get()` 阻塞时间变短）
+>
+> **副作用：**
+>
+> 1.&nbsp;**懒加载（Lazy-load）失效**：很多网站（尤其小说/文章站）用图片做“占位符”或触发滚动加载。禁用图片可能导致页面 JS 逻辑判定异常，导致正文内容（文字）也加载不出来。
+>
+> 2.&nbsp;**验证码（Captcha）无法显示**：如果后续需要登录，验证码图片是空白的
+
+```python
+# 数值 2 代表不加载，1 代表加载，0 代表默认
+options.add_experimental_option("prefs", {
+    "profile.managed_default_content_settings.images": 2
+})
+```
+
+
+
+
+
+## 案例：唯品会商品（电脑）
+
+```https
+https://category.vip.com/suggest.php?keyword=%E7%94%B5%E8%84%91&ff=235|12|1|1
+```
+
+### Cookie
+
+> 用爬虫工具库得到字典
+
+![image-20260809172553695](images/image-20260809172553695.png)
+![image-20260809172632534](images/image-20260809172632534.png)
+
+### 定位所有商品 div
+
+```
+//section[@id="J_searchCatList"]/div[@class="c-goods-item  J-goods-item c-goods-item--auto-width"]
+```
+
+![image-20260809193416535](images/image-20260809193416535.png)
+
+### 定位当前商品价格、标题
+
+> 这里我也不知道 title 用 XPath 定位到 class 为什么不行
+>
+> > 2026.8.10
+
+![image-20260809193953086](images/image-20260809193953086.png)
+
+![image-20260810124139429](images/image-20260810124139429.png)
+
+### 代码
+
+```
+D:\py-project\爬虫\Selenium\唯品会.py
+```
+
+```python
+import time
+import random
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+from pymongo import MongoClient
+
+
+class Weiph:
+    def __init__(self):
+        self.client = MongoClient("mongodb://localhost:27017/")
+        self.collection = self.client['Weiph']['computers']
+
+        # 创建edge浏览器配置对象
+        options = webdriver.EdgeOptions()
+        # 关闭自动化受控特征
+        options.add_argument('--disable-blink-features=AutomationControlled')
+        # 不要带上 enable-automation 启动标志
+        options.add_experimental_option('excludeSwitches', ['enable-automation'])
+        # 禁用自动化扩展
+        options.add_experimental_option('useAutomationExtension', False)
+        # 禁用图片加载
+        options.add_experimental_option("prefs", {
+            "profile.managed_default_content_settings.images": 2
+        })
+
+        self.driver = webdriver.Edge(options=options)
+        self.driver.maximize_window()
+        self.cookie = {
+            "vip_province": "104104",
+            "vip_province_name": "%E5%B9%BF%E4%B8%9C%E7%9C%81",
+            ...
+        }
+
+
+    def show_shop(self, url):
+        self.driver.get(url)
+        for key, value in self.cookie.items():
+            cookie_dict = {'name': key, 'value': value}
+            self.driver.add_cookie(cookie_dict)
+        self.driver.refresh()
+        # 给页面加载时间
+        time.sleep(2)
+
+        # 往下滑渲染出所有商品
+        while True:
+            distance = random.randint(350, 700)
+
+            self.driver.execute_script(f"""
+            window.scrollBy({{
+                top: {distance},
+                behavior: 'smooth'
+            }})
+            """)
+
+            time.sleep(random.uniform(0.5, 1))
+
+            # 判断是否到底
+            height = self.driver.execute_script(
+                "return document.documentElement.scrollHeight"
+            )
+
+            position = self.driver.execute_script(
+                "return window.pageYOffset + window.innerHeight"
+            )
+
+            if position >= height:
+                break
+
+
+    def parse_data(self):
+        # 定位所有商品标签
+        div_list = self.driver.find_elements(By.XPATH, '//section[@id="J_searchCatList"]/div[@class="c-goods-item  J-goods-item c-goods-item--auto-width"]')
+        for i in div_list:
+            # 在当前商品标签内部找价格标签，提取文本
+            title = i.find_element(By.XPATH, './/div[2]/div[2]').text
+            money = i.find_element(By.XPATH, './/div[@class="c-goods-item__sale-price J-goods-item__sale-price"]').text
+
+            data = {'title':title,'money':money}
+            print(data)
+
+            # 调用保存方法，存入数据库
+            self.cv_response(data)
+
+
+    def cv_response(self, data):
+        # 插入数据
+        self.collection.insert_one(data)
+
+
+    def main(self):
+        self.collection.delete_many({})   # 清空整个集合
+        for i in range(1,20):
+            url = f'https://category.vip.com/suggest.php?keyword=%E7%94%B5%E8%84%91&page={i}'
+            self.show_shop(url)
+            self.parse_data()
+            print(f'第{i}页爬取完成')
+
+
+if __name__ == '__main__':
+    Weiph().main()
+```
+
+
+
+
+
+
+
+# Playwright
+
+```
+pip install playwright
+
+# 安装浏览器
+playwright install
+```
+
+## 启动控制环境
+
+```python
+from playwright.sync_api import sync_playwright
+
+with sync_playwright() as p:
+```
+
+## 启动浏览器
+
+```python
+browser = p.chromium.launch(headless=False)    # 有头模式能看到窗口
+```
+
+## 网页标签
+
+```python
+page = browser.new_page()
+```
+
+
+
+## 示例：
+
+```python
+from playwright.sync_api import sync_playwright
+
+
+with sync_playwright() as p:
+
+    browser = p.chromium.launch()
+
+    page = browser.new_page()
+
+    page.goto("https://www.baidu.com")
+
+    print(page.title())         # 百度一下，你就知道
+
+    browser.close()
+```
+
+
+
+
+
+## 等待
+
+> Playwright 的 `click()`、`fill()`、`check()` 等操作本身会自动等待：
+>
+> 元素存在、元素可见、元素可编辑、页面稳定
+
+#### 固定等待 `wait_for_timeout()`
+
+```python
+page.wait_for_timeout(3000)     # 单位 毫秒
+```
+
+#### 元素等待 `wait_for_selector()`
+
+```python
+page.wait_for_selector("#login", state=visible)    # 等待登录按钮可见
+```
+
+
+
+## 元素定位
+
+#### CSS 选择器
+
+```python
+page.locator("#user")
+```
+
+#### XPath
+
+```python
+page.locator("//input[@id='user']")
+```
+
+#### 根据文字定位
+
+```python
+page.get_by_text("登录")
+```
+
+
+
+## 输入操作
+
+#### 普通输入 `fill('')`
+
+> 自动清空原内容后输入
+
+```python
+page.locator("选择器").fill("输入内容")
+```
+
+#### 按键 `press('')`
+
+> 针对某个元素
+
+```python
+# 回车
+page.locator("#kw").press("Enter")
+
+# 删除
+page.locator("#kw").press("Backspace")
+
+# 全选
+page.locator("#kw").press("Control+A")
+
+# 复制
+page.locator("#kw").press("Control+C")
+```
+
+#### 页面级按键 `keyboard`
+
+```python
+page.keyboard.press("Enter")
+```
+
+#### 键盘输入
+
+> 获得焦点的元素进行键盘输入，需要 `.click()`
+
+```python
+page.locator("#username").click()
+page.keyboard.type("admin")
+```
+
+#### 模拟人输入
+
+```python
+# press_sequentially() 自动对元素进行操作
+page.locator("#chat-textarea").press_sequentially("你好文轩", delay=500)
+
+# 键盘对象的方法，需要单位并点击
+page.locator("#username").click()
+page.keyboard.type("admin", delay=500)
+```
+
+
+
+
+
+## 选择元素
+
+```python
+items = page.locator('.item-title')
+```
+
+> 网页：
+>
+> ```
+> 标题1
+> 标题2
+> 标题3
+> ···
+> ```
+
+#### 选择第一个
+
+```python
+items.first
+
+# 等价于
+items.nth(0)
+```
+
+#### 选择第二个
+
+```python
+items.nth(1)
+```
+
+#### 选择最后一个
+
+```python
+items.last
+```
+
+#### 获取全部
+
+```python
+div_list = page.locator('//div/li').all()
+```
+
+#### 获取数量
+
+```python
+items.count()
+```
+
+#### 获取内容
+
+```python
+for i in range(items.count()):
+    print(items.nth(i).inner_text())
+```
+
+#### 获取 HTML 标签的属性值
+
+```python
+link = page.locator("a")
+
+print(link.get_attribute("href"))
+```
+
+#### 示例：
+
+```
+D:\py-project\爬虫\Playwright\文章标题和链接获取.py
+https://www.labr.cc/document/list.html?sort=-pubdt
+```
+
+```python
+from playwright.sync_api import sync_playwright
+
+with sync_playwright() as p:
+    browser = p.chromium.launch(headless=False)
+    page = browser.new_page()
+    page.goto("https://www.labr.cc/document/list.html?sort=-pubdt")
+
+    items = page.locator('.item-title')
+
+    for i in range(items.count()):
+        # 获取第 i 个元素
+        item = items.nth(i)
+        
+        # 获取标题
+        title = item.inner_text()
+        # 获取链接
+        link = item.locator('a').first
+        href = link.get_attribute('href')
+
+        print(title, href)
+
+    browser.close()
+```
+
+
+
+
+
+## 鼠标操作
+
+#### 最基本 `click()`
+
+```python
+page.locator("#btn").click()
+```
+
+#### 双击 `dblclick()`
+
+```python
+page.locator(".item").dblclick()
+```
+
+#### 右键/中键 `button='right'/'middle'`
+
+```python
+page.locator(".item").click(button="right")
+page.locator("a").click(button="middle")
+```
+
+#### 鼠标移动 `hover()`
+
+```python
+page.locator(".menu").hover()
+```
+
+#### 按下/松开
+
+```python
+page.mouse.down()     # 按住鼠标
+page.mouse.up()     # 松开鼠标
+page.mouse.click(500, 300)    # 在浏览器页面坐标 (500, 300) 的位置点击
+page.mouse.move(500, 300)    # 鼠标移动到指定坐标
+'''        X →
+   0  100  200  300  400
+ 0 ┌─────────────────────
+   │
+50 │
+   │
+100│
+   │
+150│
+   ↓
+   Y
+'''
+```
+
+#### 鼠标拖动 `drag_and_drop()`
+
+```python
+page.drag_and_drop(source, target)
+page.drag_and_drop('#box22', '#box11')
+```
+
+#### 滚轮
+
+```python
+page.mouse.wheel(0, 500)
+```
+
+
+
+
+
+## 执行 JS
+
+```python
+page.evaluate("alert('你好')")
+
+result = page.evaluate("document.title")
+```
+
+
+
+## 滚动条
+
+#### 滚动到底部
+
+```python
+page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+```
+
+#### 平滑滚动到底部
+
+```python
+page.evaluate("""
+    window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth'
+    })
+""")
+```
+
+#### 平滑滚动到某个元素
+
+```python
+page.locator("#box11").evaluate("""
+    e => e.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+    })
+""")
+```
+
+#### 模拟人滚动到某个元素
+
+```python
+import random
+import time
+
+target = page.locator("#box11").evaluate("e => e.offsetTop")
+
+while True:
+    now = page.evaluate("window.scrollY")
+
+    if now >= target:
+        break
+
+    page.mouse.wheel(0, random.randint(200,500))
+
+    time.sleep(random.uniform(0.3,0.8))
+```
+
+#### 模拟人滚动到底部
+
+```python
+import random
+import time
+
+while True:
+    current_y = page.evaluate("window.scrollY")
+
+    total_height = page.evaluate("document.body.scrollHeight")
+
+    # 浏览器窗口高度
+    window_height = page.evaluate("window.innerHeight")
+
+    if current_y + window_height >= total_height:
+        break
+
+    page.mouse.wheel(0, random.randint(300, 700))
+
+    time.sleep(random.uniform(0.5, 1.5))
+```
+
+#### 元素出现在浏览器窗口中
+
+```python
+page.locator("#box").scroll_into_view_if_needed()
+```
+
+
+
+## iframe
+
+```python
+page.frame_locator("iframe选择器")
+```
+
+#### 示例：登录QQ空间
+
+```python
+from playwright.sync_api import sync_playwright
+
+with sync_playwright() as p:
+    browser = p.chromium.launch(headless=False)
+    page = browser.new_page()
+    page.goto("https://i.qq.com/")
+
+    iframe = page.frame_locator('#login_frame')
+    iframe.locator("//*[@id='switcher_plogin']").click()
+    iframe.locator("//*[@id='uin_tips']").fill("3165889264")
+    iframe.locator("//*[@id='pwd_tips']").fill("xgj123456")
+    iframe.locator("//*[@id='login_button']").click()
+
+    page.wait_for_timeout(1000000)
+    browser.close()
+```
+
+
+
+## 案例：华研数据-考研资料获取
+
+```
+https://www.handebook.com/web/#/1234/document
+D:\py-project\爬虫\Playwright\华研数据-考研资料获取.py
+```
+
+> Playwright 的 `sync_playwright()` 返回的是一个 **Playwright 进程管理器**。它会启动一个独立的驱动进程（通常是基于 Node.js 的服务端），负责与浏览器进行 CDP 协议通信。
+>
+> 写在 `main` 方法中，使得 **整个自动化流程的“生到死”都在一个可控的代码块里**，结束后自动清理，安全且清晰
+>
+> Selenium 的 WebDriver 是一个**直接与浏览器驱动通信的客户端对象**，没有 Playwright 那样的顶层“进程管理器”。
+
+### 需要通过点击来翻页
+
+![image-20260811163223732](images/image-20260811163223732.png)
+
+```python
+from playwright.sync_api import sync_playwright
+from pymongo import MongoClient
+
+class KaoYan_system:
+    def __init__(self):
+        self.url = 'https://www.handebook.com/web/#/1234/document'
+        self.client = MongoClient("mongodb://localhost:27017/")
+        self.collection = self.client['KaoYan_sys']['datas']
+
+    def get_res(self, page):
+        page_num = 1
+        while True:
+            # 等待当前页数据加载完成
+            page.wait_for_selector('//div[@class="school-list"]', state="visible")
+            items = page.locator('//div[contains(@class, "school-list")]/div[contains(@class, "content-document")]')
+
+            # 1. 先爬取当前页所有数据
+            print(f'—————————— 正在爬取第 {page_num} 页 ——————————')
+            for i in range(items.count()):
+                data = {# 这里要声明 xpath，否则会被识别为 CSS 选择器
+                    'title': items.nth(i).locator('xpath=./span[1]').inner_text().strip(),
+                    'money': items.nth(i).locator('xpath=./span[2]').inner_text().strip(),
+                }
+                # self.collection.insert_one(data)
+                print(data['title'], data['money'])
+
+            print(f'———————————— 第 {page_num} 页完成 ——————————')
+
+            # 2. 准备翻到下一页
+            page.locator('//li[contains(@class, "number")]').first.scroll_into_view_if_needed()
+            next_button = page.locator('//button[contains(@class, "btn-next")]')
+
+            if next_button.count() == 0 or not next_button.is_enabled():
+                print('没有下一页了')
+                break
+
+            # 3. 点击下一页并等待新页面加载
+            next_button.click()
+            page.wait_for_timeout(500)  # 等待爬取完成
+            page_num += 1
+
+    def main(self):
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch(headless=False)
+            page = browser.new_page()
+            page.goto(self.url)
+
+            self.get_res(page)
+
+            browser.close()
+
+        self.client.close()
+
+if __name__ == '__main__':
+    KaoYan_system().main()
+```
+
+
+
+
+
+
+
+
+
+# DrissionPage
+
+```
+pip install DrissionPage
+```
+
+## Chromium —— 浏览器连接管理器
+
+```python
+from DrissionPage Chromium
+```
+
+## 连接浏览器创建标签对象
+
+```python
+tab = Chromium().latest_tab
+```
+
+
+
+## 浏览器配置
+
+```python
+from DrissionPage import ChromiumOptions
+```
+
+```python
+from DrissionPage import Chromium, ChromiumOptions
+
+# 创建配置对象
+co = ChromiumOptions()
+
+# 使用配置启动浏览器
+browser = Chromium(co)
+
+# 获取页面
+tab = browser.latest_tab
+```
+
+#### 设置浏览器路径
+
+```python
+co.set_browser_path(
+    r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
+)
+```
+
+#### 设置窗口大小
+
+```python
+co.set_argument("--window-size=1200,800")
+
+co.set_argument("--start-maximized")       # 最大化
+```
+
+#### 设置代理
+
+```python
+co.set_proxy("http://127.0.0.1:7897")
+```
+
+#### 禁止加载图片
+
+```python
+co.set_pref("profile.managed_default_content_settings.images", 2)
+```
+
+#### 关闭自动化提示
+
+```python
+co.set_argument("--disable-blink-features=AutomationControlled")
+```
+
+#### 设置用户数据目录
+
+```python
+co.set_user_data_path("./chrome_data")
+# 保存到当前工作目录下面的 chrome_data 文件夹
+```
+
+
+
+
+
+## 标签页管理
+
+#### 新建标签页
+
+```python
+tab2 = browser.new_tab()
+```
+
+
+
+
+
+## 元素定位
+
+> ```python
+> tab.ele()    # 获取单个元素
+> tab.eles()    # 获取多个元素
+> ```
+>
+> 找不到返回 None
+
+#### CSS 选择器定位
+
+```python
+'''
+<div class="container">
+    <input class="search">
+</div>
+'''
+
+tab.ele(".container input")
+tab.ele(".container .search")
+```
+
+#### XPath 定位
+
+```python
+tab.ele("xpath://input[@id='username']")
+```
+
+#### 文本定位
+
+```python
+tab.ele("text=登录")
+```
+
+#### 属性定位
+
+```python
+'''
+<input name="username">
+
+<input id="user" name="account">
+'''
+
+tab.ele("@name=username")
+tab.ele("@id=user@name=account")
+```
+
+#### 多个元素获取
+
+```python
+'''
+<div class="item">商品1</div>
+<div class="item">商品2</div>
+<div class="item">商品3</div>
+'''
+items = tab.eles(".item")
+
+# 第一个
+items[0]
+
+# 第二个
+items[1]
+tab.ele(".item",index=2)
+```
+
+#### 获取元素信息
+
+```python
+ele.text           # 文本
+ele.attr("href")   # 属性      所有属性：ele.attrs  
+```
+
+
+
+## 输入和点击
+
+```python
+tab.ele("#kw").input("你好文轩！")
+
+tab.ele("#su").click()
+
+tab.ele("#kw").clear()    # 清空
+```
+
+
+
+## 等待
+
+#### 等待页面加载完成
+
+```python
+tab.wait.load_start()
+```
+
+#### 等待元素出现
+
+```python
+tab.wait.ele_displayed("#username")
+```
+
+#### 等待时间
+
+```python
+tab.wait(3)
+```
+
+
+
+
+
+## 监听接口
+
+### 开启监听 `tab.listen.start()`
+
+> 不写参数：监听全部请求
+>
+> 写 URL 关键字：只要 URL 包含 `"xxx"`，就把它抓下来
+>
+> 可以写正则
+>
+> 多个接口监听：
+>
+> ```python
+> tab.listen.start(
+> [
+>     "login",
+>     "user",
+>     "product"
+> ]
+> )
+> ```
+
+### 持续监听获取到的结果 `tab.lisen.steps()`
+
+> 返回的是生成器
+>
+> ```python
+> tab.listen.start("api")
+> 
+> # ...
+> 
+> for packet in tab.listen.steps():
+>     print(packet.url)
+> ```
+>
+> 包含：
+>
+> `packet.url` ：请求 URL
+>
+> `packet.method` ：请求方法
+>
+> `packet.request.headers` ：请求头
+>
+> `packet.response.body` ：返回数据
+
+### `tab.lisen.wait()`
+
+> 与 `steps` 的区别：拿到一个接口结束
+
+### 示例：
+
+```python
+from DrissionPage import Chromium
+
+# 创建浏览器
+browser = Chromium()
+
+# 获取标签页
+tab = browser.latest_tab
+
+# 开启监听
+# 监听包含 jsonplaceholder 的请求
+tab.listen.start("jsonplaceholder")
+
+
+# 打开网页
+tab.get("https://jsonplaceholder.typicode.com/")
+
+
+# 获取监听结果
+for packet in tab.listen.steps():
+
+    print("请求地址:")
+    print(packet.url)
+
+    print("返回数据:")
+    print(packet.response.body)
+
+    break
+```
+
+
+
+## 案例：华能电子商务招标专栏公告获取
+
+```
+https://ec.chng.com.cn/channel/home/?SIJfApfmEBp=1786452240563&SlJfApAfmEBp=1786505263802#/purchase
+
+D:\py-project\爬虫\DrissionPage\华能电子商务招标公告.py
+```
+
+### 接口地址
+
+![image-20260812144519117](images/image-20260812144519117.png)
+
+![image-20260812144708954](images/image-20260812144708954.png)
+
+### 翻页
+
+![image-20260812133758384](images/image-20260812133758384.png)
+
+![image-20260812134018550](images/image-20260812134018550.png)
+
+```python
+if "ant-pagination-disabled" in button.attr("class"):
+    print("已经最后一页")
+    browser.quit()
+else:
+    button.click()
+```
+
+### 代码
+
+```python
+from DrissionPage import Chromium, ChromiumOptions
+
+co = ChromiumOptions()
+co.set_browser_path(
+    r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
+)
+co.set_proxy('http://127.0.0.1:7897')
+co.set_argument('--start-maximized')
+co.set_user_data_path("./chrome_data")
+
+browser = Chromium(co)
+tab = browser.latest_tab
+
+# 只监听 URL 包含：scm.../Title 的请求
+tab.listen.start('scm-uiaoauth-web/s/business/uiaouth/queryAnnouncementByTitle')
+tab.get('https://ec.chng.com.cn/channel/home/?SIJfApfmEBp=1786452240563#/purchase')
+
+
+
+page = 1
+# 获取监听结果
+for i in tab.listen.steps():
+    data = i.response.body['root']
+    for j in data:
+        print(j['announcementTitle'])
+    print(f'———————————————————第{page}页————————————————————')
+    page += 1
+
+    button = tab.ele('xpath://*[@id="app"]/div/div[2]/div[3]/div/div[2]/div/div/div/ul/li[last()]')
+    if "ant-pagination-disabled" in button.attr("class"):
+        print("最后一页")
+        browser.quit()
+    else:
+        button.click()
+```
+
+
+
+
+
+## iframe
+
+> DrissionPage 无需切入切出即可处理`<iframe>`元素。
+>
+> 可实现跨级元素查找、元素内部单独跳转、同时操作`<iframe>`内外元素、多线程控制多个`<iframe>`等操作
+>
+> 推荐优先使用 **`get_frame()`** 方法，因为当作普通元素获取时，IDE 无法正确识别获取到的是`<iframe>`元素
+
+
+
+
+
+## 动作链
+
+```python
+from DrissionPage.common import Actions
+```
+
+### 创建
+
+```python
+from DrissionPage import Chromium
+from DrissionPage.common import Actions
+
+
+browser = Chromium()
+
+tab = browser.latest_tab
+
+ac = Actions(tab)
+```
+
+### 鼠标移动
+
+```python
+box = tab.ele("#box")
+
+ac.move_to(box)
+```
+
+### 点击
+
+```python
+ac.click(box)
+ac.double_click(box)       # 双击
+ac.right_click(box)       # 右键
+```
+
+### 按住鼠标
+
+```python
+ac.hold(box)
+```
+
+### 释放鼠标
+
+```python
+ac.release()
+```
+
+### 鼠标移动指定距离
+
+```python
+ac.move_by(300, 0)
+```
+
+### 键盘操作
+
+```python
+ac.type("你好文轩！")        # 输入文字
+
+from DrissionPage.common import Keys
+
+ac.key_down(Keys.ENTER)     # 回车
+
+from DrissionPage.common import Keys
+
+ac.key_down(Keys.CTRL)
+ac.type("a")
+ac.key_up(Keys.CTRL)        # Ctrl + A
+```
+
+### 示例：鼠标拖拽
+
+```
+D:\py-project\爬虫\DrissionPage\鼠标拖拽.py
+```
+
+```python
+tab = Chromium(co).latest_tab
+tab.get("https://www.runoob.com/try/try.php?filename=jqueryui-api-droppable")
+
+ac = Actions(tab)
+
+box = tab.ele('#draggable')
+ac.move_to(box)
+ac.hold(box)
+ac.move_to(tab.ele('#droppable'))
+ac.release(box)
+```
+
+
+
+
+
+### 使用内置 `actions` 属性
+
+> 会等到页面框架文档（不包括 js 数据）加载完成再执行动作
+
+#### 鼠标移动
+
+```python
+tab.actions.move_to('text=登录')
+```
+
+#### 移动指定距离
+
+```python
+tab.actions.move(300,0)
+```
+
+#### 点击（更像真人）
+
+```python
+tab.actions.click('#kw')         # 左键
+tab.actions.r_click('#menu')     # 右键
+tab.actions.m_click('#link')     # 中键
+```
+
+#### 输入文字
+
+```python
+tab.actions.click('#kw').type('Python')          # 键盘输入
+```
 
 
 
