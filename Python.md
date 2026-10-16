@@ -34,10 +34,10 @@
 - **规则**：遵循标识符的规则
 - **命名规范**：
 
-    - 使用有意义的名称，以便代码可读
-    - 对于变量名使用小写字母，多个单词用下划线分隔（如 `total_sum`）
-    - 类名通常使用驼峰命名法（如 `MyClass`）
-    - 常量（不变的值）通常使用全大写字母（如 `MAX_SIZE`）
+  - 使用有意义的名称，以便代码可读
+  - 对于变量名使用小写字母，多个单词用下划线分隔（如 `total_sum`）
+  - 类名通常使用驼峰命名法（如 `MyClass`）
+  - 常量（不变的值）通常使用全大写字母（如 `MAX_SIZE`）
 
 
 
@@ -71,6 +71,14 @@
 > **复合数据类型**：
 >
 > 列表（list）   元组（tuple）   字典（dict）   集合（set）
+>
+>  
+>
+> **查看数据类型：**
+>
+> ```python
+> print(type(a))
+> ```
 
 
 
@@ -294,6 +302,12 @@ math=100
 print(f'期末考试{name}总成绩为：{chinese+math}分')
 ```
 
+| 常见格式说明符（冒号后面） | 含义                                                   |
+| :------------------------: | ------------------------------------------------------ |
+|           `.2f`            | 浮点数，保留 2 位小数                                  |
+|           `02d`            | 整数，至少 2 位，不足补 0                              |
+|          `05.2f`           | 总宽 5，保留 2 位小数，补 0 `f"{3.1:05.2f}"` → `03.10` |
+
 
 
 ## 3.字符串的查找
@@ -419,7 +433,7 @@ print(text.replace("World", "Python"))  # 输出 'Hello Python'
 >
 > **解码：`字符串.decode('解码方式')`**
 >
-> 
+>  
 >
 > 获取字符串的Unicode码：`ord(字符串)`
 >
@@ -803,6 +817,7 @@ print(a,b,c)          # 1 [2, 3, 4] 5
 > 1. **多值返回**：函数返回多个值时，可以将它们放在一个元组中
 > 2. **字典键**：元组可以作为字典的键（因为元组是不可变类型），而列表不行
 > 3. **不需要修改的数据**：当数据不需要修改时，用元组可以避免数据被意外改变，提高代码的安全性和可读性
+>
 
 
 
@@ -987,7 +1002,7 @@ for key, value in person.items():
 >
 > 你可以按任意顺序返回答案。
 >
-> 
+>  
 >
 > **示例 1：**
 >
@@ -1165,21 +1180,22 @@ print(greet())             # Hello!
 > ```python
 > count = 0
 > def increment():
->     global count  # 声明count为全局变量
->     count += 1
+>        global count  # 声明count为全局变量
+>        count += 1
 > ```
 >
 > **修改嵌套作用域变量：`nonlocal`**
 >
 > ```python
 > def outer():
->     x = 10
->     def inner():
->         nonlocal x  # 声明x为外层变量
->         x += 5
->     inner()
->     print(x)  # 15
+>        x = 10
+>        def inner():
+>            nonlocal x  # 声明x为外层变量
+>            x += 5
+>        inner()
+>        print(x)  # 15
 > ```
+> 
 
 
 
@@ -1191,9 +1207,9 @@ print(greet())             # Hello!
 >
 > ```python
 > def 奶茶店(糖度):
->     def 取餐(号码):
->         return f"{糖度}糖的奶茶"  # 自动记住糖度！
->     return 取餐
+>        def 取餐(号码):
+>            return f"{糖度}糖的奶茶"  # 自动记住糖度！
+>        return 取餐
 > 
 > 我的专属 = 奶茶店("少糖")  # 说一次就够了
 > 
@@ -1239,14 +1255,14 @@ print(c())  # 2
 > ```python
 > # 比如有个函数会打招呼：
 > def say_hello():
-> 	 print("你好！")
+>    	 print("你好！")
 > 
 > # 每次打招呼前（或者后），都说“我叫尹文轩”
 > def new_say_hello(func):
->     def new():
->         print("我叫尹文轩")   # 外加的功能
->         func()              # 调用原来的函数
->     return new
+>        def new():
+>            print("我叫尹文轩")   # 外加的功能
+>            func()              # 调用原来的函数
+>        return new
 > 
 > # 使用：把原函数"包"一下
 > say_hello = new_say_hello(say_hello)
@@ -1257,14 +1273,14 @@ print(c())  # 2
 >
 > ```python
 > def new_say_hello(func):
->     def new():
->         print("我叫尹文轩")
->         func()
->     return new
+>        def new():
+>            print("我叫尹文轩")
+>            func()
+>        return new
 > 
 > @new_say_hello
 > def say_hello():
->     print("你好！")
+>        print("你好！")
 > 
 > 
 > say_hello()
@@ -1322,7 +1338,7 @@ print("排序后:", bubble_sort(arr))
 
 ```
 
-优化版本：
+#### 优化版本：
 
 ```python
 def bubble_sort_optimized(arr):
@@ -1444,7 +1460,7 @@ D:\py-project\案例\OOP银行存取钱.py
 
 ## 类中的方法
 
-### 1. 静态方法（@staticmethod）
+### 1. 静态方法 @staticmethod
 
 > 放在类里的普通函数，可以没有参数，使用 `@staticmethod`装饰器定义
 
@@ -1458,6 +1474,19 @@ class Friends:
 
 # 调用静态方法
 Friends.static_method()            # 2024.2.1，我和ling成为最好的朋友
+```
+
+### 2. 类方法 @classmethod
+
+```python
+class Person:
+
+    @classmethod
+    def say(cls):         # cls 表示当前类
+        print("你好")
+        
+
+Person.say()       # 你好
 ```
 
 
@@ -1482,9 +1511,9 @@ Friends.static_method()            # 2024.2.1，我和ling成为最好的朋友
 
 #### 命名约定
 
-> 双下划线：`__`私有，外部不可用
+> 双下划线 `__` ：私有，外部不可用
 >
-> 单下划线：`_`受保护，子类可用
+> 单下划线 `_` ：受保护，子类可用
 
 ```python
 class Movie:
@@ -1509,9 +1538,9 @@ print(m1._Movie__type)
 
 #### @property @name.setter
 
-> `@property`把方法变成<span style='color:red'>只读属性</span>来访问
+> `@property` 把方法变成<span style='color:red'>只读属性</span>来访问
 >
-> `@name.setter`用于<span style='color:red'>给属性赋值时</span>添加逻辑，本质上是把一个方法变成"可写的属性"，名称必须和 `@property` 的名称一致
+> `@name.setter` 用于<span style='color:red'>给属性赋值时</span>添加逻辑，本质上是把一个方法变成"可写的属性"，名称必须和 `@property` 的名称一致
 
 ```python
 class Movie:
@@ -1528,6 +1557,7 @@ class Movie:
 
 m1 = Movie('新世界', '韩版无间道')
 print(m1.type)        # 韩版无间道
+
 m1.type = '黑帮'
 print(m1.type)        # 黑帮
 ```
@@ -1624,6 +1654,41 @@ cat.speak()
 bird = Bird("小鸟", True)
 bird.speak()
 print(f"{bird.name}是否会飞: {bird.can_fly}")
+```
+
+
+
+## 魔术方法
+
+> Python 在特定情况下自动调用
+
+### 1. `__init__()` 初始化对象
+
+### 2. `__str__()` 控制 `print(对象)` 显示什么
+
+```python
+class Person:
+
+    def __init__(self, name):
+        self.name = name
+
+
+p = Person("张三")
+print(p)     # <__main__.Person object at 0x0000025AD0114550>
+```
+
+```python
+class Person:
+
+    def __init__(self, name):
+        self.name = name
+
+    def __str__(self):
+        return f"姓名：{self.name}"
+
+
+p = Person("张三")
+print(p)     # 姓名：张三
 ```
 
 
@@ -1970,6 +2035,10 @@ num = [1, 3, 4]
 list(map(str, num))      # ['1', '3', '4']
 
 list(map(lambda x, y: x + y, [1, 2], [3, 4]))   # [4,6]
+
+
+num = ['1', '2', '3', '4']
+a,b,c,d = map(int, num)
 ```
 
 
@@ -2363,6 +2432,7 @@ print(a.group(1))  # 123             # 打印捕获组
 #### `re.match(pattern, str, flags=0)`
 
 > 如果开头（索引0开始）不匹配则返回 `None`
+>
 
 #### `re.findall(pattern, str, flags=0)`
 
@@ -2428,6 +2498,81 @@ print(a)   # ('2026', '05', '31')
 
 
 
+## `loguru` 日志库
+
+```
+pip install loguru
+```
+
+### 基本使用
+
+```python
+from loguru import logger
+
+logger.debug("调试信息")
+logger.info("普通信息")
+logger.warning("警告")
+logger.error("错误")
+logger.critical("严重错误")
+```
+
+![image-20260819131159840](images/image-20260819131159840.png)
+
+
+
+## `json` 模块
+
+```python
+import json
+```
+
+|     JSON     | Python       |
+| :----------: | ------------ |
+|    object    | dict         |
+|    array     | list         |
+|    string    | str          |
+|    number    | int / float  |
+| true / false | True / False |
+|     null     | None         |
+
+### `json.loads()` JSON 字符串转 Python 对象
+
+```python
+import json
+
+text = '{"name": "小米", "price": 2999, "stock": true}'
+
+data = json.loads(text)
+
+print(data)     # {'name': '小米', 'price': 2999, 'stock': True} 
+print(type(data))      # <class 'dict'>
+```
+
+### `json.dumps()` Python 数据类型转 JSON 对象
+
+```python
+import json
+
+data = {
+    "name": "小米",
+    "price": 2999,
+    "stock": True
+}
+
+result = json.dumps(data, ensure_ascii=False)   # 中文等非 ASCII 字符直接显示不转Unicode
+
+print(result)      # {"name": "小米", "price": 2999, "stock": true}
+print(type(result))   # <class 'str'>
+```
+
+### `json.load()` 从文件读取 JSON
+
+### `json.dump()` 把 Python 对象写入 JSON文件
+
+
+
+
+
 
 
 
@@ -2437,15 +2582,17 @@ print(a)   # ('2026', '05', '31')
 ## `pathlib` 模块
 
 ```python
-from pathlib import Path
+from pathlib import Path as p
 ```
 
 ### 1. 构建路径对象
 
 ```python
 path = p("D:\我的资料库\Desktop\网络安全")
+path = p(__file__)         # __file__ 当前文件路径
 path = p.home()    # C:\Users\Administrator      用户主目录
 path = p.cwd()     # D:\py-project          当前工作目录
+path = p(__file__).parent      # 当前文件的父目录
 ```
 
 #### 快速抽取路径各部分：（只读属性）
@@ -2470,7 +2617,19 @@ path.is_absolute()        # 检查是否为绝对路径
 path.is_relative_to('路径')    # 检查是否在某路径下
 ```
 
-### 3. 创建与删除
+### 3. 拼接路径 `/`
+
+```python
+from pathlib import Path as p
+
+path = p("D:/py-project")
+
+path2 = path / 'test.txt'
+
+print(path2)      # D:\py-project\test.txt
+```
+
+### 4. 创建与删除
 
 #### `mkdir()` 创建文件夹
 
@@ -2508,7 +2667,7 @@ file_to_move.rename(target_dir / file_to_move.name)
 
 
 
-### 4. 遍历目录
+### 5. 遍历目录
 
 #### `iterdir()` 列出目录下所有子文件和文件夹
 
@@ -2541,8 +2700,8 @@ for i in p.cwd().iterdir():
 >
 > ```python
 > with open('file.txt', 'r', encoding='utf-8') as f:
->     content = f.read()
->     print(content)
+>        content = f.read()
+>        print(content)
 > # 退出 with 块后自动关闭文件
 > ```
 
@@ -2964,6 +3123,7 @@ s.astype(float)
 ## `DataFrame(data, index, columns)`
 
 > 多个 Series 按列拼起来的二维表，由三部分组成：**index**（行索引），**columns**（列索引），**values**（二维Numpy数组）
+>
 
 ### 1. 创建
 
@@ -3432,11 +3592,11 @@ print(df)
 >
 > ```python
 > pd.pivot_table(
->  data,          # 数据表
->  index,         # 行分组字段
->  columns,       # 列分组字段
->  values,        # 要统计的数值列
->  aggfunc        # 统计方法
+>     data,          # 数据表
+>     index,         # 行分组字段
+>     columns,       # 列分组字段
+>     values,        # 要统计的数值列
+>     aggfunc        # 统计方法
 > )
 > ```
 >
@@ -3446,11 +3606,11 @@ print(df)
 >
 > ```python
 > pd.pivot_table(
->  data=df,
->  index='region',
->  columns='category',
->  values=['sales'],
->  aggfunc=['mean']
+>     data=df,
+>     index='region',
+>     columns='category',
+>     values=['sales'],
+>     aggfunc=['mean']
 > )
 > ```
 
@@ -4147,7 +4307,7 @@ s.close()
 > `conn`  表示与客户端通信的新 Socket 对象
 > `addr`  表示客户端地址
 >
-> 
+>  
 >
 > `data = conn.recv(1024)` 表示最多读取 1024 字节的数据
 >
@@ -4283,7 +4443,58 @@ print(num)           # (100,)
 
 
 
-## 四、多任务编程
+
+
+
+
+# 多任务编程
+
+## 并发
+
+> 假设有两个任务：
+>
+> ```
+> 任务A：吃饭
+> 任务B：看电视
+> ```
+>
+> 如果只有一个 CPU 核心，同一时刻实际上只能执行一个任务
+>
+> ```
+> 时间 →
+> ────────────────────────────>
+> 
+> A   A   B   B   A   B   A   B
+> ```
+>
+> 并发：在同一时间段内处理多个任务。
+
+## 并行
+
+> 如果有两个 CPU 核心
+>
+> ```
+> CPU核心1       CPU核心2
+>    │              │
+>    ↓              ↓
+> 任务A            任务B
+> ```
+>
+> A 和 B 可以在**同一时刻真正执行**
+>
+> ```
+> 时间 →
+> ────────────────────────>
+> 
+> 核心1： A A A A A A
+> 核心2： B B B B B B
+> ```
+>
+> 并行：多个任务在同一时刻真正同时执行。
+
+
+
+## 实现方式
 
 > **让程序在同一时间处理多个任务**，提高CPU利用率和程序运行效率
 >
@@ -4292,12 +4503,12 @@ print(num)           # (100,)
 > 主要的三种方式：
 >
 > ```
->             多任务编程
->                 │
->    ┌────────────┼────────────┐
->    │            │            │
->  多线程       多进程         协程
-> (Thread)    (Process)     (Asyncio)
+>                多任务编程
+>                    │
+>       ┌────────────┼────────────┐
+>       │            │            │
+>     多线程       多进程         协程
+>    (Thread)    (Process)     (Asyncio)
 > ```
 
 ### 多进程
@@ -4338,15 +4549,125 @@ print(num)           # (100,)
 
 
 
-## 五、`multiprocessing` 模块
 
-### `Process` 手动创建独立子进程
+
+
+
+# 队列
+
+```python
+import queue
+```
+
+|     队列      | 作用                 |
+| :-----------: | -------------------- |
+|     Queue     | 普通队列（先进先出） |
+|   LifoQueue   | 栈（后进先出）       |
+| PriorityQueue | 优先级队列           |
+
+## Queue 普通队列
+
+```python
+from queue import Queue
+
+q = Queue()    # 空队列
+q = Queue(maxsize=3)     # 限制队列大小
+```
+
+### `put()` 放数据
+
+```python
+q.put("任务1")
+q.put("任务2")
+q.put("任务3")
+```
+
+### `get()` 取数据
+
+> 如果没有数据会一直等待
+>
+> `q.get(timeout=3)`    最多等待 3 秒
+
+```python
+print(q.get())    # 任务1
+print(q.get())    # 任务2
+print(q.get())    # 任务3
+# 先进先出
+```
+
+### `qsize()` 查看队列大小
+
+### `empty()` 判断是否为空
+
+### Empty 异常
+
+```python
+from queue import Queue, Empty
+
+q = Queue()
+
+try:
+    data = q.get(timeout=2)
+
+except Empty:
+    print("队列没有数据")
+```
+
+
+
+## LifoQueue 栈
+
+```python
+from queue import LifoQueue
+
+q = LifoQueue()
+
+q.put(1)
+q.put(2)
+q.put(3)
+
+print(q.get())     # 3
+```
+
+
+
+## PriorityQueue 优先级队列
+
+> 数字越小优先级越高
+
+```python
+from queue import PriorityQueue
+
+q = PriorityQueue(3)
+
+q.put((2,'普通任务'))
+q.put((1,'紧急任务'))
+q.put((3,'其他任务'))
+
+print(q.get())     # (1, '紧急任务')
+print(q.get())     # (2, '普通任务')
+print(q.get())     # (3, '其他任务')
+```
+
+
+
+
+
+
+
+
+
+
+
+# `multiprocessing` 模块
+
+## `Process` 手动创建独立子进程
 
 ```python
 from multiprocessing import Process
 ```
 
-#### 创建`Process`对象
+### 创建`Process`对象
 
 > ```python
 > p = Process(target= , args=, kwargs=)
@@ -4356,7 +4677,7 @@ from multiprocessing import Process
 >
 > `args` ：传给函数的参数，且必须是元组
 
-#### 启动然后等待运行完
+### 启动然后等待运行完
 
 > **Linux / macOS（fork）**
 >
@@ -4381,11 +4702,11 @@ p.join()
 
 
 
-## 六、`threading` 模块
+# `threading` 模块
 
 > 用于**多线程编程**的核心模块
 
-### 创建线程
+## 创建线程
 
 ```python
 import threading
@@ -4393,16 +4714,291 @@ import threading
 def task(name):
     print(f"hello {name}")
 
-t = threading.Thread(target=task, args=("Alice",))
+# 填入的是函数名：把函数对象交给线程，等线程启动的时候再执行
+t = threading.Thread(target=task, args=("Alice",))   
+
 t.start()
-t.join()
+t.join()     # 等待这个线程执行结束
 ```
 
 
 
-## 七、`asyncio` 模块
+## `daemon` 守护线程
 
-### 定义协程函数
+> **非守护线程**：`daemon=False`，默认
+>
+> **守护线程**：`daemon=True`
+>
+> 守护线程会随着主线程/主程序的结束而结束
+>
+> > **创建时设置：**
+> >
+> > ```python
+> > t = threading.Thread(target=task, daemon=True)
+> > ```
+>
+> > **创建后设置：**
+> >
+> > ```python
+> > t = threading.Thread(target=task)
+> > t.daemon = True
+> > t.start()
+> > ```
+
+```python
+import threading
+import time
+
+def task():
+    while True:
+        print("线程运行中...")
+        time.sleep(1)
+
+t = threading.Thread(target=task)
+t.daemon = True
+t.start()
+
+print("主线程结束")
+```
+
+
+
+## `is_alive()` 判断线程是否运行
+
+
+
+## 线程同步
+
+> 假设有一个共享变量：
+>
+> ```python
+> money = 100
+> ```
+>
+> 两个线程：
+>
+> ```
+> 线程1：取 50
+> 线程2：取 80
+> ```
+>
+> 多线程可能发生：
+>
+> ```
+> 线程1：读取 money → 100
+> 线程2：读取 money → 100
+> 
+> 线程1：100 - 50 = 50
+> 线程2：100 - 80 = 20
+> 
+> 线程1：写回 50
+> 线程2：写回 20
+> ```
+>
+> 最后得到结果：20
+>
+> 这种情况叫：
+>
+> > **竞态条件（Race Condition）：**
+> >
+> > 多个线程同时操作同一个共享数据，执行顺序不确定，导致结果出现错误
+>
+> **线程同步 = 多个线程一起干活时，怎么避免它们互相搞乱，以及怎么让它们按照一定条件配合。**
+
+
+
+## Lock
+
+> 同一个线程不能重复加锁
+
+> 同一时间只允许一个线程进入某一段代码
+>
+> ```python
+> from threading import Lock
+> 
+> # 创建锁对象
+> lock = Lock()
+> 
+> money = 100
+> 
+> def withdraw():
+>     	global money
+> 
+>    	# 加锁，阻止其它线程
+>    	lock.acquire()
+> 
+>        money -= 50
+> 
+>        # 解锁
+>        lock.release()
+> ```
+
+### 使用 `with`
+
+```python
+import threading
+
+lock = threading.Lock()
+
+money = 100
+
+def withdraw():
+    global money
+
+    with lock:
+        money -= 50
+    '''
+    相当于：
+    lock.acquire()
+
+	try:
+    	money -= 50
+	finally:
+    	lock.release()
+    '''
+```
+
+
+
+## RLock
+
+> 同一个线程可以重复加锁
+
+
+
+## 线程池
+
+> ```python
+> import requests
+> from threading import Thread
+> 
+> 
+> def get_page(url):
+>        response = requests.get(url)
+>        print(url, response.status_code)
+> 
+> 
+> urls = [
+>     "https://example.com/1",
+>     "https://example.com/2",
+>     "https://example.com/3",
+>     "https://example.com/4",
+>     "https://example.com/5",
+> ]
+> 
+> threads = []
+> 
+> for url in urls:
+>        t = Thread(target=get_page, args=(url,))
+>        t.start()
+>        threads.append(t)
+> 
+> for t in threads:
+>        t.join()
+> 
+> print("全部完成")
+> ```
+>
+> 假设有 10000 个 URL，就要创建 10000 个线程，显然不合理，实际爬虫用
+>
+> **线程池 ThreadPoolExecutor**
+>
+> 比如创建 4 个线程：
+>
+> ```
+> 线程1 → 任务1 → 任务5 → 任务9 → ...
+> 线程2 → 任务2 → 任务6 → 任务10 → ...
+> 线程3 → 任务3 → 任务7 → 任务11 → ...
+> 线程4 → 任务4 → 任务8 → 任务12 → ...
+> ```
+>
+> 线程干完一个任务，再从任务队列拿下一个任务
+>
+> ```python
+> from concurrent.futures import ThreadPoolExecutor
+> ```
+
+```python
+from concurrent.futures import ThreadPoolExecutor
+import time
+
+def work(num):
+    print(f'开始执行任务{num}')
+    time.sleep(2)
+    print(f'任务{num}执行完毕')
+
+with ThreadPoolExecutor(max_workers=4) as pool:
+
+    for i in range(1,21):
+        pool.submit(work, i)
+```
+
+### `max_workers`
+
+> 创建一个最多同时运行 4 个线程的线程池
+
+### `submit()`
+
+> 把 `work(i)` 这个任务提交给线程池，负责提交任务
+
+### Future
+
+> 未来的结果，因为任务可能还没执行完
+
+```python
+from concurrent.futures import ThreadPoolExecutor
+import time
+
+def add(a, b):
+    time.sleep(2)
+    return a + b
+
+with ThreadPoolExecutor(max_workers=4) as pool:
+    future = pool.submit(add, 10, 20)
+
+    print(future)   # <Future at 0x200b2f55940 state=running>
+    print(future.result())   # 等待任务完成拿到结果
+```
+
+### `map()`
+
+```python
+from concurrent.futures import ThreadPoolExecutor
+
+def square(x):
+    return x * x
+
+nums = [1, 2, 3, 4, 5]
+
+with ThreadPoolExecutor(max_workers=3) as pool:
+    results = pool.map(square, nums)
+
+for result in results:
+    print(result)
+# 1
+# 4
+# 9
+# 16
+# 25
+```
+
+> `submint()` 适合一个一个提交任务，并且需要单独处理每个 Future
+>
+> `map()` 适合一批数据交给同一个函数处理
+
+
+
+
+
+
+
+# `asyncio` 模块
+
+## 定义协程函数
+
+> `async def` ：定义协程函数
+>
+> `await` ：等待结果，期间挂起当前协程，去执行别的
 
 ```python
 import asyncio
@@ -4412,19 +5008,17 @@ async def say_hello(name, delay):
     print(f"Hello {name}")
 ```
 
-> `async def` ：定义协程函数
->
-> `await` ：等待结果，期间挂起当前协程，去执行别的
 
-### 运行协程
+
+## 运行协程
 
 ```python
 asyncio.run(say_hello("wenx", 1))
 ```
 
-### 并发协程
+## 并发协程
 
-#### `asyncio.gather`
+### `asyncio.gather`
 
 > 自动 `create_task`，统一等待所有任务结束，自动收集 return 值
 
@@ -4464,7 +5058,7 @@ B 结束
 '''
 ```
 
-#### `asyncio.create_task`
+### `asyncio.create_task`
 
 > 立刻开始调度执行，返回一个 Task 对象，更自由
 
@@ -4502,7 +5096,7 @@ B 结束
 
 
 
-## 八、`aiohttp` 模块
+## `aiohttp` 模块
 
 > 基于`asyncio` 的异步 HTTP 框架（多个请求可以同时进行）
 >
@@ -4516,8 +5110,8 @@ import asyncio
 
 async def main():
     async with aiohttp.ClientSession() as session:
-        async with session.get("https://example.com") as resp:
-            text = await resp.text()
+        async with session.get("https://example.com") as res:
+            text = await res.text()
             print(text)
 
 asyncio.run(main())
@@ -4540,23 +5134,25 @@ async def main():
         async with session.post(
             "https://httpbin.org/post",
             data={"name": "xiaoming"}
-        ) as resp:
-            print(await resp.json())
+        ) as res:
+            print(await res.json())
 
 asyncio.run(main())
 ```
 
 ### 响应对象属性
 
-|         属性         | 说明                                 |
-| :------------------: | ------------------------------------ |
-|       `status`       | 状态码                               |
-|      `headers`       | 响应头                               |
-|        `url`         | 重定向后 URL                         |
-|      ` content`      | 流对象                               |
-| ` await resp.text()` | 网页源码                             |
-| `await resp.json()`  | 返回JSON接口数据                     |
-| `await resp.read()`  | `bytes` 原始字节（图片/文件/二进制） |
+|        属性         | 说明                                 |
+| :-----------------: | ------------------------------------ |
+|      `status`       | 状态码                               |
+|      `headers`      | 响应头                               |
+|        `url`        | 重定向后 URL                         |
+|     ` content`      | 流对象                               |
+| ` await res.text()` | 网页源码                             |
+| `await res.json()`  | 返回JSON接口数据                     |
+| `await res.read()`  | `bytes` 原始字节（图片/文件/二进制） |
+
+
 
 
 
@@ -4866,6 +5462,14 @@ db = client["test"]
 collection = db["users"]
 ```
 
+### 清空集合
+
+```python
+collection.delete_many({})
+```
+
+
+
 
 
 ## 插入数据
@@ -4903,6 +5507,150 @@ collection.insert_many(users)
 
 
 
+## 查询数据
+
+### 全部查询
+
+```python
+result = collection.find()
+
+for item in result:
+    print(item)
+```
+
+### 查询一条
+
+```python
+result = collection.find_one()
+
+print(result)
+
+
+# 去重：
+if collection.find_one({"url":url}):
+	print("已经爬过")
+```
+
+### 条件查询
+
+```python
+collection.find({
+    'age':18,
+    'name':"张三"
+})
+```
+
+### 比较查询
+
+```
+$gt  大于         $lt  小于        $gte  大于等于         $lte  小于等于
+```
+
+
+
+
+
+## 修改数据
+
+### 修改一条
+
+```python
+collection.update_one(
+	{
+        "name":"张三"
+    },
+    {
+        "$set":{"age":19}
+    }
+)
+```
+
+### 修改多条
+
+> 假设 MongoDB 里面有这些数据
+>
+> ```js
+> [
+>     {
+>         "name":"张三",
+>         "age":18
+>     },
+>     {
+>         "name":"李四",
+>         "age":18
+>     },
+>     {
+>         "name":"王五",
+>         "age":20
+>     }
+> ]
+> ```
+
+```js
+collection.update_many(
+    {
+        "age":18
+    },
+    {
+        "$set":{"status":"学生"}
+    }
+)
+```
+
+```js
+[
+    {
+        "name":"张三",
+        "age":18,
+        "status":"学生"
+    },
+    {
+        "name":"李四",
+        "age":18,
+        "status":"学生"
+    },
+    {
+        "name":"王五",
+        "age":20
+    }
+]
+```
+
+
+
+## 删除数据
+
+### 删除一条
+
+```python
+collection.delete_one(
+    {
+        "name":"张三"
+    }
+)
+```
+
+### 删除多条
+
+```python
+collection.delete_many(
+    {
+        "age":18
+    }
+)
+```
+
+
+
+## 排序
+
+```python
+collection.find().sort("age", 1)    # 升序
+collection.find().sort("age", -1)     # 降序
+```
+
+
+
 
 
 
@@ -4911,6 +5659,20 @@ collection.insert_many(users)
 
 ```cmd
 pip install redis
+```
+
+## 连接 Redi
+
+```python
+from redis import Redis
+
+r = Redis(
+	host='localhost',
+    port=6379,
+    db=0
+)
+
+print(r.ping())        # 测试连接
 ```
 
 
@@ -4935,7 +5697,7 @@ pip install redis
 >
 > **聚焦网络爬虫：**自己写的爬虫程序
 >
-> 
+>  
 >
 > <span style='font-size:20px'>**`requests` 模块：**</span>
 >
@@ -5122,9 +5884,9 @@ print(result)
 > import csv
 > 
 > with open('example.csv', 'r', newline='', encoding='utf-8') as f:
->  	reader = csv.reader(f)  # 默认分隔符是逗号
->     for row in reader:
->         print(row)
+>     	reader = csv.reader(f)  # 默认分隔符是逗号
+>        for row in reader:
+>            print(row)
 > ```
 >
 > 每行返回一个列表
@@ -5139,14 +5901,14 @@ print(result)
 > import csv
 > 
 > data = [
->  ['姓名', '年龄', '城市'],
->  ['小明', 18, '北京'],
->  ['小红', 20, '上海']
+>     ['姓名', '年龄', '城市'],
+>     ['小明', 18, '北京'],
+>     ['小红', 20, '上海']
 > ]
 > 
 > with open('output.csv', 'w', newline='', encoding='utf-8') as f:
->     writer = csv.writer(f)
->     writer.writerows(data)  # writerows 可以写入多行
+>        writer = csv.writer(f)
+>        writer.writerows(data)  # writerows 可以写入多行
 > ```
 >
 > `writer.writerow()` 写一行
@@ -5613,127 +6375,6 @@ for i in soup.find_all('div'):
 
 
 
-## 八、`aiohttp` 案例
-
-```
-https://tse1.mm.bing.net/th/id/OIP.d2MrsioagZeQA_VkwzSkKgHaO4?rs=1&pid=ImgDetMain&o=7&rm=3
-
-https://tse3.mm.bing.net/th/id/OIP.E_d_vpR--tKu3Venp5nIswHaOq?rs=1&pid=ImgDetMain&o=7&rm=3
-
-https://tse3.mm.bing.net/th/id/OIP.SG1cjjWS9JdmniXwaR8CqgHaNK?rs=1&pid=ImgDetMain&o=7&rm=3
-```
-
-```python
-import asyncio
-import aiohttp
-import aiofiles
-
-
-urls = [
-    'https://tse1.mm.bing.net/th/id/OIP.d2MrsioagZeQA_VkwzSkKgHaO4?rs=1&pid=ImgDetMain&o=7&rm=3',
-    'https://tse3.mm.bing.net/th/id/OIP.E_d_vpR--tKu3Venp5nIswHaOq?rs=1&pid=ImgDetMain&o=7&rm=3',
-    'https://tse3.mm.bing.net/th/id/OIP.SG1cjjWS9JdmniXwaR8CqgHaNK?rs=1&pid=ImgDetMain&o=7&rm=3',
-]
-
-async def downloads(url):
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url) as resp:
-            async with aiofiles.open(f'D:/新建文件夹/{urls.index(url)}.jpg', 'wb') as f:
-                await f.write(await resp.read())
-                print('完成')
-
-async def main():
-    tasks=[]
-    for url in urls:
-        tasks.append(asyncio.create_task(downloads(url)))
-    await asyncio.wait(tasks)
-
-asyncio.run(main())
-```
-
-
-
-### 4K 桌面壁纸案例
-
-```
-D:\py-project\爬虫\案例\4k桌面1-10页风景壁纸.py
-```
-
-```
-https://www.4kdesk.com/4kfengjing/
-```
-
-![image-20260620190543882](images/image-20260620190543882.png)`src`是懒加载占位图，页面真实图片在`data-original`
-
-```python
-from fake_useragent import UserAgent
-import asyncio
-import aiohttp
-import aiofiles
-from bs4 import BeautifulSoup
-import os
-
-
-class Desk_4k:
-    def __init__(self):
-        self.url_base = 'https://www.4kdesk.com/4kfengjing/'
-
-    def url_page(self):
-        url_page = []
-        url_page.append(f'{self.url_base}index.html')
-        for i in range(2, 11):
-            url = f'{self.url_base}index_{i}.html'
-            url_page.append(url)
-        return url_page
-
-    async def fetch_html(self, session, url):
-        async with session.get(url, headers={'User-Agent': UserAgent().random}) as resp:
-            html = await resp.text()
-            return html
-
-    def url_scr(self, html):
-        soup = BeautifulSoup(html, 'html.parser')
-        src_list = [
-            img['data-original']
-            for img in soup.select('a.item img.lazy')
-            if img.get('data-original')
-        ]
-
-        return src_list
-
-    async def download(self, session, scr):
-        async with session.get(scr) as resp:
-            async with aiofiles.open(f'D:/新建文件夹/{os.path.basename(scr)}','wb') as f:
-                await f.write(await resp.read())
-                print(f'{os.path.basename(scr)} 下载完成')
-
-    async def main(self):
-        page = self.url_page()
-
-        # 只创建一个 session
-        async with aiohttp.ClientSession() as session:
-
-            for url_page in page:
-                html = await self.fetch_html(session, url_page)
-                scr_list = self.url_scr(html)
-
-                # 并发下载
-                tasks = []
-                for url_scr in scr_list:
-                    tasks.append(self.download(session, url_scr))
-
-                await asyncio.gather(*tasks)
-
-
-if __name__ == '__main__':
-    wallpaper = Desk_4k()
-    asyncio.run(wallpaper.main())
-```
-
-
-
-
-
 ## 案例：爱奇艺存入 MongoDB
 
 ```url
@@ -5791,12 +6432,17 @@ class AiQiYi:
 
     # 主函数
     def run(self):
+		self.collection.delete_many({})  # 清空整个集合
+
         for page in range(1, 11):
             params = f'channel_id=2&data_type=1&mode=11&page_id={page}&ret_num=48&three_category_id=15;must'
             data = self.send_request(params)
             title, url, content = self.parse_data(data)
             self.save_data(title, url, content)
+            
             print(f'第{page}页数据爬取完成')
+            
+        self.client.close()
 
 if __name__ == '__main__':
     aqy = AiQiYi()
@@ -5822,11 +6468,12 @@ if __name__ == '__main__':
 ## `webdriver` 模块
 
 > Selenium 用来驱动浏览器执行操作的统一接口
->
->
+> 
+> 
 > ```python
 > from selenium import webdriver
 > ```
+>
 
 ```python
 driver = webdriver.Chrome()  # 启动浏览器
@@ -5897,6 +6544,8 @@ from selenium.webdriver.common.by import By
 > <span style='color:red'>EC 模块填入的是元组，双括号</span>
 >
 > `until()` 里面必须传入的是可调用对象，`lambda` 
+>
+> 多个元素变成 `all_elements`
 
 
 
@@ -7435,6 +8084,7 @@ tab.wait.load_start()
 
 ```python
 tab.wait.ele_displayed("#username")
+tab.wait.ele_displayed("#username", timeout=2)    # 最多等待两秒
 ```
 
 #### 等待时间
@@ -7479,7 +8129,7 @@ tab.wait(3)
 > # ...
 > 
 > for packet in tab.listen.steps():
->     print(packet.url)
+>        print(packet.url)
 > ```
 >
 > 包含：
@@ -7579,7 +8229,6 @@ tab.listen.start('scm-uiaoauth-web/s/business/uiaouth/queryAnnouncementByTitle')
 tab.get('https://ec.chng.com.cn/channel/home/?SIJfApfmEBp=1786452240563#/purchase')
 
 
-
 page = 1
 # 获取监听结果
 for i in tab.listen.steps():
@@ -7613,6 +8262,47 @@ for i in tab.listen.steps():
 
 
 
+## 滚动
+
+#### 滚动到页面底部
+
+```python
+tab.scroll.to_bottom()
+```
+
+#### 平滑滚动到底部
+
+```python
+tab.run_js("""
+    window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth'
+    });
+""")
+```
+
+#### 滚动到某个元素
+
+```python
+ele.scroll.to_see()
+```
+
+#### 指定滚动距离
+
+```python
+tab.scroll.down(500)
+```
+
+#### 滚动到指定坐标
+
+```python
+tab.scroll.to_location(0, 1000)
+```
+
+
+
+
+
 ## 动作链
 
 ```python
@@ -7639,6 +8329,7 @@ ac = Actions(tab)
 box = tab.ele("#box")
 
 ac.move_to(box)
+ac.move(100, 0)    # 相对位置移动，参数是位移量，而不是元素
 ```
 
 ### 点击
@@ -7653,6 +8344,7 @@ ac.right_click(box)       # 右键
 
 ```python
 ac.hold(box)
+ac.hold()    # 在当前位置按住
 ```
 
 ### 释放鼠标
@@ -7665,6 +8357,15 @@ ac.release()
 
 ```python
 ac.move_by(300, 0)
+```
+
+### 获取元素位置和尺寸
+
+```python
+box = tab.ele('#sliderBtn')
+
+x, y = box.rect.location     # 位置坐标
+w, h = box.rect.size       # 宽度和高度
 ```
 
 ### 键盘操作
@@ -7683,26 +8384,53 @@ ac.type("a")
 ac.key_up(Keys.CTRL)        # Ctrl + A
 ```
 
-### 示例：鼠标拖拽
+### 示例：滑块验证码
 
 ```
-D:\py-project\爬虫\DrissionPage\鼠标拖拽.py
+D:\py-project\爬虫\DrissionPage\滑块验证码.py
 ```
 
 ```python
-tab = Chromium(co).latest_tab
-tab.get("https://www.runoob.com/try/try.php?filename=jqueryui-api-droppable")
+from DrissionPage import Chromium, ChromiumOptions
+from DrissionPage.common import Actions
+
+co = ChromiumOptions()
+co.set_browser_path(
+    r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
+)
+co.set_proxy('http://127.0.0.1:7897')
+co.set_argument('--start-maximized')
+co.set_user_data_path("./chrome_data")
+
+browser = Chromium(co)
+tab = browser.latest_tab
+
+tab.get(r"D:\py-project\爬虫\DrissionPage\滑块验证码.html")
+
+box = tab.ele('#sliderBtn')
+
+print('位置:', box.rect.location)
+print('大小:', box.rect.size)
+
+box = tab.ele('#sliderBtn')
+
+x, y = box.rect.location
+w, h = box.rect.size
 
 ac = Actions(tab)
 
-box = tab.ele('#draggable')
-ac.move_to(box)
-ac.hold(box)
-ac.move_to(tab.ele('#droppable'))
-ac.release(box)
+# x坐标加上元素宽的一半，y坐标加上元素高的一半，就是元素中心的位置
+ac.move_to((x + w / 2, y + h / 2))
+
+# 按住
+ac.hold()
+
+# 相对当前位置向右移动
+ac.move(310, 0)
+
+# 松开
+ac.release()
 ```
-
-
 
 
 
@@ -7735,6 +8463,2122 @@ tab.actions.m_click('#link')     # 中键
 ```python
 tab.actions.click('#kw').type('Python')          # 键盘输入
 ```
+
+
+
+## 执行 JS
+
+```python
+tab.run_js('alert("你好")')
+
+height = tab.run_js('return document.body.scrollHeight')
+print(height)
+
+content = tab.ele('#content')     # 对某个元素运行 JS
+content.run_js("""
+    this.style.background = 'red'
+""")
+```
+
+
+
+
+
+## SessionPage —— 使用 `requests` 发送请求
+
+> 没有鼠标、点击、JS执行、浏览器渲染
+>
+> ```python
+> from DrissionPage import SessionPage
+> 
+> page = SessionPage()
+> page.get("https://www.baidu.com")
+> ```
+
+## 设置请求头
+
+```python
+page.headers = {"User-Agent":"Mozilla/5.0"}
+```
+
+## 获取内容
+
+```python
+page.html
+page.cookies
+```
+
+
+
+## 案例：网易招聘数据
+
+```
+https://hr.163.com/job-list.html?workType=1&lang=zh
+D:\py-project\爬虫\DrissionPage\网易招聘数据.py
+```
+
+![image-20260815163536817](images/image-20260815163536817.png)
+
+### 代码
+
+```python
+from DrissionPage import Chromium, ChromiumOptions
+from pymongo import MongoClient
+
+# 连接数据库
+client = MongoClient('localhost', 27017)
+collection = client['WangYi']['recruitment']
+
+co = ChromiumOptions()
+co.set_browser_path(
+    r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
+)
+co.set_proxy('http://127.0.0.1:7897')
+co.set_argument('--start-maximized')
+co.set_user_data_path("./chrome_data")
+
+browser = Chromium(co)
+tab = browser.latest_tab
+
+tab.listen.start('api/hr163/position/queryPage')
+tab.get('https://hr.163.com/job-list.html?workType=1&lang=zh')
+
+
+page = 1
+collection.delete_many({})
+
+for i in tab.listen.steps():
+    data = i.response.body['data']['list']
+    for j in data:
+        dict = {'name': j['name'], 'reqEducationName': j['reqEducationName'], 'requirement': j['requirement']}
+        collection.insert_one(dict)
+
+        print(f'名称：{j['name']}')
+        print(f'学历：{j['reqEducationName']}')
+        print('岗位要求：')
+        print(j['requirement'])
+        print('')
+
+    print(f'———————————————————第{page}页————————————————————')
+    page += 1
+
+    button = tab.ele('xpath://*[@id="p-job-list"]/div[2]/div[2]/div/div/ul/li[last()-1]')
+    if button.attr("aria-disabled") == "true":
+        print("最后一页")
+        browser.quit()
+        client.close()
+        break
+    else:
+        button.click()
+
+
+
+```
+
+
+
+
+
+# 多线程爬虫
+
+## 案例：爱奇艺
+
+```url
+https://list.iqiyi.com/www/2/15-------------11-1-1-iqiyi--.html?s_source=PCW_SC
+```
+
+### 代码：线程数为 5
+
+```python
+from pymongo import MongoClient
+import requests
+from fake_useragent import UserAgent
+from concurrent.futures import ThreadPoolExecutor as pool
+
+import time
+
+
+class AiQiYi:
+    def __init__(self):
+        self.url = 'https://pcw-api.iqiyi.com/search/recommend/list'
+        self.headers = {'User-Agent': UserAgent().random}
+        self.client = MongoClient("mongodb://localhost:27017/")
+        self.collection = self.client['AiQiYi_spider']['movies']
+
+    # 发送请求
+    def send_request(self, params):
+        res = requests.get(url=self.url, params=params,headers=self.headers)
+        return res.json()
+
+    # 解析数据
+    def parse_data(self,data):
+        data = data['data']['list']
+        title = []
+        url = []
+        content = []
+
+        for i in data:
+            title.append(i['title'])
+            url.append(i['playUrl'])
+            content.append(i['description'])
+
+        return title, url, content
+
+    # 保存数据
+    def save_data(self,title,url, content):
+        for i in range(len(title)):
+            self.collection.insert_one({'title': title[i], 'url': url[i], 'content': content[i]})
+
+    # 主函数
+    def run(self):
+        start_time = time.perf_counter()
+
+        self.collection.delete_many({})  # 清空整个集合
+
+        with pool(max_workers=5) as p:
+            futures = []
+
+            # 提交任务
+            for page in range(1, 11):
+                params = f'channel_id=2&data_type=1&mode=11&page_id={page}&ret_num=48&three_category_id=15;must'
+                future = p.submit(self.send_request,params)
+
+                futures.append((page, future))
+
+            # 获取结果
+            for page, future in futures:
+                data = future.result()
+                title, url, content = self.parse_data(data)
+                self.save_data(title, url, content)
+
+                print(f'第{page}页数据爬取完成')
+
+        end_time = time.perf_counter()
+
+        print(f'程序运行时间：{end_time - start_time:.2f} 秒')
+        
+        self.client.close()
+
+if __name__ == '__main__':
+    aqy = AiQiYi()
+    aqy.run()
+```
+
+<img src="images/image-20260815142019788.png" alt="image-20260815142019788" style="zoom:67%;" />
+
+### 不使用线程：
+
+<img src="images/image-20260815141918481.png" alt="image-20260815141918481" style="zoom:67%;" />
+
+
+
+
+
+# 高并发爬虫
+
+## 案例：吃啥呢给我也来一口图片下载
+
+```
+https://tse1.mm.bing.net/th/id/OIP.d2MrsioagZeQA_VkwzSkKgHaO4?rs=1&pid=ImgDetMain&o=7&rm=3
+
+https://tse3.mm.bing.net/th/id/OIP.E_d_vpR--tKu3Venp5nIswHaOq?rs=1&pid=ImgDetMain&o=7&rm=3
+
+https://tse3.mm.bing.net/th/id/OIP.SG1cjjWS9JdmniXwaR8CqgHaNK?rs=1&pid=ImgDetMain&o=7&rm=3
+```
+
+```python
+import asyncio
+import aiohttp
+import aiofiles
+
+
+urls = [
+    'https://tse1.mm.bing.net/th/id/OIP.d2MrsioagZeQA_VkwzSkKgHaO4?rs=1&pid=ImgDetMain&o=7&rm=3',
+    'https://tse3.mm.bing.net/th/id/OIP.E_d_vpR--tKu3Venp5nIswHaOq?rs=1&pid=ImgDetMain&o=7&rm=3',
+    'https://tse3.mm.bing.net/th/id/OIP.SG1cjjWS9JdmniXwaR8CqgHaNK?rs=1&pid=ImgDetMain&o=7&rm=3',
+]
+
+async def downloads(url):
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as resp:
+            async with aiofiles.open(f'D:/新建文件夹/{urls.index(url)}.jpg', 'wb') as f:
+                await f.write(await resp.read())
+                print('完成')
+
+async def main():
+    tasks=[]
+    
+    for url in urls:
+        tasks.append(asyncio.create_task(downloads(url)))
+        
+    await asyncio.wait(tasks)
+'''
+async def main():
+    tasks = []
+
+    for url in urls:
+        tasks.append(download(url))
+
+    await asyncio.gather(*tasks)
+'''
+
+asyncio.run(main())
+```
+
+### 共用一个 Session
+
+```python
+import asyncio
+import aiohttp
+import aiofiles
+
+
+urls = [
+    'https://tse1.mm.bing.net/th/id/OIP.d2MrsioagZeQA_VkwzSkKgHaO4?rs=1&pid=ImgDetMain&o=7&rm=3',
+    'https://tse3.mm.bing.net/th/id/OIP.E_d_vpR--tKu3Venp5nIswHaOq?rs=1&pid=ImgDetMain&o=7&rm=3',
+    'https://tse3.mm.bing.net/th/id/OIP.SG1cjjWS9JdmniXwaR8CqgHaNK?rs=1&pid=ImgDetMain&o=7&rm=3',
+]
+
+
+async def download(session, url):
+    # 发送请求
+    async with session.get(url) as res:
+
+        # 打开文件
+        async with aiofiles.open(f'D:/新建文件夹/{urls.index(url)}.jpg','wb') as f:
+            await f.write(await res.read())
+
+            print(f'{urls.index(url)}.jpg 下载完成')
+
+
+async def main():
+    # 创建一个 Session，所有请求共用它
+    async with aiohttp.ClientSession() as session:
+
+        tasks = []
+
+        for url in urls:
+            task = download(session, url)
+            tasks.append(task)
+
+        # 并发执行所有下载任务
+        await asyncio.gather(*tasks)
+
+
+if __name__ == '__main__':
+    asyncio.run(main())
+```
+
+
+
+## 异步 MongoDB
+
+```python
+from pymongo import AsyncMongoClient
+
+client = AsyncMongoClient('mongodb://localhost:27017/')
+```
+
+
+
+## 异步 MySQL
+
+```
+pip install aiomysql
+```
+
+```python
+import aiomysql
+
+
+
+```
+
+
+
+
+
+## 案例：爱奇艺高并发获取
+
+```
+https://list.iqiyi.com/www/2/15-------------11-1-1-iqiyi--.html?s_source=PCW_SC
+D:\py-project\爬虫\多任务编程\协程\爱奇艺高并发获取.py
+```
+
+```python
+import asyncio
+import aiohttp
+import time
+
+from fake_useragent import UserAgent
+from pymongo import AsyncMongoClient
+
+
+class AiQiYi:
+    def __init__(self):
+        self.url = 'https://pcw-api.iqiyi.com/search/recommend/list'
+        self.headers = {'User-Agent': UserAgent().random}
+        self.client = AsyncMongoClient('mongodb://localhost:27017/')
+        self.collection = self.client['test']['async']
+
+
+    # 发送请求
+    async def send_request(self, session, page):
+        params = {
+            'channel_id': '2',
+            'data_type': '1',
+            'mode': '11',
+            'page_id': page,
+            'ret_num': '48',
+            'three_category_id': '15;must'
+        }
+
+        async with session.get(self.url,params=params,headers=self.headers) as res:
+
+            return await res.json()
+
+
+    # 解析数据
+    def parse_data(self, data):
+        data = data['data']['list']
+        result = []
+
+        for i in data:
+            result.append({
+                'title': i['title'],
+                'url': i['playUrl'],
+                'content': i['description']
+            })
+
+        return result
+
+
+    # 爬取一页
+    async def crawl_page(self, session, page):
+        # 请求
+        data = await self.send_request(session, page)
+        # 解析
+        result = self.parse_data(data)
+
+        print(f'第{page}页数据爬取完成')
+
+        return result
+
+
+    # 保存数据
+    async def save_data(self, data):
+        await self.collection.insert_many(data)
+
+
+    # 主函数
+    async def run(self):
+        start_time = time.perf_counter()
+
+        await self.collection.delete_many({})    # 清空集合
+
+
+        # 创建 HTTP Session
+        async with aiohttp.ClientSession() as session:
+            # 创建10个协程
+            tasks = []
+
+            for page in range(1, 11):
+                tasks.append(self.crawl_page(session, page))
+
+            # 并发爬取10页
+            results = await asyncio.gather(*tasks)
+
+
+        # 批量保存 MongoDB
+        all_data = []
+
+        for i in results:   # 这里每一个 i 都是 parse_data 函数返回的列表，列表里有一页的数据字典，这里用extend让all_data里存字典，方便下面存入MongoDB
+            all_data.extend(i)     # 将一个列表的所有元素添加到另一个列表末尾（列表 ——> 列表的基本操作 ——> 扩展列表）
+
+        await self.save_data(all_data)
+
+
+        end_time = time.perf_counter()
+        print(f'{end_time - start_time:.2f} 秒')
+
+        # 关闭 MongoDB
+        await self.client.close()
+
+
+if __name__ == '__main__':
+    aqy = AiQiYi()
+    asyncio.run(aqy.run())
+```
+
+<img src="images/image-20260817203146799.png" alt="image-20260817203146799" style="zoom:67%;" />
+
+
+
+
+
+## 4K 桌面壁纸案例
+
+```
+D:\py-project\爬虫基础\多任务编程\协程\4k桌面风景壁纸下载.py
+```
+
+```
+https://www.4kdesk.com/4kfengjing/
+```
+![image-20260620190543882](images/image-20260620190543882.png)
+
+> `src`是懒加载占位图，页面真实图片在`data-original`
+
+```python
+from fake_useragent import UserAgent
+import asyncio
+import aiohttp
+import aiofiles
+from bs4 import BeautifulSoup
+import os
+
+
+class Desk_4k:
+    def __init__(self):
+        self.url_base = 'https://www.4kdesk.com/4kfengjing/'
+
+    def url_page(self):
+        url_page = []
+        url_page.append(f'{self.url_base}index.html')    # 第一页的 URL
+        
+        for i in range(2, 11):
+            url = f'{self.url_base}index_{i}.html'
+            url_page.append(url)
+        return url_page
+
+    async def fetch_html(self, session, url):
+        async with session.get(url, headers={'User-Agent': UserAgent().random}) as resp:
+            html = await resp.text()
+            return html
+
+    def url_scr(self, html):
+        soup = BeautifulSoup(html, 'html.parser')
+        src_list = [
+            img['data-original']
+            for img in soup.select('a.item img.lazy')
+            if img.get('data-original')
+        ]
+
+        return src_list
+
+    async def download(self, session, scr):
+        async with session.get(scr) as resp:
+            async with aiofiles.open(f'D:/新建文件夹/{os.path.basename(scr)}','wb') as f:
+                await f.write(await resp.read())
+                print(f'{os.path.basename(scr)} 下载完成')
+
+    async def main(self):
+        page = self.url_page()
+
+        # 只创建一个 session
+        async with aiohttp.ClientSession() as session:
+
+            for url_page in page:
+                html = await self.fetch_html(session, url_page)
+                scr_list = self.url_scr(html)
+
+                # 并发下载
+                tasks = []
+                for url_scr in scr_list:
+                    tasks.append(self.download(session, url_scr))
+
+                await asyncio.gather(*tasks)
+
+
+if __name__ == '__main__':
+    wallpaper = Desk_4k()
+    asyncio.run(wallpaper.main())
+```
+
+
+
+## 汽车之家配置页面数据获取
+
+```url
+https://www.che168.com/china/a0_0msdgscncgpi1ltocsp1exf4x0/
+```
+
+![image-20260818130025520](images/image-20260818130025520.png)
+
+### API
+
+![image-20260818130251821](images/image-20260818130251821.png)
+
+```url
+https://cacheapigo.che168.com/CarProduct/GetParam.ashx?specid=65598&callback=configTitle
+
+# callback=configTitle   JS里的回调函数
+```
+
+### 去掉回调函数
+
+<img src="images/image-20260818130602676.png" alt="image-20260818130602676" style="zoom:67%;" />
+
+<img src="images/image-20260818130656178.png" alt="image-20260818130656178" style="zoom:73%;" />
+
+### 汽车 ID
+
+![image-20260818135059478](images/image-20260818135059478.png)
+
+
+
+
+
+
+
+
+
+# IP 代理池
+
+## 免费 IP 获取
+
+```
+https://www.kuaidaili.com/free/inha/1/
+D:\py-project\爬虫\IP 代理池\免费 IP 获取.py
+```
+
+```python
+'''
+复制到 DrissionPage 文件夹执行
+'''
+
+from DrissionPage import Chromium, ChromiumOptions
+
+co = ChromiumOptions()
+co.set_browser_path(
+    r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
+)
+co.set_proxy("http://127.0.0.1:8080")
+co.set_argument("--start-maximized")
+co.set_user_data_path("./chrome_data")
+
+tab = Chromium(co).latest_tab
+tab.get('https://www.kuaidaili.com/free/inha/')
+tab.wait.ele_displayed(
+    'xpath://*[@id="table__free-proxy"]/div/table/tbody'
+)
+
+
+page = 1
+while True:
+    success = tab.wait.ele_displayed('xpath://*[@id="table__free-proxy"]/div/table/tbody', timeout=2)
+    if not success:
+        tab.refresh()
+        continue
+
+    tables = tab.ele('xpath://*[@id="table__free-proxy"]/div/table/tbody')
+
+    for i in tables.eles('css:tr'):
+        ip = i.ele('css:td:nth-child(1)').text
+        port = i.ele('css:td:nth-child(2)').text
+        print(ip, port)
+    print(f'第{page}页爬取完成')
+    page += 1
+
+
+    button = tab.ele('xpath://*[@id="pagination__free-proxy"]/ul/li[last()-1]')
+    if not button.attr('data-index'):
+        print('最后一页')
+        tab.close()
+        break
+    else:
+        button.click()
+```
+
+<img src="images/20260816093602_391_755.png" alt="image-20260815141918481" style="zoom: 50%;" />
+
+😐被封了
+
+
+
+## 付费代理
+
+```url
+https://www.kuaidaili.com/uc/dps/?orderid=948686654912116
+```
+
+### 选择 API 链接获取
+
+![image-20260816155901408](images/image-20260816155901408.png)
+
+### 点击生成链接，复制
+
+![image-20260817221803301](images/image-20260817221803301.png)
+
+### 使用
+
+> `https` 的 key 表示访问 HTTPS 网站时使用这个代理
+>
+> 后面的 `http://` 表示代理服务器本身使用 HTTP 协议连接
+
+```python
+import requests
+
+api_url = 'https://dps.kdlapi.com/api/getdps/?secret_id=o7il5qv4q3et9puytcoa&signature=g08kr25isxcse7j8akyq090atu6lcshf&num=1&format=text&sep=1'
+proxy_ip = requests.get(api_url).text
+
+proxies = {
+    "http": f"http://d2121168886:123456@{proxy_ip}",
+    "https": f"http://d2121168886:123456@{proxy_ip}"
+}
+
+target_url = 'https://dev.kdlapi.com/testproxy'
+
+response = requests.get(target_url, proxies=proxies)
+print(response.text)
+```
+
+
+
+
+
+
+
+# scrapy 框架
+
+> Python 环境：3.9
+>
+> 下载：
+>
+> ```
+> pip install scrapy==2.6.3 Twisted==22.10.0 urllib3==1.26.18 parsel==1.7.0 setuptools==79.0.1
+> ```
+>
+> 流程：
+>
+> ```
+>                          scrapy crawl xxx
+>                                 |
+>                                 ↓
+>                     ┌────────────────────┐
+>                     │     Scrapy启动      │
+>                     └────────────────────┘
+>                                 |
+>                                 ↓
+>                     创建 Crawler / Engine
+>                                 |
+>                                 ↓
+>         ┌────────────────────────────────────────┐
+>         │          Spider 生命周期开始            │
+>         └────────────────────────────────────────┘
+>                                 |
+>                                 ↓
+>                  Spider.start_requests()
+>                  （生成初始Request）
+>                                 |
+>                                 |
+>               yield scrapy.Request(url,callback)
+>                                 |
+>                                 ↓
+>       ════════════════════════════════════════════════
+>                     Engine（核心调度）
+>       ════════════════════════════════════════════════
+>                                 |
+>                                 ↓
+>                     Scheduler 调度器
+>                                 |
+>                   ┌─────────────┐
+>                   │             │
+>                   ↓             ↓
+>              入队保存        请求去重
+>          （Request队列）   （dupefilter）
+>                   |
+>                   ↓
+>       ═══════════════════════════════════════════════
+>                  Downloader Middleware
+>                    （下载中间件）
+>       ════════════════════════════════════════════════
+> 
+>                  process_request()
+> 
+>                  - 设置代理
+>                  - 修改Headers
+>                  - 设置Cookie
+>                  - Selenium打开浏览器
+> 
+>                   |
+>                   ↓
+> 
+>       ═══════════════════════════════════════════════
+>                     Downloader
+>                     （下载器）
+>       ═══════════════════════════════════════════════
+>                   |
+>                   ↓
+> 
+>               发送 HTTP 请求
+> 
+>                   |
+>                   ↓
+> 
+>               目标网站服务器
+> 
+>                   |
+>                   ↓
+> 
+>               返回 Response
+> 
+>       ════════════════════════════════════════════
+>               Downloader Middleware
+>       ════════════════════════════════════════════
+> 
+>                  process_response()
+> 
+>                  - 检查状态码
+>                  - 修改Response
+>                  - 重试请求
+> 
+>                   |
+>                   ↓
+> 
+>      ═══════════════════════════════════════════
+>                     Spider解析
+>      ════════════════════════════════════════════
+> 
+>                  callback函数执行
+> 
+>                  ↓
+> 
+>              parse(response)
+> 
+>                  |
+>         ┌────────┴────────┐
+>         ↓                 ↓
+> 
+>     提取数据            产生新请求
+> 
+>  response.xpath()       yield Request()
+> 
+>  response.css()              |
+>  response.get()              |
+>  response.getall()           |
+>                              |
+>                              ↓
+>                          Scheduler
+>                          （继续循环）
+> 
+>         |
+>         ↓
+> 
+>   生成 Item
+> 
+>   item = {}
+> 
+>   item['name']='python'
+> 
+>   yield item
+> 
+>                   |
+>                   ↓
+> 
+> ═════════════════════════════════════════
+>              Item Pipeline
+> ═════════════════════════════════════════
+> 
+>              process_item(item, spider)
+> 
+>                   |
+>         ┌─────────┴─────────┐
+>         ↓                   ↓
+> 
+>     数据清洗              数据保存
+> 
+>  strip()               MySQL
+>  replace()             MongoDB
+>                        Redis
+> 
+>                   |
+>                   ↓
+> 
+> ═══════════════════════════════════════════
+>                爬虫结束
+> ═══════════════════════════════════════════
+> 
+>              spider_closed()
+> 
+>                   |
+>                   ↓
+> 
+>              关闭资源
+> 
+>              driver.quit()
+> 
+>              db.close()
+> 
+>              文件关闭
+> ```
+
+## 一、内置命令
+
+### 创建项目
+
+```
+cd scrapy 框架
+
+scrapy startproject 项目名
+```
+
+![image-20260821085008890](images/image-20260821085008890.png)
+
+### 创建 Spider
+
+```
+cd test1
+
+scrapy genspider 爬虫名 网站
+```
+
+![image-20260821091135230](images/image-20260821091135230.png)
+
+### 查看爬虫列表
+
+```
+scrapy list
+```
+
+### 运行爬虫
+
+```
+scrapy crawl 爬虫名
+```
+
+![image-20260821095336015](images/image-20260821095336015.png)
+
+### 直接运行创建启动入口
+
+```
+项目根目录创建 run.py
+```
+
+```python
+from scrapy.cmdline import execute    # 执行 scrapy 命令
+import sys
+
+# scrapy启动的时候，需要找到这个项目
+sys.path.append(r"D:\py-project\爬虫基础\scrapy 框架\test1")
+
+# 接收的是“命令行参数列表”
+execute(["scrapy","crawl","sogou","--nolog"])    # --nolog 不输出日志信息
+```
+
+
+
+
+
+## 二、settings.py 核心配置
+
+### 设置机器人协议
+
+```python
+ROBOTSTXT_OBEY = False
+```
+
+### 设置请求头
+
+```python
+# Override the default request headers:
+DEFAULT_REQUEST_HEADERS = {
+  'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 Edg/151.0.0.0'
+}
+```
+
+### 开启 Pipeline
+
+```python
+ITEM_PIPELINES = {
+    "test1.pipelines.类名":300       # 数字越小优先级越高，越先被执行
+}
+```
+
+
+
+
+
+## 三、Spider 模板
+
+### response
+
+> Scrapy 下载回来的网页对象
+>
+> 自动创建 HtmlResponse 对象
+
+### `parse(self, response):`
+
+> **默认的响应解析方法（回调函数 callback）**
+>
+> 默认 `callback=self.parse`
+
+### `start_requests(self)`
+
+> 用于生成初始请求，在父类里
+>
+> ![image-20260830095005786](images/image-20260830095005786.png)
+>
+> 也可以重写
+>
+> ```python
+> import scrapy
+> 
+> class SogouSpider(scrapy.Spider):
+>        name = 'sogou'
+>        # allowed_domains = ['www.sogou.com']          白名单
+>        start_urls = ['http://www.sogou.com/']
+>     
+>        def start_requests(self):
+> 
+>            url = "https://www.baidu.com"
+> 
+>            yield scrapy.Request(url=url, callback=self.parse)
+>         
+>        def parse(self, response):
+>            print(response)     # <200 https://www.sogou.com/>
+> ```
+
+|        代码        | 说明       |
+| :----------------: | ---------- |
+|  `response.text`   | 网页源码   |
+|  `response.body`   | 二进制数据 |
+| `response.status`  | 状态码     |
+|   `response.url`   | 当前网址   |
+| `response.headers` | 请求头     |
+
+### 数据提取
+
+#### `response.xpath()`
+
+> 返回的是 Scrapy 的选择器列表对象，里面保存着匹配到的节点
+
+#### `get()`/`getall()` 提取数据
+
+> `get()` 取一个，没有返回 None
+>
+> `getall()` 取全部，没有返回空列表
+
+### yield 关键字
+
+> 将数据提交给管道
+
+
+
+## 四、pipelines.py 数据清洗、保存
+
+> `item` 接收 Spider 传过来的数据
+>
+> ```
+> Spider产生Item
+> 
+>       |
+>       ↓
+> 
+> open_spider()
+> 
+>       |
+>       ↓
+> 
+> process_item()
+> 
+>       |
+>       ↓
+> 
+> close_spider()
+> ```
+>
+> ![image-20260822121425812](images/image-20260822121425812.png)
+
+```python
+from itemadapter import ItemAdapter
+from pymongo import MongoClient
+
+
+class FmSpiderPipeline:
+    client = MongoClient("mongodb://localhost:27017/")
+    collection = client['scrapy']['fm']
+    def process_item(self, item, spider):
+        self.collection.insert_one(item)
+```
+
+
+
+## 五、图片下载
+
+> `ImagesPipeline` 是Scrapy内置用于下载和处理图片的组件，**Pillow** 是Python中一个强大的图像处理库
+>
+> ```
+> pip install Pillow
+> ```
+>
+> **settings.py 开启：**
+>
+> ```python
+> ITEM_PIPELINES = {
+>        '项目名.pipelines.类名': 200
+> }
+> 
+> IMAGES_STORE="D:/新建文件夹"           # 保存位置
+> ```
+>
+> **流程：**
+>
+> ```
+> Spider
+>    │
+>    │ image_urls
+>    ↓
+> Item
+>    │
+>    ↓
+> ImagesPipeline
+>    │
+>    │ 下载
+>    ↓
+> 本地 images/
+>    │
+>    │ 下载结果
+>    ↓
+> images
+> ```
+
+### 请求图片
+
+#### Pipeline：
+
+```python
+yield Request(
+    url,
+    headers={
+        "Referer":"https://xxx.com"
+    }
+)
+```
+
+
+
+### items.py
+
+> 规定 Spider 爬到的数据，要以什么字段、什么结构保存和传递
+>
+> 属于 **Spider 解析数据之后，Pipeline 处理数据之前**
+>
+> **`scrapy.Field()` ：声明一个数据字段**
+>
+> `ImagesPipeline` 会自动寻找 `image_urls` 字段
+
+```python
+import scrapy
+
+
+class MovieItem(scrapy.Item):
+
+    title = scrapy.Field()
+
+    image_urls = scrapy.Field()
+```
+
+
+
+### spider.py 传图片
+
+> 必须是列表
+
+```python
+def parse(self,response):
+
+    item = MovieItem()
+
+    item["title"] = "肖申克的救赎"
+
+    item["image_urls"] = [
+        "https://img9.doubanio.com/p123.jpg"
+    ]
+
+    yield item
+```
+
+
+
+### images 字段
+
+```python
+images = scrapy.Field()    # Pipeline 返回下载结果
+```
+
+
+
+## 图片下载案例：豆瓣 top 250
+
+```
+D:\py-project\爬虫基础\scrapy 框架\douban
+```
+
+### 流程：
+
+#### 1. Spider 提交 item
+
+> ```
+> {
+>     'title':'泰坦尼克号',
+>     'image_urls':[
+>         'https://img9.doubanio.com/xxx.jpg'
+>     ]
+> }
+> ```
+>
+> 进入 **ImagesPipeline**
+
+#### 2. ImagesPipeline 创建图片请求
+
+> 调用：
+>
+> ```python
+> get_media_requests()
+> ```
+>
+> 生成：
+>
+> ```python
+> Request(
+>     url='https://img9.doubanio.com/xxx.jpg'
+> )
+> ```
+
+#### 3. 下载图片
+
+> Scrapy 下载，得到二进制数据
+
+#### 4. 调用 `file_path()`
+
+> **ImagesPipeline** 内部会调用：
+>
+> ```python
+> path = self.file_path(
+>     request,
+>     response,
+>     info,
+>     item=item
+> )
+> ```
+>
+> 得到：`title='泰坦尼克号'`
+>
+> return 返回 `泰坦尼克号.jpg`
+
+#### 5. ImagesPipeline 保存文件
+
+> 父类拿到：
+>
+> ```python
+> path='泰坦尼克号.jpg'
+> ```
+>
+> 内部执行：
+>
+> ```python
+> open(
+>     'images/泰坦尼克号.jpg',
+>     'wb'
+> )
+> ```
+>
+> 
+
+
+
+### Scrapy Pipeline 特殊方法
+
+> `spider` ：当前正在运行的爬虫对象
+
+#### 启动爬虫时调用
+
+```python
+def open_spider(self, spider):
+```
+
+#### 每个 item 来的时候调用
+
+```python
+def process_item(self, item, spider):
+```
+
+#### 关闭爬虫时调用
+
+```python
+def close_spider(self, spider):
+```
+
+
+
+
+
+### spiders.py
+
+```python
+import scrapy
+from douban_2.items import DoubanItem
+
+class Top2502Spider(scrapy.Spider):
+    name = 'top250_2'
+    # allowed_domains = ['movie.douban.com']
+    start_urls = ['https://movie.douban.com/top250']
+
+    def parse(self, response):
+        movie_list = response.xpath('//ol[@class="grid_view"]/li')
+        for li in movie_list:
+            image = li.xpath('.//img/@src').get()
+            title = li.xpath('.//span[@class="title"][1]/text()').get()
+            rating = li.xpath(".//span[@class='rating_num']/text()").get()
+            people = li.xpath(".//div[@class='bd']/div/span[4]/text()").get()
+
+            # 实例化 Item
+            item = DoubanItem()
+            item['title'] = title
+            item['rating'] = rating
+            item['people'] = people
+            # 图片管道要求 image_urls 是一个列表（即使只有一张图）
+            item['image_urls'] = [image]  # 注意是列表
+
+            yield item
+```
+
+
+
+### items.py
+
+```python
+import scrapy
+
+
+class DoubanItem(scrapy.Item):
+    # 原有字段（用于存储文本信息）
+    title = scrapy.Field()
+    rating = scrapy.Field()
+    people = scrapy.Field()
+
+    # 图片管道专用字段
+    image_urls = scrapy.Field()  # 存放图片URL列表
+    images = scrapy.Field()   # 下载后自动填充，包含路径等信息
+```
+
+### pipelines.py
+
+```python
+from itemadapter import ItemAdapter    # 用统一的方式读取和修改 Item 里的数据
+from scrapy.pipelines.images import ImagesPipeline
+import scrapy
+
+import re
+from pymysql import connect
+
+
+class Douban2ImagePipeline(ImagesPipeline):
+
+    # 重写父类方法
+    '''
+    告诉 Scrapy 这张图片保存的时候，请使用这个路径名
+    '''
+    def file_path(self, request, response=None, info=None, *, item=None):
+        title = item['title']
+        # 清理非法文件名
+        title = re.sub(r'[\\/:*?"<>|]', '', title)
+
+        return f'{title}.jpg'   # 保存图片名
+
+
+    def get_media_requests(self, item, info):
+        image_urls = ItemAdapter(item).get('image_urls', [])   # 获取 image_urls 列表，没有返回 []
+        for url in image_urls:     # image_urls 是列表
+            if url:  # 过滤空值
+                yield scrapy.Request(
+                    url,
+                    headers={'Referer': 'https://movie.douban.com/top250',
+                             'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 Edg/151.0.0.0'}
+                    )
+
+
+
+class Douban2Pipeline:
+    
+    def open_spider(self, spider):
+        self.conn = connect(
+            host='localhost',
+            port=3306,
+            user='root',
+            password='root',
+            database='scrapy',
+            charset='utf8mb4',
+            ssl_disabled=True    # 禁止使用 SSL 加密连接
+        )
+        self.cursor = self.conn.cursor()
+
+        # 清空表
+        self.cursor.execute("TRUNCATE TABLE douban")
+
+
+    def process_item(self, item, spider):
+
+        image_path = None   # 防止没有图片报错，保证后面的 SQL 语句能正常执行
+
+        # 图片下载完成后，images 里会有 path 字段
+        if item.get('images'):    # 没有返回 None（if item['images']: 会报错KeyError: 'images'）
+            image_path = 'D:/新建文件夹/'+item['images'][0]['path']
+
+        sql = '''
+        INSERT INTO douban(title,rating,people,image_path)
+        VALUES(%s,%s,%s,%s)
+        '''
+        self.cursor.execute(sql, (item['title'], item['rating'], item['people'], image_path))
+        # 提交事务
+        self.conn.commit()
+
+        return item
+
+    def close_spider(self, spider):
+        if hasattr(self, 'cursor'):
+            self.cursor.close()
+            
+        if hasattr(self, 'conn'):
+            self.conn.close()
+```
+
+
+
+### settings.py
+
+```python
+BOT_NAME = 'douban_2'
+
+SPIDER_MODULES = ['douban_2.spiders']
+NEWSPIDER_MODULE = 'douban_2.spiders'
+
+
+ROBOTSTXT_OBEY = False
+
+
+DEFAULT_REQUEST_HEADERS = {
+  'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 Edg/151.0.0.0'
+}
+
+
+ITEM_PIPELINES = {
+    'douban_2.pipelines.Douban2ImagePipeline': 200,
+    'douban_2.pipelines.Douban2Pipeline': 300,
+}
+
+IMAGES_STORE = r'D:\新建文件夹'
+```
+
+
+
+## 六、中间件
+
+> 它负责在 **请求发送前、响应返回后** 对数据进行处理，可以在爬虫和 Scrapy 引擎之间插入自己的逻辑
+>
+> <img src="images/image-20260825130035612.png" alt="image-20260825130035612" style="zoom:60%;" />
+>
+>  
+>
+> **流程：**
+>
+> ```
+> Spider
+>   |
+>   | 产生 Request
+>   ↓
+> Spider Middleware
+>   |
+>   ↓
+> Scrapy Engine
+>   |
+>   ↓
+> Downloader Middleware
+>   |
+>   ↓
+> Downloader
+>   |
+>   ↓
+> Internet网站
+>   |
+>   ↓
+> Downloader
+>   |
+>   ↓
+> Downloader Middleware      # 都会经过下载器中间件，所以只用这个
+>   |
+>   ↓
+> Scrapy Engine
+>   |
+>   ↓
+> Spider Middleware
+>   |
+>   ↓
+> Spider.parse()
+> ```
+
+### Downloader Middleware 下载器中间件
+
+> 打开设置：
+>
+> ```python
+> DOWNLOADER_MIDDLEWARES = {
+>    'myproject.middlewares.DoubanDownloaderMiddleware': 543,
+> }
+> ```
+
+![image-20260826201906412](images/image-20260826201906412.png)
+
+### `process_request()`
+
+> 请求发送给服务器之前调用
+>
+> #### 返回值：`None`
+>
+> 按默认流程继续处理
+>
+> #### 返回值：`Request 对象`
+>
+> 不要发送当前这个请求了，换一个新的请求（一般用于重定向，修改请求地址）
+>
+> #### 返回值：`Response 对象`
+>
+> 不访问网站直接给一个响应
+>
+> #### 返回值：`抛异常 IgnoreRequest`
+>
+> 这个请求不要了，丢弃
+
+### `process_response()`
+
+> 服务器返回响应之后调用
+
+### `process_exception()`
+
+> 请求出现异常时调用
+
+### 随机 UA
+
+```python
+def process_request(self, request, spider):
+    user_agents = [
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36",
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36 Edg/139.0.0.0",
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:142.0) Gecko/20100101 Firefox/142.0",
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.6 Safari/605.1.15",
+        "Mozilla/5.0 (Linux; Android 15; SM-S928B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Mobile Safari/537.36",
+        "Mozilla/5.0 (iPhone; CPU iPhone OS 18_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.6 Mobile/15E148 Safari/604.1",
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36 OPR/121.0.0.0",
+        "Mozilla/5.0 (Linux; Android 15; SM-S938B) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/28.0 Chrome/139.0.0.0 Mobile Safari/537.36"
+    ]
+    request.headers['User-Agent'] = random.choice(user_agents)
+    
+    return None
+```
+
+
+
+## 七、Extension
+
+### Crawler 类
+
+> 是 Scrapy 整个爬虫程序的“管理者/控制中心”
+>
+> `crawler` 是 Crawler 类创建出来的一个对象
+
+### signals 信号
+
+> ```python
+> from scrapy import signals
+> ```
+>
+> Scrapy 的某些特定时刻，例如：
+>
+> Spider 开始运行、结束、一个 Item 被处理、Engine 启动、停止
+>
+> ```
+> Scrapy发生某个事件
+>        ↓
+>   发出 Signal
+>        ↓
+>   函数监听 Signal
+>        ↓
+>     执行代码
+> ```
+>
+> 调用crawler对象的signals对象的 connect 方法：向 Scrapy 注册一个“事件监听函数”
+>
+> ```python
+> crawler.signals.connectconnect(
+>     my_function,    # 函数本身（不是调用结果）
+>     signal = my_signal           # 监听事件
+> )
+> ```
+>
+> 监听 `my_signal` 这个事件，当 Spider 启动的时候，调用自己写的 `my_function` 函数
+
+### 常见 Signals
+
+|        事件         | 含义                      |
+| :-----------------: | ------------------------- |
+|   `spider_opened`   | Spider 启动               |
+|   `spider_closed`   | Spider 关闭               |
+|  `engine_started`   | Engine 启动               |
+|  `engine_stopped`   | Engine 停止               |
+|   `item_scraped`    | Item 成功处理             |
+|   `item_dropped`    | Item 被丢弃               |
+| `request_scheduled` | Request 进入调度器        |
+|  `request_dropped`  | Request 被丢弃            |
+| `response_received` | 收到 Response             |
+|   `spider_error`    | Spider 处理请求时发生异常 |
+
+### 打开 Extension
+
+```python
+EXTENSIONS = {
+    '项目名.extensions.类名': 500,
+}
+```
+
+### `from_crawler()`
+
+> Scrapy 规定好的特殊方法名，创建 Extention 的时候会主动去找：`from_crawler` 调用
+
+### 新建 my_extension.py 文件
+
+```python
+import requests
+from scrapy import signals
+
+
+class ProxyExtension:
+
+    def __init__(self):
+        self.proxy = None
+
+    @classmethod        # 静态方法直接获取下面的函数传给 connect()
+    def from_crawler(cls, crawler):
+        extension = cls()    # 创建一个类对象
+		
+        # 给 crawler 对象添加一个叫 proxy_extension 的属性，并把类对象赋值给它
+        crawler.proxy_extension = extension
+        
+        crawler.signals.connect(
+            extension.spider_opened,
+            signal = signals.spider_opened      # 监听启动事件
+        )
+
+        return extension
+
+    
+    def spider_opened(self, spider):
+        # Spider启动的时候，先获取一个代理
+        self.get_proxy()
+
+
+    def get_proxy(self):
+        api_url = 'https://dps.kdlapi.com/api/getdps/?secret_id=o7il5qv4q3et9puytcoa&signature=g08kr25isxcse7j8akyq090atu6lcshf&num=1&format=text&sep=1'
+
+        proxy_ip = requests.get(api_url).text.strip()
+
+        # 保存一个代理字符串即可
+        self.proxy = f"http://d2121168886:123456@{proxy_ip}"
+
+        print('获取到付费代理：', self.proxy)
+
+        return self.proxy
+```
+
+### `request.meta['proxy']`
+
+> 指定 Request 使用哪个代理服务器
+
+### 利用共同的 `crawler` 来传递 Extension
+
+```python
+# middlewares.py
+
+from scrapy import signals
+import random
+
+
+class DoubanSpiderMiddleware:...
+
+
+class DoubanDownloaderMiddleware:...
+
+
+class ProxyMiddleware:
+
+    def process_request(self, request, spider):
+
+        extension = spider.crawler.proxy_extension
+
+        request.meta['proxy'] = extension.proxy
+
+        print('本次请求使用的代理：', extension.proxy)
+
+
+    def process_exception(self, request, exception, spider):
+
+        extension = spider.crawler.proxy_extension
+
+        print('代理出现异常：', exception)    # 请求过程中产生的异常（错误）对象
+
+        extension.get_proxy()
+        print('获取新的代理')
+
+        request.meta['proxy'] = extension.proxy
+
+        return request    # 重新发起请求
+```
+
+```python
+# 打开中间件
+DOWNLOADER_MIDDLEWARES = {
+    'douban.middlewares.ProxyMiddleware': 544,
+}
+```
+
+
+
+## 八、与 Selenium 结合
+
+```
+D:\py-project\爬虫基础\scrapy 框架\tx_work
+https://careers.tencent.com/search.html?index=1&keyword=python
+```
+
+### 手动包装自动化测试工具得到的 Response 对象交给 parse
+
+```python
+from scrapy.http import HtmlResponse
+
+class Middleware:
+    
+    def process_request(self, request, spider):
+    ...
+    return HtmlResponse(url=request.url, body=body, encoding='utf-8', request=request)
+```
+
+### Spiders
+
+```python
+import scrapy
+
+
+class TxWorkInfoSpider(scrapy.Spider):
+    name = 'tx_work_info'
+
+    def start_requests(self):
+        for page in range(1,33):
+            url = f'https://careers.tencent.com/search.html?index={page}&keyword=python'
+            yield scrapy.Request(url=url, callback=self.parse)
+
+
+    def parse(self, response):
+        div_list = response.xpath('//div[@class="recruit-wrap recruit-margin"]/div')
+        for div in div_list:
+            item = {}
+            item['job_name'] = div.xpath('./a/div/span[1]/text()').get()
+            item['location'] = div.xpath('./a/div/span[2]/span/text()').get()
+            item['company'] = div.xpath('./a/p[1]/span[1]/text()').get()
+            item['purpose'] = div.xpath('./a/p[2]/text()').get().replace('\r\n', '')
+
+            print(item)
+```
+
+### Middlewares
+
+```python
+from scrapy import signals
+from scrapy.http import HtmlResponse
+
+from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+
+
+
+class TxWorkSpiderMiddleware:...
+
+
+class TxWorkDownloaderMiddleware:...
+
+
+class SeleniumMiddleware:
+    def __init__(self):
+        self.driver = webdriver.Edge()
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        # This method is used by Scrapy to create your spiders.
+        s = cls()
+        crawler.signals.connect(s.spider_closed, signal=signals.spider_closed)
+        return s
+
+
+    def process_request(self, request, spider):
+        self.driver.get(request.url)
+        WebDriverWait(self.driver, 10).until(
+            EC.presence_of_all_elements_located((By.CLASS_NAME, 'recruit-list'))
+        )
+
+        body = self.driver.page_source
+        
+        return HtmlResponse(url=request.url, body=body, encoding='utf-8', request=request)
+
+
+    def spider_closed(self):
+        self.driver.quit()
+```
+
+### settings
+
+```python
+ROBOTSTXT_OBEY = False
+
+DOWNLOADER_MIDDLEWARES = {
+   'tx_work.middlewares.SeleniumMiddleware': 543,
+}
+```
+
+
+
+
+
+
+
+# feapder 框架
+
+## 安装
+
+```
+pip install "feapder[all]"
+```
+![image-20260905132639187](images/image-20260905132639187.png)
+```
+pip install gevent --only-binary :all:
+```
+
+## 内置命令
+
+#### 查看命令
+
+```
+feapder -h
+```
+
+#### 创建项目
+
+```
+feapder create -p 项目名
+```
+
+#### 创建 Spider
+
+```
+feapder create -s 文件名
+
+AirSpider : 普通爬虫
+Spider : 基于 Redis 的分布式 Spider，适合大量任务、断点续爬
+TaskSpider : 任务型爬虫
+BatchSpider : 批次采集
+```
+
+
+
+## Spider 模版
+
+### `start_callback(self)`
+
+> 爬虫启动时只执行一次的初始化操作
+
+
+
+## 保存数据到 MySQL
+
+### 打开配置
+
+```python
+MYSQL_IP = "localhost"
+MYSQL_PORT = 3306
+MYSQL_DB = "feapder"
+MYSQL_USER_NAME = "root"
+MYSQL_USER_PASS = "root"
+
+# 默认MysqlPipeline，不用额外打开管道
+```
+
+### 启动时清空数据
+
+> 导入自己封装的 MySQL 数据库操作类
+>
+> ```python
+> from feapder.db.mysqldb import MysqlDB
+> 
+> from feapder.db.mongodb import MongoDB
+> ```
+>
+> ```python
+> def start_callback(self):
+>        mysql = MysqlDB()
+>        # 清空表
+>        mysql.execute("TRUNCATE TABLE douban_1")
+> ```
+
+### spider.py
+
+```python
+import feapder
+from items.douban_item import DoubanItem
+
+from feapder.db.mysqldb import MysqlDB
+
+class Douban(feapder.AirSpider):
+    # 爬虫启动时只执行一次的初始化操作
+    def start_callback(self):
+        mysql = MysqlDB()
+        # 清空表
+        mysql.execute("TRUNCATE TABLE douban_1")
+
+
+    def start_requests(self):
+        yield feapder.Request("https://movie.douban.com/top250")
+
+    def parse(self, request, response):
+        movie_list = response.xpath('//ol[@class="grid_view"]/li')
+        for li in movie_list:
+            title = li.xpath('.//span[@class="title"][1]/text()').get()
+            rating = li.xpath(".//span[@class='rating_num']/text()").get()
+            people = li.xpath(".//div[@class='bd']/div/span[4]/text()").get()
+            print(title, rating, people)
+
+            # 实例化 Item
+            item = DoubanItem()
+            item['title'] = title
+            item['rating'] = rating
+            item['people'] = people
+
+            yield item
+
+
+if __name__ == "__main__":
+    Douban().start()
+```
+
+### items.py
+
+```python
+import feapder
+
+
+class DoubanItem(feapder.Item):
+
+    table_name = 'douban_1'
+```
+
+
+
+## 保存数据到 MongoDB
+
+```js
+use feapder
+
+db.createCollection('douban_1')
+```
+
+### 打开配置
+
+```python
+MONGO_IP = "localhost"
+MONGO_PORT = 27017
+MONGO_DB = "feapder"
+
+ITEM_PIPELINES = [
+    # "feapder.pipelines.mysql_pipeline.MysqlPipeline",
+    "feapder.pipelines.mongo_pipeline.MongoPipeline",
+    # "feapder.pipelines.csv_pipeline.CsvPipeline",
+    # "feapder.pipelines.console_pipeline.ConsolePipeline",
+]
+```
+
+### spider.py
+
+```python
+from feapder.db.mongodb import MongoDB
+
+class Douban(feapder.AirSpider):
+    
+	    def start_callback(self):
+        mongo = MongoDB()
+        # 清空集合
+        mongo.collection.delete_many({})
+        
+        ...
+```
+
+### items.py
+
+```python
+import feapder
+
+
+class DoubanItem(feapder.Item):
+
+    table_name = 'douban_1'
+```
+
+
+
+## 下载中间件
+
+> ```python
+> def download_midware(self, request: Request):
+>        pass
+> ```
+
+### 设置 IP 代理池
+
+```python
+class Douban(feapder.AirSpider):
+    ...
+    
+    def download_midware(self, request: Request):
+        api_url = 'https://dps.kdlapi.com/api/getdps/?secret_id=o7il5qv4q3et9puytcoa&signature=g08kr25isxcse7j8akyq090atu6lcshf&num=1&format=text&sep=1'
+        proxy_ip = feapder.Request(api_url).get_response().text
+
+        proxies = {
+            "http": f"http://d2121168886:123456@{proxy_ip}",
+            "https": f"http://d2121168886:123456@{proxy_ip}"
+        }
+
+        request.proxies = proxies
+        
+        return request
+```
+
+
+
+
+
+## 与 DP 自动化工具结合
+
+```
+D:\py-project\爬虫基础\feapder 框架\与DP结合\cninfo
+```
+
+### spider.py
+
+```python
+import feapder
+from DrissionPage import Chromium, ChromiumOptions
+import re
+
+
+class Cninfo(feapder.AirSpider):
+
+    def get_proxy(self):
+        api_url = 'https://dps.kdlapi.com/api/getdps/?secret_id=o7il5qv4q3et9puytcoa&signature=g08kr25isxcse7j8akyq090atu6lcshf&num=1&format=text&sep=1'
+        proxy_ip = feapder.Request(api_url).get_response().text.strip()
+
+        return {
+            "http": f"http://d2121168886:123456@{proxy_ip}",
+            "https": f"http://d2121168886:123456@{proxy_ip}"
+        }
+
+
+    def start_callback(self):
+        self.proxy = self.get_proxy()
+
+        co = ChromiumOptions()
+        co.set_browser_path(
+            r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
+        )
+        co.set_proxy(self.proxy['http'])
+        print('使用代理：', self.proxy['http'])
+
+        co.set_argument("--start-maximized")
+        co.set_user_data_path(r"D:\py-project\爬虫基础\DrissionPage\chrome_data")
+
+        self.browser = Chromium(co)
+        self.tab = self.browser.latest_tab
+
+
+    def start_requests(self):
+        yield feapder.Request("http://www.cninfo.com.cn/new/commonUrl?url=disclosure/list/notice#szse")
+
+
+    def parse(self, request, response):
+        try:
+            self.tab.listen.start("/new/disclosure")
+            self.tab.get(request.url)
+
+            while True:
+                for i in self.tab.listen.steps():
+                    body = i.response.body
+
+                    if 'classifiedAnnouncements' not in body:
+                        continue
+
+                    data = body['classifiedAnnouncements']
+
+                    for j in data:
+                        for k in j:
+                            sec_code = re.findall(r'\d+', k['secCode'])
+                            if not sec_code:
+                                continue
+
+                            print('代码：', sec_code[0])
+                            print('简称：',k['secName'])
+                            print('公告标题：',k['announcementTitle'])
+                            print('---------------------------')
+                    # 当前页处理完成
+                    break
+
+                button = self.tab.ele('xpath://*[@class="el-pagination is-background"]/button[last()]')
+
+                if button.attr('disabled') == 'disabled':
+                    print('最后一页')
+                    break
+
+                button.click()
+
+        finally:
+            self.tab.listen.stop()
+            self.browser.quit()
+
+if __name__ == "__main__":
+    Cninfo().start()
+```
+
+
+
+
+
+
+
+
+
+# 码上爬练习
+
+```url
+https://www.mashangpa.com/
+```
+
+## 第二题
+
+> 在 Hackbar 测试接口需要哪些请求头
+>
+> ![image-20260902135253203](images/image-20260902135253203.png)
+>
+> 加 Referer 头
+>
+> ![image-20260902135439294](images/image-20260902135439294.png)
+
+
 
 
 
